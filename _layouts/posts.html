@@ -1,0 +1,107 @@
+---
+layout: default
+---
+{% assign post = page %}
+
+<article>
+
+    {% comment %} Icon Sizes {% endcomment %}
+    <ul class="list-icons--featured">
+        <li class="icon-container-512">
+            {% include icon.html icon-size="512" %}
+        </li>
+        <li class="icon-container-256">
+            {% include icon.html icon-size="256" %}
+        </li>
+        <li class="icon-container-128">
+            {% include icon.html icon-size="128" %}
+        </li>
+        <li class="icon-container-64">
+            {% include icon.html icon-size="64" %}
+        </li>
+    </ul>
+
+    {% comment %} Header {% endcomment %}
+    <header class="icon-meta">
+
+        {% comment %} App Name {% endcomment %}
+        <h1 class="bold">
+            <span class="icon-meta__left">App Name:</span>
+            {% if post.itunes-url %}
+                <a href="{{ post.itunes-url}}" class="icon-meta__right external-link">{{ post.title }}</a>
+            {% else %}
+                <span class="icon-meta__right">{{ post.title }}</span>
+            {% endif %}
+        </h1>
+
+        {% comment %} Icon Meta {% endcomment %}
+        <dl>            
+            {% comment %} Icon Designer {% endcomment %}
+            {% if post.icon-designer %}
+                <dt class="icon-meta__left">Icon Designer:</dt>
+                <dd class="icon-meta__right">
+                    {% if post.icon-designer-url %}
+                        <a href="{{ post.icon-designer-url }}" class="external-link">{{ post.icon-designer }}</a>
+                    {% else %}
+                        {{ post.icon-designer }}
+                    {% endif %}
+                </dd>
+            {% endif %}
+
+            {% comment %} App Developer {% endcomment %}
+            {% if post.app-developer %}
+                <dt class="icon-meta__left">App Developer:</dt>
+                <dd class="icon-meta__right">
+                    {% if post.app-developer-url %}
+                        <a href="{{ post.app-developer-url }}" class="external-link">{{ post.app-developer }}</a>
+                    {% else %}
+                        {{ post.app-developer}}
+                    {% endif %}
+                </dd>
+            {% endif %}
+
+            {% comment %} Category {% endcomment %}
+            {% if post.category %}
+
+                {% comment %} Get the Category's Nice Name {% endcomment %}
+                {% for category in site.data.categories %}
+                    {% if category.slug == post.category %}
+                        {% assign category-nice-name = category.nicename %}
+                    {% endif %}
+                {% endfor %}
+
+                <dt class="icon-meta__left">Category:</dt>
+                <dd class="icon-meta__right">{{ category-nice-name }}</dd>
+
+            {% endif %}
+        </dl>
+    </header>
+
+    
+
+</article>
+
+{% comment %} Sidebar Related Posts {% endcomment %}
+<aside class="module related" id="related-icons">
+    <h2>Related Icons in {{ category-nice-name }}</h2>
+    <ul class="list-icons">
+        {% for post in site.categories.[page.category] | limit:50 %}
+            
+            {% if post.title != page.title %}
+                <li>
+                    <a href="{{ post.url }}" class="icon-container">
+                        {% include icon.html icon-size="128" %}
+                    </a>
+                </li>
+            {% endif %}
+        {% endfor %}
+
+        {% comment %} Conditionally show ad
+                <li class="icon-container ad-container">
+                    <?php insert_ad() ?>
+                </li>
+        {% endcomment %}
+    </ul>
+</aside>
+<script type="text/javascript" src="/shared-resources/js/jquery.js"></script>
+<script type="text/javascript" src="/shared-resources/js/scriptss.js"></script>

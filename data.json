@@ -1,0 +1,21 @@
+---
+layout: null
+---
+[
+    {% for post in site.posts %}
+        {
+            "title": "{{ post.title }}",
+            "slug": "{{ post.slug }}",
+            "date": "{{ post.date | date: "%F" }}",
+            "category": "{{ post.category }}",
+            
+            {% if post.app-developer %}"app-developer": "{{ post.app-developer}}",{% endif %}
+            {% if post.app-developer-url %}"app-developer-url": "{{ post.app-developer-url}}",{% endif %}
+            {% if post.icon-designer %}"icon-designer": "{{ post.icon-designer}}",{% endif %}
+            {% if post.icon-designer-url %}"icon-designer-url": "{{ post.icon-designer-url}}",{% endif %}
+
+            "itunes-url": "{{ post.itunes-url }}"
+            
+        }{% if forloop.last != true %},{% endif %}
+    {% endfor %}
+]

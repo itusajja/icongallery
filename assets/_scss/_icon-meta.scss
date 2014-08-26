@@ -1,0 +1,49 @@
+/*
+
+Icon Meta (list)
+========================================
+Meta info like designer, developer, category
+
+Markup
+----------------------------------------
+<h1 Name
+<dl
+    <dt>Attr
+    <dd>Value
+
+*/
+.icon-meta {
+
+    margin-top: em(10);
+
+    .icon-meta__left {
+        margin-right: em(5);
+        width: em(175);
+        float: left;
+    }
+
+    .icon-meta__right {
+        margin-right: em(20);
+    }
+
+    a {
+        color: inherit;
+
+        &:hover {
+            color: $color-link;
+        }
+    }
+
+    .external-link {
+        &:after {
+            content: '\2192';
+            @include rotate(-45deg);
+            @include inline-block();
+            font-size: .75em;
+            position: relative;
+            top: -.1em;
+            left: .2em;
+        }
+    }
+
+}

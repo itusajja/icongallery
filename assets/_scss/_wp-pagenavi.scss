@@ -1,0 +1,86 @@
+/*
+    Styles for PageNavi Plugin
+
+    << First   << 1 2 3 4 5 ... 10 ... 20 >>   Last >>
+                        Page 1 of 25
+*/
+.wp-pagenavi {
+    position: relative;
+    text-align: center;
+    margin: 3em 0 5em;
+
+    // Page 1 of 25
+    .pages {
+        font-size: (14em / $font-size-base);
+        margin-right: 1em;
+        color: $color-medium-gray;
+        position: absolute;
+        top: 2.5em;
+        width: 300px;
+        margin-left: -150px;
+        left: 50%;
+    }
+
+    .page,
+    .current,
+    .nextpostslink,
+    .previouspostslink,
+    .last {
+        padding: .125em .45em;
+        margin: 0 1px;
+    }
+
+    // 1 2 3 4 5
+    .page,
+    .nextpostslink,
+    .previouspostslink {
+        border: 1px solid $color-border-light;
+
+        &:hover {
+            background: $color-link;
+            color: #fff;
+            border-color: darken($color-link, 10%);
+            text-decoration: none;
+        }
+    }
+
+    // current page
+    .current {
+        border: 1px solid darken($color-link, 10%);
+        background: $color-link;
+        color: #fff;
+        text-decoration: none;
+    }
+
+    // 1 2 3 4 ... 10 ... 20
+    .extend {
+        margin: 0 2px;
+    }
+
+    // << >> (next, previous)
+    .nextpostslink,
+    .previouspostslink {
+    }
+
+
+    //
+    //  Last & Frist
+    //
+    .first,
+    .last {
+        font-size: (14em / $font-size-base);
+        position: relative;
+        top: -.1em;
+        color: $color-light-gray;
+    }
+
+    // Last >>
+    .last {
+        margin-left: 1em;
+    }
+
+    // << First
+    .first {
+        margin-right: 1em;
+    }
+}

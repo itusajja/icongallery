@@ -1,0 +1,18 @@
+{% comment %}
+    {{include.icon-size}}
+{% endcomment %}
+
+
+<img src="{{ site.baseurl }}/content/img/originals/{{post.slug}}-{{ post.date | date: "%Y" }}.png" 
+     alt="{{ post.title }} app icon" 
+     title="{{ post.title }}" 
+     class="icon icon-{{ include.icon-size }}" />
+
+{% if site.theme-active == 'iosicongallery' %}
+    <span class="mask mask-{{ include.icon-size }}"></span>
+{% endif %}
+
+{% comment %} 
+    When we used to show labels
+    <span class="icon-label">'. $icon_size .'px</span>';
+{% endcomment %}

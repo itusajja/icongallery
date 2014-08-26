@@ -1,0 +1,36 @@
+/*
+
+Icon Sizes (list)
+========================================
+Single page view, show the 512,256,128,56 pixel versions of the icon
+
+Markup
+----------------------------------------
+<ul.list-icon-sizes
+    <li
+        <img.icon-512
+        <span.sprite-mask-512
+        <span.icon-label
+
+*/
+.list-icon-sizes {
+    @include clearfix;
+    margin: (40em / $font-size-base) 0;
+    overflow: visible;
+    //border: 1px solid $color-border-light;
+    text-align: center;
+
+    li {
+        @include inline-block;
+        margin: 50px;
+        position: relative;
+        text-align: center;
+    }
+
+    .icon-label {
+        font-size: (12em / $font-size-base);
+        color: $color-light-gray;
+        font-style: italic;
+    }
+}
+

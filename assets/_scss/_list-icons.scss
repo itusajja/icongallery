@@ -1,0 +1,104 @@
+/*
+
+Icons List
+========================================
+Used when listing icons
+    - Index (home page)
+    - Related Icons
+    - Search Results
+
+<ul class="icons-list"
+    <li
+        <a class="icon-container"
+            <img class="icon icon-175"
+            <span class="sprite sprite-mask-175"
+
+*/
+.list-icons {
+    @include box-sizing(border-box);
+    @include clearfix;
+    border-left: 1px solid $color-border-light;
+    border-top: 1px solid $color-border-light;
+
+    .index & {
+        margin-bottom: 6em;
+    }
+
+    // List items
+    li {
+        float: left;
+    }
+
+    .icon-container {
+        position: relative;
+        display: block;
+        width: #{$icon-container-width}px;
+        height: #{$icon-container-width}px;
+        @include box-sizing(border-box);
+        border-right: 1px solid $color-border-light;
+        border-bottom: 1px solid $color-border-light;
+
+        &:hover {
+            @include box-shadow(inset 0 0 30px rgba(0,0,0,.065));
+        }
+    }
+}
+
+.list-icons--featured {
+    position: relative;
+    width: 100%;
+    padding-bottom: 61.8034%;
+    border: 1px solid $color-border-light;
+    text-align: center;
+
+
+    .icon-container-512,
+    .icon-container-256,
+    .icon-container-128,
+    .icon-container-64 {
+        position: absolute;
+    }
+
+    .icon-container-512 {
+        top: 0;
+        left: 0;
+        width: 61.8034%;
+        height: 100%;
+        border-right: 1px solid $color-border-light;  
+    }
+
+    .icon-container-256 {
+        top: 0;
+        left: 61.8034%;
+        width: (100 - 61.8034%);
+        height: 61.8034%;
+        border-bottom: 1px solid $color-border-light;
+    }
+
+    .icon-container-128 {
+        top: 61.8034%;
+        left: 61.8034%;
+        width: (100 - 61.8034) * (.618034%);
+        height: (100 - 61.8034%);
+        border-right: 1px solid $color-border-light;
+    }
+
+    .icon-container-64 {
+        top: 61.8034%;
+        right: 0%;
+        width: (100 - 61.8034) * (1 - .618034%);
+        height: (100 - 61.8034%);
+    }
+
+    .icon {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+    }
+    @each $icon-size in $icon-sizes {
+        .icon-#{$icon-size} {
+            margin-top: -#{$icon-size / 2}px;
+            margin-left: -#{$icon-size / 2}px;
+        }
+    }
+}

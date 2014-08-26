@@ -1,0 +1,47 @@
+/*
+
+Footer
+========================================
+The category list always appears in the footer
+Along with footer nav
+
+*/
+#footer {
+    border-top: 1px solid $color-border;
+    color: $color-light-gray;
+    padding: 1em 0;
+
+    ul {
+        @media screen and (max-width: 1020px) {
+            float: none !important;
+            text-align: center !important;
+            margin-bottom: 1em;
+        }
+    }
+
+    li {
+
+        &:before {
+            color: $color-link;
+        }
+
+        // small fix for submit icon (offset it by a tiny bit)
+        &:first-child {
+            a {
+                margin-left: .25em;
+            }
+        }
+    }
+}
+
+#footer-nav {
+    float: left;
+    font-size: (16em / $font-size-base);
+    text-align: left;
+}
+
+#footer-description {
+    float: right;
+    font-size: (14em / $font-size-base);
+    text-align: right;
+}

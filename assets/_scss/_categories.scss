@@ -1,0 +1,79 @@
+/*
+
+Categories
+========================================
+List of categories & category title
+Appears on all pages
+
+<nav id="category-container"
+    <h2>
+    <ul class="category-list"
+        <li class="category"
+
+*/
+
+//
+//
+//  Category List
+//  ----------------------------------------
+//
+.category-list {
+    @include clearfix;
+    border: 1px solid $color-border-light;
+    font-size: (16em / $font-size-base);
+    padding: 1em 0;
+
+    li a {
+        float: left;
+        width: 33.3333%;
+        padding: .125em 2em;
+        border-right: 1px solid $color-border-light;
+    }
+}
+
+
+//
+//
+//  Category Container
+//  ----------------------------------------
+//  CSS click event for when the user scrolls to the categories
+//
+$vendors: webkit moz o ms;
+#category-container:target {
+    h2 {
+        @include transition(all .25s ease);
+        @each $i in $vendors {
+            -#{$i}-animation: highlight .45s 1;
+            animation: highlight .45s 1;
+        }
+        background: #ffffe3;
+    }
+}
+
+//
+//  Category Animation
+//  -------------------
+//
+@mixin highlight {
+    0% {
+        @include scale(1);
+    }
+    50% {
+        @include scale(1.5);
+    }
+    100% {
+        @include scale(1);
+    }
+}
+@-webkit-keyframes highlight {
+    @include highlight;
+}
+@-moz-keyframes highlight {
+    @include highlight;
+}
+@-o-keyframes highlight {
+    @include highlight;
+}
+@keyframes highlight {
+    @include highlight;
+}

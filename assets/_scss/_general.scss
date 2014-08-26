@@ -1,0 +1,61 @@
+/*
+
+General
+========================================
+
+*/
+
+* {
+    @include box-sizing(border-box);
+}
+
+body {
+    font: #{$font-size-base}px/1.5 "Helvetica Neue", Helvetica, Arial, sans-serif;
+    color: $color-dark-gray;
+    -webkit-font-smoothing: antialiased;
+}
+
+.wrapper {
+    margin: 0 auto;
+}
+
+a {
+    color: $color-link;
+    text-decoration: none;
+
+    &:hover {
+        text-decoration: underline;
+    }
+}
+
+b,
+strong,
+em,
+.bold {
+    font-weight: bold;
+}
+
+//
+//
+//  Sections
+//  ----------------------------------------
+//  Each section that has bottom-margins
+//
+.index .icon-list,
+.module,
+.icon-meta {
+    margin-bottom: 5em;
+}
+
+//
+//
+//  Header
+//  ----------------------------------------
+//
+.single .header {
+    margin-bottom: 3em;
+}
+
+#related-icons {
+    display: none;
+}

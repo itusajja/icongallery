@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>
+        {% if page.title %}
+            {{ page.title }} | {{ site.title }}
+        {% else %}
+            {{ site.title }}
+        {% endif %}
+    </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="{{ site.description }}">
+    <link rel="canonical" href="{{ page.url | replace:'index.html','' | prepend: site.baseurl | prepend: site.url }}">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ "/assets/styles.css" | prepend: site.baseurl }}">
+    <!--[if IE]>
+        <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- RSS Feed? -->
+    <link rel="alternate" type="application/rss+xml" title="RSS 2.0" href="{{ "/feed.xml" | prepend: site.baseurl }}" />
+    
+</head>
+<body>
+
+    <header class="header">
+        <div class="wrapper clearfix">
+            <h1>
+                <a class="logo-link" href="{{ site.baseurl }}/" title="{{ site.title }}" rel="home">
+                    <img class="logo" src="{{ site.baseurl }}/{{ site.imageurl }}/{{ site.theme-active }}-logo@2x.png" width="180" height="30" />
+                </a>
+            </h1>
+
+            <!--
+            <nav role="navigation">
+                Search form here
+                <a href="#category-container" class="icon-category"></a>
+            </nav>
+            -->
+        </div>
+    </header>
+
+    <section class="wrapper">
+        {{ content }}
+    </section>
+
+    {% comment %}
+    <nav id="category-container" class="wrapper">
+        <div class="module">
+            <h2>Categories</h2>
+            <ul class="category-list">
+                {% for category in site.categories %}
+                    <li>
+                        <a href="{{ site.baseurl }}/{{ category[0] }}">
+                            {% comment %} Get the Category's Nice Name {% endcomment %}
+                            {% for cat in site.data.categories %}
+                                {% if cat.slug == category[0] %}
+                                    {{ cat.nicename }}
+                                {% endif %}
+                            {% endfor %}
+                        </a>
+                    </li>            
+                {% endfor %}
+            </ul>
+        </div>
+    </nav>
+    {% endcomment %}
+
+    <footer id="footer">
+        <div class="wrapper clearfix">
+            <ul id="footer-nav">
+                <li class="icon-arrow-up-alt1">
+                    <!-- mailto encoder: http://email.about.com/library/misc/blmailto_encoder.htm -->
+                    <a href="mailto:jimniels%40gmail.com?subject=Icon%20Suggestion%3A%20http%3A%2F%2F{{ site.theme-active }}.com&body=I%20want%20to%20recommend%20a%20beautiful%20icon%20for%20an%20app%3A%0A%0AApp%20store%20URL%3A%0AIcon%20designer%20%26%20portfolio%20URL%3A" id="submit">submit an icon</a>
+                </li>
+                <li class="icon-twitter">
+                    <a href="http://twitter.com/{{ site.theme-active }}">follow @{{ site.theme-active }} on twitter</a>
+                </li>
+                <li class="icon-feed">
+                    <a href="{{ "/feed.xml" | prepend: site.baseurl }}">subscribe to rss feed</a>
+                </li>
+            </ul>
+            <ul id="footer-description">
+                <li>site designed and curated by <a href="http://twitter.com/jimniels">@jimniels</a></li>
+                <li>see more great icons at <a href="http://{{ site.theme-inactive }}.com">{{ site.theme-inactive }}.com</a></li>
+            </ul>
+        </div>
+    </footer>
+
+
+</body>
+</html>

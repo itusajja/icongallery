@@ -1,0 +1,20 @@
+/*
+
+Module
+========================================
+Modules are categories and related items
+
+Markup
+----------------------------------------
+<div class="module"
+    <h2>
+    <ul>
+
+*/
+.module {
+    margin-top: #{100em / $font-size-base};
+
+    h2 {
+        color: $color-light-gray;
+    }
+}
