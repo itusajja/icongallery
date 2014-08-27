@@ -66,12 +66,12 @@ layout: default
                 {% comment %} Get the Category's Nice Name {% endcomment %}
                 {% for category in site.data.categories %}
                     {% if category.slug == post.category %}
-                        {% assign category-nice-name = category.nicename %}
+                        {% assign categoryNiceName = category.nicename %}
                     {% endif %}
                 {% endfor %}
 
                 <dt class="icon-meta__left">Category:</dt>
-                <dd class="icon-meta__right">{{ category-nice-name }}</dd>
+                <dd class="icon-meta__right">{{ categoryNiceName }}</dd>
 
             {% endif %}
         </dl>

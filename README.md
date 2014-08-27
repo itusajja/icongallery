@@ -52,6 +52,12 @@ Define these in a `_data` file, then loop and check for key value pairs? Somethi
         "slug": "graphics-design"
     }
 
+## Icons
+
+The original icons reside in their respective repos under `[content/]img/_src`. These are the icons pulled directly from Apple's source. I keep the originals in this spot and generate all needed assets using a script.
+
+To do so, simply place whatever image you need the 512,256,128,64 variants for and place it in `_build`. Then run the `_build-images.sh` script. This will make copies at each size, optimize them, and stick them in the correct folder in `content/img/_src`.
+
 ## To-Do
 
 1. Ads

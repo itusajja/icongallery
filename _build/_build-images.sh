@@ -3,7 +3,7 @@
 
 # Take the original 512 or 1024 icon and create optimized versions for each
 # 1024, 512, 256, 128, 64
-DIR="../build"
+DIR="../content/img"
 VARIANTS=(512 256 128 64)
 
 echo "Begin conversions ..."
@@ -48,5 +48,5 @@ for file in *.png; do
 done
 
 # move the file to the built directory
-echo "=> Moving to /built directory..."
-mv *.png built
+echo "=> Moving to _src directory..."
+mv *.png "${DIR}/_src"
