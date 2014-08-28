@@ -1,6 +1,6 @@
 # Galleries
 
-## Jekyll 
+## Jekyll
 
 Site runs on Jekyll. All jekyll assets are stored in the root with two exceptions which are unique to each project: `_data` and `_config.yml`
 
@@ -58,7 +58,12 @@ The original icons reside in their respective repos under `[content/]img/_src`. 
 
 To do so, simply place whatever image you need the 512,256,128,64 variants for and place it in `_build`. Then run the `_build-images.sh` script. This will make copies at each size, optimize them, and stick them in the correct folder in `content/img/_src`.
 
+### Retina Images
+
+Use [retina.js](https://github.com/imulus/retinajs) to get hiDPI versions of each thumbnail. I modified the `RetinaImagePath()` function so it checks for images defined in the `data-at2x` attributes (because they may not exist). Additionally, I changed the selector from `getElementsByTagName('img')` to `querySelectorAll('img.icon')` so it only looks for higher resolution versions of the icons.
+
 ## To-Do
 
 1. Ads
 2. "browse" page
+3. Retina versions of each

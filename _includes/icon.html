@@ -3,10 +3,13 @@
 {% endcomment %}
 
 
-<img src="{{ site.baseurl }}/content/img/_src/{{post.slug}}-{{ post.date | date: "%Y" }}.png" 
+<img 
      alt="{{ post.title }} app icon" 
      title="{{ post.title }}" 
-     class="icon icon-{{ include.icon-size }}" />
+     class="icon icon-{{ include.icon-size }}"
+     src="{{ site.baseurl }}/content/img/{{ include.icon-size }}/{{post.slug}}-{{ post.date | date: "%Y" }}.png" 
+     data-at2x="{{ site.baseurl }}/content/img/{{ include.icon-size | times:2 }}/{{post.slug}}-{{ post.date | date: "%Y" }}.png" 
+/>
 
 {% if site.theme-active == 'iosicongallery' %}
     <span class="mask mask-{{ include.icon-size }}"></span>
