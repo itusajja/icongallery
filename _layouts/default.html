@@ -30,7 +30,7 @@
         <div class="wrapper clearfix">
             <h1>
                 <a class="logo-link" href="{{ site.baseurl }}/" title="{{ site.title }}" rel="home">
-                    <img class="logo" src="{{ site.baseurl }}/{{ site.imageurl }}/{{ site.theme-active }}-logo@2x.png" width="180" height="30" />
+                    <img class="logo" src="{{ site.baseurl }}/{{ site.assets.images }}/{{ site.theme.active }}-logo@2x.png" width="180" height="30" />
                 </a>
             </h1>
 
@@ -74,10 +74,10 @@
             <ul id="footer-nav">
                 <li class="icon-arrow-up-alt1">
                     <!-- mailto encoder: http://email.about.com/library/misc/blmailto_encoder.htm -->
-                    <a href="mailto:jimniels%40gmail.com?subject=Icon%20Suggestion%3A%20http%3A%2F%2F{{ site.theme-active }}.com&body=I%20want%20to%20recommend%20a%20beautiful%20icon%20for%20an%20app%3A%0A%0AApp%20store%20URL%3A%0AIcon%20designer%20%26%20portfolio%20URL%3A" id="submit">submit an icon</a>
+                    <a href="mailto:jimniels%40gmail.com?subject=Icon%20Suggestion%3A%20http%3A%2F%2F{{ site.theme.active }}.com&body=I%20want%20to%20recommend%20a%20beautiful%20icon%20for%20an%20app%3A%0A%0AApp%20store%20URL%3A%0AIcon%20designer%20%26%20portfolio%20URL%3A" id="submit">submit an icon</a>
                 </li>
                 <li class="icon-twitter">
-                    <a href="http://twitter.com/{{ site.theme-active }}">follow @{{ site.theme-active }} on twitter</a>
+                    <a href="http://twitter.com/{{ site.theme.active }}">follow @{{ site.theme.active }} on twitter</a>
                 </li>
                 <li class="icon-feed">
                     <a href="{{ "/feed.xml" | prepend: site.baseurl }}">subscribe to rss feed</a>
@@ -85,13 +85,13 @@
             </ul>
             <ul id="footer-description">
                 <li>site designed and curated by <a href="http://twitter.com/jimniels">@jimniels</a></li>
-                <li>see more great icons at <a href="http://{{ site.theme-inactive }}.com">{{ site.theme-inactive }}.com</a></li>
+                <li>see more great icons at <a href="http://{{ site.theme.inactive }}.com">{{ site.theme.inactive }}.com</a></li>
             </ul>
         </div>
     </footer>
 
     <!-- Scripts -->
-    <script type="text/javascript" src="/{{ site.assets | prepend: site.baseurl }}/scripts/retina.js"></script>
+    <script type="text/javascript" src="{{site.baseurl}}/{{ site.assets.scripts }}/retina.js"></script>
 
 </body>
 </html>
