@@ -6,11 +6,11 @@ Fonts
 */
 @font-face {
     font-family: 'icongallery';
-    src:url('fonts/icongallery.eot');
-    src:url('fonts/icongallery.eot?#iefix') format('embedded-opentype'),
-        url('fonts/icongallery.svg#icongallery') format('svg'),
-        url('fonts/icongallery.woff') format('woff'),
-        url('fonts/icongallery.ttf') format('truetype');
+    src:url('../fonts/icongallery.eot');
+    src:url('../fonts/icongallery.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/icongallery.svg#icongallery') format('svg'),
+        url('../fonts/icongallery.woff') format('woff'),
+        url('../fonts/icongallery.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
 }
