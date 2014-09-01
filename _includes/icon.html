@@ -7,8 +7,8 @@
      alt="{{ post.title }} app icon" 
      title="{{ post.title }}" 
      class="icon icon-{{ include.icon-size }}"
-     src="{{ site.baseurl }}/content/img/{{ include.icon-size }}/{{post.slug}}-{{ post.date | date: "%Y" }}.png" 
-     data-at2x="{{ site.baseurl }}/content/img/{{ include.icon-size | times:2 }}/{{post.slug}}-{{ post.date | date: "%Y" }}.png" 
+     src="{{ site.baseurl }}/{{ site.theme.active }}/img/{{ include.icon-size }}/{{post.slug}}-{{ post.date | date: "%Y" }}.png" 
+     data-at2x="{{ site.baseurl }}/{{ site.theme.active }}/img/{{ include.icon-size | times:2 }}/{{post.slug}}-{{ post.date | date: "%Y" }}.png" 
 />
 
 {% if site.theme.active == 'iosicongallery' %}

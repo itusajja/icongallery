@@ -66,4 +66,4 @@ Use [retina.js](https://github.com/imulus/retinajs) to get hiDPI versions of eac
 
 1. Ads
 2. "browse" page
-3. Retina versions of each
+3. Favicon for macicongallery

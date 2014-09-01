@@ -5,7 +5,7 @@ Masks
 Masks are used to hide iOS icons.
 Put mask size on element
 
-<span.mask.mask-175
+<span.mask.mask-128
 
 
 */
@@ -19,31 +19,17 @@ Put mask size on element
 @each $mask-size in $icon-sizes {
 
     .mask-#{$mask-size} {
-        background: url(img/mask-#{$mask-size}.png) no-repeat;
+        background: url(/assets/img/mask-#{$mask-size}.png) no-repeat;
         width: #{$mask-size}px;
         height: #{$mask-size}px;
+        margin-top: #{$mask-size / -2}px;
+        margin-left: #{$mask-size / -2}px;
     }
 
-    // @media (-webkit-min-device-pixel-ratio: 2), (-o-min-device-pixel-ratio: 3 / 2), (min-device-pixel-ratio: 2) {
-        
-    //     .mask-#{$mask-size} {
-    //         // 5px offset shrinks to 2.5pixels, which doesn't work
-    //         // so we need to resize the background just a tiny bit smaller than normal. 1px worth
-    //         // each mask is 10px larger than icon size, so we have to add that first.
-    //         background-size: 99%;
-
-    //         // If it's the 512 icon, shrink it by half (as 512/1.5 is greater than the viewport on small devices)
-    //         // Otherwise, shrink the icons by only 1.5
-    //         @if $mask-size == 512 {
-    //             width: #{round( ($mask-size + 10) / 2)}px;
-    //             height: #{round( ($mask-size + 10) / 2)}px;
-    //         } 
-    //         @else {
-    //             width: #{round( ($mask-size + 10) / 1.5)}px;
-    //             height: #{round( ($mask-size + 10) / 1.5)}px;
-    //         }
-    //     }
-    // }
+    @media (-webkit-min-device-pixel-ratio: 2), (-o-min-device-pixel-ratio: 3 / 2), (min-device-pixel-ratio: 2) {
+        background-size: 100%;
+        background: url(/assets/img/mask-#{$mask-size * 2}.png) no-repeat;
+    }
 }
 
 //
@@ -53,37 +39,7 @@ Put mask size on element
 //  Generic mask class
 //
 .mask {
-
     position: absolute;
-
-    //
-    //  List Icons (Index)
-    //  -------------------
-    //
-    .list-icons & {
-        margin: round($list-icon-size / -2) auto 0 round( ($list-icon-size / -2));
-        top: 50%;
-        left: 50%;
-
-        // @media (-webkit-min-device-pixel-ratio: 2), (-o-min-device-pixel-ratio: 3 / 2), (min-device-pixel-ratio: 2) {
-        //     // -3 if you're doing 1.5 times icon size at retina
-        //     // -4 if you're doing 2 times icon size at retina
-        //     margin: round($list-icon-size / -3) auto 0 round( ($list-icon-size / -3) - 2);
-        // }
-    }
-
-    //
-    //  List Icon Sizes (Single)
-    //  -------------------
-    //
-    .list-icon-sizes & {
-        top: 0;
-        left: 0; // 5px offset
-
-        //  @media (-webkit-min-device-pixel-ratio: 2), (-o-min-device-pixel-ratio: 3 / 2), (min-device-pixel-ratio: 2) {
-        //     // -2 if you're doing 1.5 times icon size at retina
-        //     // -3 if you're doing 2 times icon size at retina
-        //     left: -2px;
-        // }
-    }
+    top: 50%;
+    left: 50%;
 }
