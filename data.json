@@ -8,7 +8,8 @@ layout: null
             "slug": "{{ post.slug }}",
             "date": "{{ post.date | date: "%F" }}",
             "category": "{{ post.category }}",
-            
+
+            {% if post.tags %}"tags": "{{ post.tags | join:', ' }}",{% endif %}
             {% if post.app-developer %}"app-developer": "{{ post.app-developer}}",{% endif %}
             {% if post.app-developer-url %}"app-developer-url": "{{ post.app-developer-url}}",{% endif %}
             {% if post.icon-designer %}"icon-designer": "{{ post.icon-designer}}",{% endif %}

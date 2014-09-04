@@ -1,0 +1,26 @@
+.search-header {
+    background: #f7f7f7;
+    border: 1px solid $color-border-light;
+    border-bottom: 0;
+    padding: em(10) em(20);
+
+    form {
+        display: inline;
+    }
+
+    input, 
+    select {
+        font-size: 1em;
+        font-family: $font-family;
+        background: inherit;
+        margin: 0 em(3);
+    }
+
+    input {
+        background: #fff;
+        border: 1px solid $color-border;
+        padding: em(3) em(7);
+        border-radius: 3px; 
+    }
+}
+

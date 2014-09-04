@@ -10,7 +10,7 @@ General
 }
 
 body {
-    font: #{$font-size-base}px/1.5 "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font: #{$font-size-base}px/1.5 $font-family;
     color: $color-dark-gray;
     -webkit-font-smoothing: antialiased;
 }
@@ -54,8 +54,4 @@ em,
 //
 .single .header {
     margin-bottom: 3em;
-}
-
-#related-icons {
-    display: none;
 }

@@ -7,13 +7,14 @@ Used when listing icons
     - Related Icons
     - Search Results
 
-<ul class="icons-list"
+<ul class="list-icons"
     <li
         <a class="icon-container"
             <img class="icon icon-175"
             <span class="sprite sprite-mask-175"
 
 */
+
 .list-icons {
     @include box-sizing(border-box);
     @include clearfix;
@@ -27,6 +28,7 @@ Used when listing icons
     // List items
     li {
         float: left;
+        background: url(/assets/img/loading.gif) no-repeat 50%;
     }
 
     .icon-container {
@@ -101,4 +103,16 @@ Used when listing icons
             margin-left: -#{$icon-size / 2}px;
         }
     }
+}
+
+.list-icons__zero-state {
+    text-align: center;
+    color: $color-light-light-gray;
+    float: none;
+    width: 100%;
+    padding: 6em 2em;
+    border: 1px solid $color-border-light;
+    border-left: 0;
+    border-top: 0;
+    background: none !important;
 }
