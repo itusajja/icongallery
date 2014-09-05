@@ -74,6 +74,21 @@ layout: default
                 <dd class="icon-meta__right">{{ categoryNiceName }}</dd>
 
             {% endif %}
+
+            {% comment %} Post Date {% endcomment %}
+            {% if post.category %}
+
+                {% comment %} Get the Category's Nice Name {% endcomment %}
+                {% for category in site.data.categories %}
+                    {% if category.slug == post.category %}
+                        {% assign categoryNiceName = category.nicename %}
+                    {% endif %}
+                {% endfor %}
+
+                <dt class="icon-meta__left">Post Date:</dt>
+                <dd class="icon-meta__right">{{ post.date | date: "%b %d, %Y" }}</dd>
+
+            {% endif %}
         </dl>
     </header>
     
@@ -83,7 +98,7 @@ layout: default
 
 {% comment %} Sidebar Related Posts {% endcomment %}
 <aside class="module related" id="related-iconss">
-    <h2>Related Icons in {{ categoryNiceName }}</h2>
+    <h2>Related Icons in Category “{{ categoryNiceName }}”</h2>
     <ul class="list-icons">
         
         {% comment %}

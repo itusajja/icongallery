@@ -71,7 +71,7 @@ var Icons = {
                     // Use fuzzy string match to search title
                     var f = FuzzySet([this.data[i].title])
                     var result = f.get(Filter.val, [[0]]); // return 0 in score if nothing
-                    if(result[0][0] > .5) {
+                    if(result[0][0] > .4) {
                         t = true;
                     }
                 default:

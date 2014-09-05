@@ -52,10 +52,9 @@ layout: default
 <script id="list-icons-template" type="x-tmpl-mustache">
 {% raw %}{{ #icons }}{% endraw %}
     <li>
-        <a href="{{ site.url | append:site.baseurl }}/{% raw %}{{ link }}{% endraw %}" class="icon-container">
+        <a href="{{ site.baseurl }}/{% raw %}{{ link }}{% endraw %}" class="icon-container" title="{% raw %}{{ title }}{% endraw %}">
             <img 
                  alt="{% raw %}{{ title }}{% endraw %} app icon" 
-                 title="{% raw %}{{ title }}{% endraw %}" 
                  class="icon icon-128"
                  src="{{ site.baseurl }}/{{ site.theme.active }}/img/128/{% raw %}{{ icon }}{% endraw %}.png" 
                  data-at2x="{{ site.baseurl }}/{{ site.theme.active }}/img/256/{% raw %}{{ icon }}{% endraw %}.png"

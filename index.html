@@ -5,7 +5,7 @@ layout: default
 <ul class="list-icons">
     {% for post in paginator.posts %}
         <li>
-            <a class="icon-container" href="{{ post.url | prepend: site.baseurl }}">
+            <a class="icon-container" href="{{ post.url | prepend: site.baseurl }}" title="{{ post.title }}">
                 {% include icon.html icon-size="128" %}
             </a>
         </li>
