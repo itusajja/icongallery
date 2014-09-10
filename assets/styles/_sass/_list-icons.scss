@@ -28,7 +28,8 @@ Used when listing icons
     // List items
     li {
         float: left;
-        background: url(/assets/img/loading.gif) no-repeat 50%;
+        // loading gif shows through on transparent PNGs mac
+        //background: url(/assets/img/loading.gif) no-repeat 50%;
     }
 
     .icon-container {

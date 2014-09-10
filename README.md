@@ -68,6 +68,8 @@ Use [retina.js](https://github.com/imulus/retinajs) to get hiDPI versions of eac
 2. "Search" page
 3. Feeds
 
+4. Search page takes parameters, i.e. /search?tag=blue (this can be linked from the individual post page)
+
 ## Deploy
 1. Ads work
 2. Redirects work

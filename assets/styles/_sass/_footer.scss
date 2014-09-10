@@ -19,20 +19,6 @@ Along with footer nav
             margin-bottom: 1em;
         }
     }
-
-    li {
-
-        &:before {
-            color: $color-link;
-        }
-
-        // small fix for submit icon (offset it by a tiny bit)
-        &:first-child {
-            a {
-                margin-left: .25em;
-            }
-        }
-    }
 }
 
 #footer-nav {
