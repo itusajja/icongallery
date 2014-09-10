@@ -6,7 +6,7 @@ layout: default
 <article>
 
     {% comment %} Icon Sizes {% endcomment %}
-    <ul class="list-icons--featured">
+    <ul class="list-icons list-icons--featured">
         <li class="icon-container-512">
             {% include icon.html icon-size="512" %}
         </li>
@@ -35,7 +35,7 @@ layout: default
         </h1>
 
         {% comment %} Icon Meta {% endcomment %}
-        <dl>            
+        <dl>
             {% comment %} Icon Designer {% endcomment %}
             {% if post.icon-designer %}
                 <dt class="icon-meta__left">Icon Designer:</dt>
@@ -91,8 +91,8 @@ layout: default
             {% endif %}
         </dl>
     </header>
-    
-    
+
+
 
 </article>
 
@@ -100,12 +100,12 @@ layout: default
 <aside class="module related" id="related-iconss">
     <h2>Related Icons in Category “{{ categoryNiceName }}”</h2>
     <ul class="list-icons">
-        
+
         {% comment %}
             `x | rand_array` returns the following:
                 - array with a length of x
                 - array with unique,random values no larger than x
-            Then we loop over that array giving us random posts. 
+            Then we loop over that array giving us random posts.
             We don't display more than `limit`
             And we dont' display less than however many related posts are in the cat
         {% endcomment %}
@@ -115,7 +115,7 @@ layout: default
         {% assign limit = 0 %}
         {% for i in post_indicies %}
             {% assign post = site.categories.[page.category][i] %}
-            
+
             {% if post != nil and post.title != page.title %}
                 {% assign limit = limit | plus:1 %}
                 {% if limit <= 12 %}
@@ -126,20 +126,20 @@ layout: default
                     </li>
                 {% endif %}
             {% endif %}
-            
+
         {% endfor %}
-        
+
 
         {% comment %}
 
-        
+
 
         {% assign k = 0 %}
         {% for i in (1..13) %}
             {% assign length = site.categories.[page.category] | size %}
             {% assign rand = 0 | random:length %}
             {% assign post = site.categories.[page.category][rand] %}
-            
+
             {% if post != nil and post.title != page.title %}
                 {% assign k = k | plus:1 %}
                 {% if k <= 12 %}
@@ -150,16 +150,16 @@ layout: default
                     </li>
                 {% endif %}
             {% endif %}
-            
+
         {% endfor %}
 
-        
+
 
 
          Conditionally show ad
 
     {% for post in site.categories.[page.category] | limit:50 %}
-            
+
             {% if post.title != page.title %}
                 <li>
                     <a href="{{ post.url }}" class="icon-container">

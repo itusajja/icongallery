@@ -1,20 +1,19 @@
 {% comment %}
-    {{include.icon-size}}
+    {{ include.icon-size }}
 {% endcomment %}
 
-
-<img 
-     alt="{{ post.title }} app icon" 
+<img
+     alt="{{ post.title }} app icon"
      class="icon icon-{{ include.icon-size }}"
-     src="{{ site.baseurl }}/{{ site.theme.active }}/img/{{ include.icon-size }}/{{post.slug}}-{{ post.date | date: "%Y" }}.png" 
-     data-at2x="{{ site.baseurl }}/{{ site.theme.active }}/img/{{ include.icon-size | times:2 }}/{{post.slug}}-{{ post.date | date: "%Y" }}.png" 
+     src="{{ site.baseurl }}/{{ site.theme.active }}/img/{{ include.icon-size }}/{{post.slug}}-{{ post.date | date: "%Y" }}.png"
+     data-at2x="{{ site.baseurl }}/{{ site.theme.active }}/img/{{ include.icon-size | times:2 }}/{{post.slug}}-{{ post.date | date: "%Y" }}.png"
 />
 
 {% if site.theme.active == 'iosicongallery' %}
     <span class="mask mask-{{ include.icon-size }}"></span>
 {% endif %}
 
-{% comment %} 
-    When we used to show labels
-    <span class="icon-label">'. $icon_size .'px</span>';
-{% endcomment %}
+{% comment %} It's a post page if the post.title is same as page.title {% endcomment %}
+{% if page.title == post.title %}
+    <span class="list-icons__label">{{ include.icon-size }}px</span>
+{% endif %}

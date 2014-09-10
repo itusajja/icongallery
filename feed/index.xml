@@ -14,7 +14,26 @@ layout: null
     {% for post in site.posts limit:10 %}
       <item>
         <title>{{ post.title | xml_escape }}</title>
-        <description>{{ post.content | xml_escape }}</description>
+        <description>
+            <a href="{{ post.url | prepend: site.baseurl | prepend: site.url }}">
+                <img width="512" height="512" alt="{{ post.title }} app icon" src="{{ site.url | append:site.baseurl }}/{{ site.theme.active }}/img/512/{{post.slug}}-{{ post.date | date: "%Y" }}.png" />
+            </a>
+            <ul>
+                {% if post.title %}
+                    <li>App Name: {{ post.title }}</li>
+                {% endif %}
+                {% if post.category %}
+                    <li>Category: {{ post.category }}</li>
+                {% endif %}
+                {% if post.icon-designer %}
+                    <li>Icon Designer: {{ post.icon-designer }}</li>
+                {% endif %}
+                {% if post.app-developer %}
+                    <li>App Developer: {{ post.app-developer }}</li>
+                {% endif %}
+                <li><a href="{{ post.url | prepend: site.baseurl | prepend: site.url }}">View entire post at {{ site.theme.active }}.com</a></li>
+            </ul>
+        </description>
         <pubDate>{{ post.date | date_to_rfc822 }}</pubDate>
         <link>{{ post.url | prepend: site.baseurl | prepend: site.url }}</link>
         <guid isPermaLink="true">{{ post.url | prepend: site.baseurl | prepend: site.url }}</guid>
