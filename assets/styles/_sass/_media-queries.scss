@@ -124,29 +124,6 @@ Default is the main width. +1, -1, etc are up and down one in the wrapper width
     }
 }
 
-//
-//
-//  Deafult +4
-//  ------------------------------
-//
-@media screen and (min-width: breakpoint-width(7px) ) {
-
-    //
-    //  Wrapper
-    //  --------
-    .wrapper {
-        width: wrapper-width(7px);
-    }
-
-    //
-    //  List Icon Sizes
-    //  ----------------
-    .list-icon-sizes {
-        li {
-            margin: 140px;
-        }
-    }
-}
 
 //
 //
@@ -181,14 +158,14 @@ Default is the main width. +1, -1, etc are up and down one in the wrapper width
     //  -----
     .list-icons--featured {
         padding-bottom: 161.8034%;
-        
+
          .icon-container-512 {
             top: 0;
             left: 0;
             width: 100%;
             height: 61.8034%;
             border: 0;
-            border-bottom: 1px solid $color-border-light;  
+            border-bottom: 1px solid $color-border-light;
         }
 
         .icon-container-256 {
@@ -244,17 +221,6 @@ Default is the main width. +1, -1, etc are up and down one in the wrapper width
         .icon-container-256 {
             @include inline-block();
         }
-
-        // At retina, show the largest icon, hide the second smallest
-        // @media (-webkit-min-device-pixel-ratio: 2), (-o-min-device-pixel-ratio: 3 / 2), (min-device-pixel-ratio: 2) {
-        //     .icon-container-512,
-        //     .icon-container-128 {
-        //         @include inline-block();
-        //     }
-        //     .icon-container-256 {
-        //         display: none;
-        //     }
-        // }
     }
 
     //
@@ -262,9 +228,9 @@ Default is the main width. +1, -1, etc are up and down one in the wrapper width
     //  -----
     .list-icons--featured {
         padding-bottom: 161.8034%;
-        
+
          .icon-container-512 {
-            display: none;  
+            display: none;
         }
 
         .icon-container-256 {
@@ -291,33 +257,6 @@ Default is the main width. +1, -1, etc are up and down one in the wrapper width
             right: 0;
             width: (100% - 61.8034);
             height: (100% - 61.8034);
-        }
-    }
-
-
-    //
-    //  Header
-    //  -------
-    .header {
-        position: relative;
-
-        nav {
-            float: none;
-            position: static;
-
-            .icon-category {
-                top: -2em;
-                left: 93%;
-            }
-        }
-
-        .logo-link {
-            float: none;
-            margin-top: 0;
-
-            .logo {
-                margin: 0 auto;
-            }
         }
     }
 
@@ -353,5 +292,15 @@ Default is the main width. +1, -1, etc are up and down one in the wrapper width
     //  -------------
     #contact-form {
         padding: 1.5em;
+    }
+
+    //
+    //  Icon Meta
+    //  -----
+    .icon-meta {
+        .icon-meta__left {
+            float: none;
+            display: block;
+        }
     }
 }

@@ -23,18 +23,15 @@ Header
     nav {
         float: right;
         position: relative;
+        margin-top: em(5);
 
-        .icon-category {
-            position: absolute;
-            top: .35em;
-            left: -2em;
+        a {
+            font-size: em(16);
 
-            color: $color-light-light-gray;
-            font-size: (16em / $font-size-base);
-
-            &:hover {
-                color: $color-link;
-                text-decoration: none;
+            &.i:before {
+                position: relative;
+                top: 3px;
+                left: -4px;
             }
         }
     }

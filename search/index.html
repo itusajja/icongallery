@@ -12,7 +12,7 @@ layout: default
     <select id="browse-type" class="filter-key">
         <option value="search">Search term</option>
         <option value="category">Category</option>
-        <option value="tags">Tag</option>
+        <option value="tags">Color</option>
         <!--
         <option value="icon-designer">Designer</option>
         <option value="app-developer">Developer</option>
@@ -24,39 +24,42 @@ layout: default
     </form>
 
     <select id="category" class="filter-val">
-        <option value="null">Choose a Category...</option>
+        <option value="null">Choose a category...</option>
         {% for category in site.data.categories %}
             <option value="{{ category.slug }}">{{ category.nicename }}</option>
-        {% endfor %}  
+        {% endfor %}
     </select>
 
     <select id="tags" class="filter-val">
-        <option value="null">Choose a Tag...</option>
+        <option value="null">Choose a color...</option>
         {% for tag in site.tags %}
             <option value="{{ tag[0] | strip }}">{{ tag[0] | capitalize }}</option>
-        {% endfor %}  
+        {% endfor %}
     </select>
 
     <select id="icon-designer" class="filter-val">
-        <option value="null">Choose a Designer...</option>
+        <option value="null">Choose a designer...</option>
         {% for designer in site.data.designers %}
             <option value="{{ designer.slug }}">{{ designer.nicename }}</option>
-        {% endfor %}  
+        {% endfor %}
     </select>
 </div>
 
 <ul class="list-icons">
-    <li class="list-icons__zero-state">Choose your options.</li>
 </ul>
+
+<a href="#" class="show-more" style="display: none">
+    Show more&hellip;
+</a>
 
 <script id="list-icons-template" type="x-tmpl-mustache">
 {% raw %}{{ #icons }}{% endraw %}
     <li>
         <a href="{{ site.baseurl }}/{% raw %}{{ link }}{% endraw %}" class="icon-container" title="{% raw %}{{ title }}{% endraw %}">
-            <img 
-                 alt="{% raw %}{{ title }}{% endraw %} app icon" 
+            <img
+                 alt="{% raw %}{{ title }}{% endraw %} app icon"
                  class="icon icon-128"
-                 src="{{ site.baseurl }}/{{ site.theme.active }}/img/128/{% raw %}{{ icon }}{% endraw %}.png" 
+                 src="{{ site.baseurl }}/{{ site.theme.active }}/img/128/{% raw %}{{ icon }}{% endraw %}.png"
                  data-at2x="{{ site.baseurl }}/{{ site.theme.active }}/img/256/{% raw %}{{ icon }}{% endraw %}.png"
             />
 

@@ -39,9 +39,9 @@ Because the jekyll config is in `_content` you have to tell jekyll where it is w
 `jekyll serve -w --config content/_config.yml`
 
 ## Plugins
+
 - Alias Generator [https://github.com/tsmango/jekyll_alias_generator](https://github.com/tsmango/jekyll_alias_generator)
-- Pageless redirects [https://github.com/nquinlan/jekyll-pageless-redirects](https://github.com/nquinlan/jekyll-pageless-redirects)
-- RSS Feed Generator [https://github.com/agelber/jekyll-rss](https://github.com/agelber/jekyll-rss)
+- Custom `filter.rb` which is used to return an array for related posts
 
 ## Categories & Tags
 
@@ -67,8 +67,8 @@ Use [retina.js](https://github.com/imulus/retinajs) to get hiDPI versions of eac
 1. Ads
 2. "Search" page
 3. Feeds
-
 4. Search page takes parameters, i.e. /search?tag=blue (this can be linked from the individual post page)
+5. responsiveness
 
 ## Deploy
 1. Ads work

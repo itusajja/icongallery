@@ -10,11 +10,11 @@ var Filter = {
     changeKey: function(newKey){
 
         // Delete list
-        $('.list-icons').html('<li class="list-icons__zero-state">Choose your options.</li>');
+        $('.list-icons').html('');
 
         // Hide old
         $('#' + this.key).hide();
-        
+
         // Set and show new
         this.key = newKey.trim();
         $('#' + this.key).show();
@@ -24,16 +24,19 @@ var Filter = {
     },
 
     changeVal: function(newVal){
-        this.val = newVal.trim(); 
-        console.log('Changed type value to: ' + this.val);     
+        this.val = newVal.trim();
+        console.log('Changed type value to: ' + this.val);
     }
 }
 
 var Icons = {
     data: [],
-    renderData: [],
-    $listEl: $('.list-icons'),
+    results: [],
+    renderLength: 12,
+    $elList: $('.list-icons'),
+    $elShowMore: $('.show-more'),
     $template: $('#list-icons-template').html(),
+
 
 
     //var template = $('#template').html();
@@ -46,15 +49,22 @@ var Icons = {
         this.data = jsonResponse;
     },
 
-    render: function(){
-        this.renderData = [];
+    // Create data for rendering the results
+    findMatches: function() {
 
+        // Reset current results
+        this.$elList.html('');
+        this.$elShowMore.hide();
+        this.results = [];
+
+        // Loop over each object of the original data
         for (var i = 0; i < this.data.length; i++) {
+
             // Get year
             var year = new Date(this.data[i].date).getFullYear();
 
             // Amongst all the icons, find the ones that match the criteria
-            var t = false;
+            var matches = false;
 
             switch(Filter.key) {
                 case 'tags':
@@ -62,8 +72,7 @@ var Icons = {
                         tags = this.data[i].tags.split(', ');
 
                         if( $.inArray(Filter.val, tags) > -1 ) {
-                            t = true; 
-                            console.log('tag found! '+Filter.val + ' ' + tags);   
+                            matches = true;
                         }
                     }
                     break;
@@ -72,17 +81,17 @@ var Icons = {
                     var f = FuzzySet([this.data[i].title])
                     var result = f.get(Filter.val, [[0]]); // return 0 in score if nothing
                     if(result[0][0] > .4) {
-                        t = true;
+                        matches = true;
                     }
                 default:
                     if(this.data[i][Filter.key] == Filter.val) {
-                        t = true;
-                        console.log('default');
+                        matches = true;
                     }
             }
-                
-            if(t){
-                this.renderData.push(
+
+            // If they match, add them to the render data
+            if(matches){
+                this.results.push(
                     {
                         title: this.data[i].title,
                         link: year + '/' + this.data[i].slug + '/',
@@ -91,13 +100,34 @@ var Icons = {
                 );
             }
         };
-        var rendered = Mustache.render(this.$template, {icons: this.renderData});
-        this.$listEl.html( rendered );
+
+        console.log('Found '+this.results.length+' matches')
+    },
+
+    // Render more, or render new
+    render: function(){
+        if(this.results.length > this.renderLength) {
+
+            // pop off the data we need
+            var renderData = this.results.splice(0, this.renderLength);
+
+            // render it
+            this.$elList.append( Mustache.render(this.$template, {icons: renderData}) );
+
+            // reveal show more button
+            this.$elShowMore.show();
+        }
+        else {
+            // Render what's left
+            this.$elList.append( Mustache.render(this.$template, {icons: this.results}) );
+
+            // Hide the show more
+            this.$elShowMore.hide();
+        }
     }
 };
 
 $(document).ready(function(){
-
 
     //$.getJSON("/data.json", Icons.intialize);
     $.ajax({
@@ -111,9 +141,9 @@ $(document).ready(function(){
 
     // Initialize
     Filter.init();
-    
-    
-    $('.filter-key').on('change', function(){
+
+
+    $('select.filter-key').on('change', function(){
         Filter.changeKey( $(this).val() );
 
         // Reset the <select> for the value
@@ -122,14 +152,21 @@ $(document).ready(function(){
         });
     });
 
-    $('.filter-val').on('change', function(){
+    $('select.filter-val').on('change', function(){
         Filter.changeVal( $(this).val() );
+        Icons.findMatches();
         Icons.render();
     });
 
     $('#search').on('submit', function(e){
         e.preventDefault();
         Filter.changeVal( $(this).find('input').val() );
+        Icons.findMatches();
+        Icons.render();
+    });
+
+    $('.show-more').on('click', function(e){
+        e.preventDefault();
         Icons.render();
     });
 

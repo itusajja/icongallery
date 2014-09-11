@@ -20,10 +20,12 @@ Markup
         margin-right: em(5);
         width: em(175);
         float: left;
+        color: $color-light-gray;
     }
 
     .icon-meta__right {
         margin-right: em(20);
+        overflow: hidden;
     }
 
     a {
