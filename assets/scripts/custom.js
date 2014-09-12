@@ -32,7 +32,7 @@ var Filter = {
 var Icons = {
     data: [],
     results: [],
-    renderLength: 12,
+    renderLength: 20,
     $elList: $('.list-icons'),
     $elShowMore: $('.show-more'),
     $template: $('#list-icons-template').html(),
@@ -82,6 +82,7 @@ var Icons = {
                     var result = f.get(Filter.val, [[0]]); // return 0 in score if nothing
                     if(result[0][0] > .4) {
                         matches = true;
+
                     }
                 default:
                     if(this.data[i][Filter.key] == Filter.val) {
@@ -98,8 +99,26 @@ var Icons = {
                         icon: this.data[i].slug + '-' + year
                     }
                 );
+                // Append 'searchScore' to last object if we're searching
+                if(Filter.key == 'search') {
+                    this.results[this.results.length-1].searchScore = result[0][0];
+                }
             }
         };
+
+        // Sort the array by fuzzy score if applicable
+        if(Filter.key == 'search') {
+            this.results.sort(function(a,b){
+                if (a.searchScore < b.searchScore) {
+                    return 1;
+                }
+                if (a.searchScore > b.searchScore) {
+                    return -1;
+                }
+                // a must be equal to b
+                return 0;
+            });
+        }
 
         console.log('Found '+this.results.length+' matches')
     },
@@ -169,7 +188,5 @@ $(document).ready(function(){
         e.preventDefault();
         Icons.render();
     });
-
-    //Icons.render();
 
 });
