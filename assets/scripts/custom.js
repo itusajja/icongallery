@@ -164,6 +164,7 @@ $(document).ready(function(){
 
     $('select.filter-key').on('change', function(){
         Filter.changeKey( $(this).val() );
+        Icons.$elShowMore.hide();
 
         // Reset the <select> for the value
         $('.filter-val option:selected').each(function(){

@@ -129,33 +129,9 @@ layout: default
 
         {% comment %}
 
+        Conditionally show ad
 
-
-        {% assign k = 0 %}
-        {% for i in (1..13) %}
-            {% assign length = site.categories.[page.category] | size %}
-            {% assign rand = 0 | random:length %}
-            {% assign post = site.categories.[page.category][rand] %}
-
-            {% if post != nil and post.title != page.title %}
-                {% assign k = k | plus:1 %}
-                {% if k <= 12 %}
-                    <li>
-                        <a href="{{ post.url }}" class="icon-container">
-                            {% include icon.html icon-size="128" %}
-                        </a>
-                    </li>
-                {% endif %}
-            {% endif %}
-
-        {% endfor %}
-
-
-
-
-         Conditionally show ad
-
-    {% for post in site.categories.[page.category] | limit:50 %}
+        {% for post in site.categories.[page.category] | limit:50 %}
 
             {% if post.title != page.title %}
                 <li>
@@ -168,10 +144,8 @@ layout: default
 
 
                 <li class="icon-container ad-container">
-                    <?php insert_ad() ?>
+                    {% include ads-{{ site.theme.active }}.html %}
                 </li>
         {% endcomment %}
     </ul>
 </aside>
-<script type="text/javascript" src="/shared-resources/js/jquery.js"></script>
-<script type="text/javascript" src="/shared-resources/js/scriptss.js"></script>
