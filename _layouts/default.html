@@ -26,8 +26,8 @@
         <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
 
-    <!-- RSS Feed? -->
-    <link rel="alternate" type="application/rss+xml" title="RSS 2.0" href="{{ "/feed.xml" | prepend: site.baseurl }}" />
+    <!-- RSS Feed -->
+    <link rel="alternate" type="application/rss+xml" title="RSS 2.0" href="http://feeds.feedburner.com/{{ site.theme.active }}" />
 
 </head>
 <body>
@@ -39,9 +39,9 @@
                     <img class="logo" src="{{ site.baseurl }}/{{ site.assets.images }}/{{ site.theme.active }}-logo@2x.png" width="180" height="30" />
                 </a>
             </h1>
-
             <nav role="navigation">
-                <a href="{{ site.baseurl }}/search/" class="i i--search">Search</a>
+
+                <a href="{{ site.baseurl }}/search/" class="i i--search {% if page.title == 'Search' %}active{% endif %}">Search</a>
             </nav>
         </div>
     </header>
@@ -61,7 +61,7 @@
                     <a href="http://twitter.com/{{ site.theme.active }}">follow @{{ site.theme.active }} on twitter</a>
                 </li>
                 <li class="i i--feed">
-                    <a href="{{ site.baseurl }}/feed/">subscribe to rss feed</a>
+                    <a href="http://feeds.feedburner.com/{{ site.theme.active }}">subscribe to rss feed</a>
                 </li>
             </ul>
             <ul id="footer-description">
