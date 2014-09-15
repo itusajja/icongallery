@@ -115,37 +115,22 @@ layout: default
 
             {% if post != nil and post.title != page.title %}
                 {% assign limit = limit | plus:1 %}
+
                 {% if limit <= 12 %}
-                    <li>
-                        <a href="{{ post.url }}" class="icon-container">
-                            {% include icon.html icon-size="128" %}
-                        </a>
-                    </li>
+                    {% if limit == 1 and site.theme.active == 'iosicongallery' %}
+                        <li class="icon-container icon-container--ad">
+                            {% include ads-iosicongallery.html %}
+                        </li>
+                    {% else %}
+                        <li>
+                            <a href="{{ post.url }}" class="icon-container">
+                                {% include icon.html icon-size="128" %}
+                            </a>
+                        </li>
+                    {% endif %}
                 {% endif %}
             {% endif %}
 
         {% endfor %}
-
-
-        {% comment %}
-
-        Conditionally show ad
-
-        {% for post in site.categories.[page.category] | limit:50 %}
-
-            {% if post.title != page.title %}
-                <li>
-                    <a href="{{ post.url }}" class="icon-container">
-                        {% include icon.html icon-size="128" %}
-                    </a>
-                </li>
-            {% endif %}
-        {% endfor %}
-
-
-                <li class="icon-container ad-container">
-                    {% include ads-{{ site.theme.active }}.html %}
-                </li>
-        {% endcomment %}
     </ul>
 </aside>
