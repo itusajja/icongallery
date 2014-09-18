@@ -1,4 +1,4 @@
-<?php 
+<?php
 date_default_timezone_set('UTC');
 
 function queryItunes($id) {
@@ -64,7 +64,7 @@ function populatePostVar($d) {
     if($date)
         $post["date"] = $date;
     if($d->primaryGenreName)
-        $post["category"] = $d->primaryGenreName;
+        $post["category"] = strtolower($d->primaryGenreName);
     if($d->trackViewUrl)
         $post["itunes-url"] = $d->trackViewUrl;
     if($d->artistName)
@@ -83,11 +83,11 @@ function outputPostVar() {
     global $post;
 
     $str = "---\n";
-    foreach ($post as $key => $value) { 
-        if($value)   
+    foreach ($post as $key => $value) {
+        if($value)
             $str .= $key . ": " . $value . "\n";
     }
-    $str .= "---\n"; 
+    $str .= "---\n";
     return $str;
 }
 
