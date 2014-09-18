@@ -1,9 +1,10 @@
 # #!/bin/bash
 # strip warning: find . -type f -name "*.png" -exec convert {} -strip {} \;
+read -p "What domain? [ios/mac] " DOMAIN
 
 # Take the original 512 or 1024 icon and create optimized versions for each
 # 1024, 512, 256, 128, 64
-DIR="../content/img"
+DIR="../${DOMAIN}icongallery/img"
 VARIANTS=(512 256 128 64)
 
 echo "Begin conversions ..."
@@ -14,7 +15,7 @@ for file in *.png; do
 
     # Get image width
     SIZE=`identify -format "%w" $file`
-    
+
     echo "=============================> ${file} (original: ${SIZE})"
 
     # If it's a 1024, copy it and optimize it
@@ -38,7 +39,7 @@ for file in *.png; do
     # convert $file -resize 256x256 "${DIR}/256/${file}"
     # convert $file -resize 128x128 "${DIR}/128/${file}"
     # convert $file -resize 64 "${DIR}/64/${file}"
-     
+
     # # Optimize each image size
     # echo "=> Optimizing images..."
     # find "${DIR}/512/${file}" | imageOptim -a
