@@ -65,11 +65,10 @@ Use [retina.js](https://github.com/imulus/retinajs) to get hiDPI versions of eac
 ## To-Do
 
 1. Ads
-2. "Search" page
-3. Feeds
-4. Search page takes parameters, i.e. /search?tag=blue (this can be linked from the individual post page)
-5. responsiveness
-6. 404 page, "oops it's not here ... check out some icons while you're here"
+2. Search page takes parameters, i.e. /search?tag=blue (this can be linked from the individual post page)
+3. 404 page, "oops it's not here ... check out some icons while you're here"
+4. Build scripts
+5. Unify categories in build scripts with IDs or something to map them to names. Perhaps map the to app store gener IDs
 
 ## Deploy
 1. Ads work
