@@ -9,7 +9,7 @@ read -p "What domain? [ios/mac] " DOMAIN
 
 # Dry run upload to S3
 echo -e "\n--> Dry Run upload to S3...\n"
-s3cmd sync --dry-run --acl-public --guess-mime-type --exclude '.DS_Store' --delete-removed ../_site/ s3://${DOMAIN}icongallery.com/
+s3cmd sync --dry-run --acl-public --guess-mime-type --exclude '.DS_Store' --exclude 'README.md' --delete-removed ../_site/ s3://${DOMAIN}icongallery.com/
 
 # If dry run is ok, continue sync; otherwise exit
 echo # new line
@@ -18,7 +18,7 @@ echo    # (optional) move to a new line
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
     echo -e "\n--> Syncing with S3...\n"
-    s3cmd sync --acl-public --guess-mime-type --exclude '.DS_Store' --delete-removed ../_site/ s3://${DOMAIN}icongallery.com/
+    s3cmd sync --acl-public --guess-mime-type --exclude '.DS_Store' --exclude 'README.md' --delete-removed ../_site/ s3://${DOMAIN}icongallery.com/
     echo -e "\n--> Done!"
 fi
 echo #extra line
