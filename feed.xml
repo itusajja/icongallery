@@ -2,43 +2,26 @@
 layout: null
 ---
 <?xml version="1.0" encoding="UTF-8"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" >
   <channel>
     <title>{{ site.title | xml_escape }}</title>
     <description>{{ site.description | xml_escape }}</description>
     <link>{{ site.url }}{{ site.baseurl }}/</link>
-    <atom:link href="{{ site.url | append:site.baseurl }}/feed/" rel="self" type="application/rss+xml" />
+    <atom:link href="{{ site.url | append:site.baseurl }}/feed.xml" rel="self" type="application/rss+xml" />
     <pubDate>{{ site.time | date_to_rfc822 }}</pubDate>
     <lastBuildDate>{{ site.time | date_to_rfc822 }}</lastBuildDate>
     <image>
         <url>{{ site.url | append:site.baseurl }}/{{ site.assets.images }}/{{ site.theme.active }}-rss.png</url>
-        <title>{{ site.theme.active }}.com</title>
-        <link>{{ site.url }}</link>
+        <title>{{ site.title | xml_escape }}</title>
+        <link>{{ site.url }}{{ site.baseurl }}/</link>
     </image>
     <generator>Jekyll v{{ jekyll.version }}</generator>
     {% for post in site.posts limit:10 %}
       <item>
         <title>{{ post.title | xml_escape }}</title>
-        <description>
-            <a href="{{ post.url | prepend: site.baseurl | prepend: site.url }}">
-                <img width="512" height="512" alt="{{ post.title }} app icon" src="{{ site.url | append:site.baseurl }}/{{ site.theme.active }}/img/512/{{post.slug}}-{{ post.date | date: "%Y" }}.png" />
-            </a>
-            <ul>
-                {% if post.title %}
-                    <li>App Name: {{ post.title }}</li>
-                {% endif %}
-                {% if post.category %}
-                    <li>Category: {{ post.category }}</li>
-                {% endif %}
-                {% if post.icon-designer %}
-                    <li>Icon Designer: {{ post.icon-designer }}</li>
-                {% endif %}
-                {% if post.app-developer %}
-                    <li>App Developer: {{ post.app-developer }}</li>
-                {% endif %}
-                <li><a href="{{ post.url | prepend: site.baseurl | prepend: site.url }}">View entire post at {{ site.theme.active }}.com</a></li>
-            </ul>
-        </description>
+        <enclosure url="{{ site.url | append:site.baseurl }}/{{ site.theme.active }}/img/512/{{post.slug}}-{{ post.date | date: "%Y" }}.png" length="90000" type="image/png" />
+        <description><![CDATA[<a href="{{ post.url | prepend: site.baseurl | prepend: site.url }}"><img width="512" height="512" alt="{{ post.title }} app icon" src="{{ site.url | append:site.baseurl }}/{{ site.theme.active }}/img/512/{{post.slug}}-{{ post.date | date: "%Y" }}.png" /></a>]]></description>
+        <content:encoded><![CDATA[<a href="{{ post.url | prepend: site.baseurl | prepend: site.url }}"><img width="512" height="512" alt="{{ post.title }} app icon" src="{{ site.url | append:site.baseurl }}/{{ site.theme.active }}/img/512/{{post.slug}}-{{ post.date | date: "%Y" }}.png" /></a>]]></content:encoded>
         <pubDate>{{ post.date | date_to_rfc822 }}</pubDate>
         <link>{{ post.url | prepend: site.baseurl | prepend: site.url }}</link>
         <guid isPermaLink="true">{{ post.url | prepend: site.baseurl | prepend: site.url }}</guid>
