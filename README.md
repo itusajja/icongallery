@@ -62,6 +62,12 @@ To do so, simply place whatever image you need the 512,256,128,64 variants for a
 
 Use [retina.js](https://github.com/imulus/retinajs) to get hiDPI versions of each thumbnail. I modified the `RetinaImagePath()` function so it checks for images defined in the `data-at2x` attributes (because they may not exist). Additionally, I changed the selector from `getElementsByTagName('img')` to `querySelectorAll('img.icon')` so it only looks for higher resolution versions of the icons.
 
+### Feeds
+
+RSS feeds are published through feedburner. The old addressses, however, were transfered. They use to live at `/feed/` (which mean, I assume, a `/feed/index.xml` file at that address). Now, however, the feed lives at `/feed.xml`. This means we need redirects for the old feed.
+
+Because S3 serves `index.html` files only, we will leave a blank file at `/feed/index.html` which has a [301 redirect](http://aws.amazon.com/blogs/aws/amazon-s3-support-for-website-redirects/) through the AWS console to `/feed.xml`. This means anyone who hits `/feed/` in the browser will go to the new feed. Additionally, anyone who hits `/feed/index.xml`, we have an [RSS XML redirect](http://www.rssboard.org/redirect-rss-feed) which sends them to `/feed.xml`.
+
 ## To-Do
 
 1. Ads

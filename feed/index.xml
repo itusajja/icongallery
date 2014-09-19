@@ -1,0 +1,5 @@
+<redirect>
+<newLocation>
+{{ site.url }}{{ site.baseurl }}/feed.xml
+</newLocation>
+</redirect>
