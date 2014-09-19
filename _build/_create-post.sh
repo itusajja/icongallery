@@ -1,9 +1,26 @@
 # #!/bin/bash
-# strip warning: find . -type f -name "*.png" -exec convert {} -strip {} \;
+
+# First get the domain
 read -p "What domain? [ios/mac] " DOMAIN
+
+# Now get the icon and post info and save them to the current directory
+php _get-icon-data.php
+
+# Now move the post.md file to the proper directory
+mv *.md ../${DOMAIN}icongallery/_posts/
+
+# Now optimize images, if needed
+# http://stackoverflow.com/questions/1885525/how-do-i-prompt-a-user-for-confirmation-in-bash-script
+read -p "Want to optimize the images [y/n] " -n 1 -r
+echo    # (optional) move to a new line
+if [[ ! $REPLY =~ ^[Yy]$ ]]
+then
+    exit 1
+fi
 
 # Take the original 512 or 1024 icon and create optimized versions for each
 # 1024, 512, 256, 128, 64
+# strip warning: find . -type f -name "*.png" -exec convert {} -strip {} \;
 DIR="../${DOMAIN}icongallery/img"
 VARIANTS=(512 256 128 64)
 
