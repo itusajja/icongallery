@@ -1,0 +1,3 @@
+# Excludes: All files you don't want to upload from _site/
+README.md
+.DS_Store

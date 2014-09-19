@@ -1,0 +1,5 @@
+# Includes. These files will need to be uploaded everytime
+# a new post is created
+feed.xml
+index.html
+data.json
