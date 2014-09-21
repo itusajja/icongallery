@@ -301,6 +301,9 @@ Default is the main width. +1, -1, etc are up and down one in the wrapper width
         .icon-meta__left {
             float: none;
             display: block;
+            font-size: em(14);
+            line-height: 1;
+            margin-top: 1em;
         }
     }
 }

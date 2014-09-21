@@ -28,6 +28,7 @@ Header
         a {
             font-size: em(16);
             display: block;
+            @include opacity(.45);
 
             &.i:before {
                 position: relative;
@@ -44,30 +45,7 @@ Header
     }
 }
 
-#searchform {
-    width: 300px;
-    position: relative;
-
-    input {
-        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-        -webkit-appearance: none;
-        font-size: (16em / $font-size-base);
-        padding: .5em .5em .5em 1.75em;
-        border: 1px solid #ddd;
-        color: $color-dark-gray;
-        border-radius: 3px;
-        box-shadow: inset 0 1px 4px #eee;
-        @include box-sizing(border-box);
-        width: 100%;
-    }
-
-    .icon-search {
-        position: absolute;
-
-        left: .75em;
-        top: .5em;
-
-        font-size: (13em / $font-size-base);
-        color: $color-light-light-gray;
-    }
+.navigation {
+    margin: 2em 0;
+    text-align: center;
 }

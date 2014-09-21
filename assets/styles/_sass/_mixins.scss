@@ -25,6 +25,11 @@
     *display: inline;
 }
 
+@mixin opacity($val) {
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=#{$val * 100})";
+    opacity: $val;
+}
+
 .clearfix {
     @include clearfix;
 }
