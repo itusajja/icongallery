@@ -4,17 +4,17 @@ layout: default
 
 <ul class="list-icons">
     {% for post in paginator.posts %}
+        {% comment %} If it's the second post, show the ad AND the current post{% endcomment %}
         {% if forloop.index0 == 1 and site.theme.active == 'iosicongallery' %}
             <li class="icon-container icon-container--ad">
                 {% include ads-iosicongallery.html %}
             </li>
-        {% else %}
-            <li>
-                <a class="icon-container" href="{{ post.url | prepend: site.baseurl }}" title="{{ post.title }}">
-                    {% include icon.html icon-size="128" %}
-                </a>
-            </li>
         {% endif %}
+        <li>
+            <a class="icon-container" href="{{ post.url | prepend: site.baseurl }}" title="{{ post.title }}">
+                {% include icon.html icon-size="128" %}
+            </a>
+        </li>
     {% endfor %}
 </ul>
 
