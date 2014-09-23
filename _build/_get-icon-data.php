@@ -39,7 +39,7 @@ function populatePostVar($d) {
     $slug = $slug[0];
 
     // Designer
-    $designer = askQuestion('Do you want to add a designer? [y/n]');
+    $designer = askQuestion('Add a designer? [y/n]');
     if($designer != 'y') {
         $designer = null;
     } else {
@@ -49,11 +49,11 @@ function populatePostVar($d) {
     }
 
     // Tags
-    $tags = askQuestion('Do you want to add tags? [y/n]');
+    $tags = askQuestion('Add tags? [y/n]');
     if($tags != 'y') {
         $tags = null;
     } else {
-        $tags = askQuestion('List of tags (space separated): ');
+        $tags = askQuestion('List tags (space separated): ');
         echo "\n";
     }
 
@@ -77,6 +77,14 @@ function populatePostVar($d) {
         $post["icon-designer-url"] = $designerUrl;
     if($tags)
         $post["tags"] = $tags;
+}
+
+function editPostVar() {
+    global $post;
+
+    $key = askQuestion('What key do you want to edit?');
+    $val = askQuestion('"'.$key.'" value:');
+    $post[$key] = $val;
 }
 
 function outputPostVar() {
@@ -133,22 +141,31 @@ echo "iTunes ID: ".$id."\n";
 */
 $data = queryItunes($id);
 populatePostVar($data);
-echo outputPostVar();
-
-
 
 
 /*
     Ask if the data is ok
     write it
 */
-$input = askQuestion('Look good? Write the files? [y/n]');
-if($input != 'y') {
-    exit;
+function lookGood() {
+    echo outputPostVar();
+    $input = askQuestion('Post data good? Write the files? [y/n/exit]');
+    if($input == 'y')
+        return true;
+    else if($input == 'exit')
+        exit;
+    else
+        editPostVar();
+        lookGood();
 }
 
-copy($data->artworkUrl512, $post['slug'].'-'.date('Y').'.png' );
+// when it looks good, write everything to files. otherwise, keep calling lookGood()
+if (lookGood()) {
+    copy($data->artworkUrl512, $post['slug'].'-'.date('Y').'.png' );
+    $filename = $post['date'] . "-" . $post['slug'] . ".md";
+    $handle = fopen($filename, 'a') or die('Cannot open file:  '.$filename);
+    fwrite($handle, outputPostVar());
+}
 
-$filename = $post['date'] . "-" . $post['slug'] . ".md";
-$handle = fopen($filename, 'a') or die('Cannot open file:  '.$filename);
-fwrite($handle, outputPostVar());
+
+// https://itunes.apple.com/us/app/angry-birds/id343200656?mt=8
