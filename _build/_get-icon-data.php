@@ -148,23 +148,44 @@ populatePostVar($data);
     write it
 */
 function lookGood() {
+    global $post;
+
     echo outputPostVar();
     $input = askQuestion('Post data good? Write the files? [y/n/exit]');
-    if($input == 'y')
-        return true;
-    else if($input == 'exit')
+    if($input == 'y') {
+        copy($data->artworkUrl512, $post['slug'].'-'.date('Y').'.png' );
+        $filename = $post['date'] . "-" . $post['slug'] . ".md";
+        $handle = fopen($filename, 'a') or die('Cannot open file:  '.$filename);
+        fwrite($handle, outputPostVar());
+    }
+    else if($input == 'exit') {
         exit;
-    else
+    }
+    else {
         editPostVar();
         lookGood();
+    }
 }
 
-// when it looks good, write everything to files. otherwise, keep calling lookGood()
-if (lookGood()) {
-    copy($data->artworkUrl512, $post['slug'].'-'.date('Y').'.png' );
-    $filename = $post['date'] . "-" . $post['slug'] . ".md";
-    $handle = fopen($filename, 'a') or die('Cannot open file:  '.$filename);
-    fwrite($handle, outputPostVar());
+// Until it looks good, keep asking and editing $post data
+$lookGood = false;
+while ($lookGood == false) {
+    echo outputPostVar();
+    $input = askQuestion('Post data good? Write the files? [y/n/exit]');
+
+    if($input == 'y') {
+        copy($data->artworkUrl512, $post['slug'].'-'.date('Y').'.png' );
+        $filename = $post['date'] . "-" . $post['slug'] . ".md";
+        $handle = fopen($filename, 'a') or die('Cannot open file:  '.$filename);
+        fwrite($handle, outputPostVar());
+        $lookGood = true;
+    }
+    else if($input == 'exit') {
+        exit;
+    }
+    else {
+        editPostVar();
+    }
 }
 
 
