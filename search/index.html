@@ -33,8 +33,13 @@ title: Search
 
     <select id="tags" class="filter-val">
         <option value="null">Choose a color...</option>
-        {% for tag in site.tags %}
-            <option value="{{ tag[0] | strip }}">{{ tag[0] | capitalize }}</option>
+        <!-- capture tags (must be on single line) -->
+        {% capture site_tags %}{% for tag in site.tags %}{{ tag | first }}{% unless forloop.last %},{% endunless %}{% endfor %}{% endcapture %}
+        <!-- sort tags alphabetically -->
+        {% assign site_tags = site_tags | split:',' | sort %}
+        <!-- output site_tags (site.tags would require tag | first | strip) -->
+        {% for tag in site_tags %}
+            <option value="{{ tag | strip }}">{{ tag | capitalize }}</option>
         {% endfor %}
     </select>
 
