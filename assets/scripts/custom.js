@@ -36,6 +36,7 @@ var Icons = {
     $elList: $('.list-icons'),
     $elShowMore: $('.show-more'),
     $template: $('#list-icons-template').html(),
+    $templateZero: $('#list-icons-zero-template').html(),
 
 
 
@@ -135,6 +136,9 @@ var Icons = {
 
             // reveal show more button
             this.$elShowMore.show();
+        } else if (this.results.length == 0) {
+            this.$elList.append( Mustache.render(this.$templateZero, {}) );
+            console.log(Mustache.render(this.$templateZero, {}));
         }
         else {
             // Render what's left
