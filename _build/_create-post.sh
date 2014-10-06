@@ -7,7 +7,14 @@ read -p "What domain? [ios/mac] " DOMAIN
 php _get-icon-data.php
 
 # Now move the post.md file to the proper directory
-mv *.md ../${DOMAIN}icongallery/_posts/
+read -p "Is this a draft? [y/n] " -n 1 -r
+echo    # (optional) move to a new line
+if [[ $REPLY =~ ^[Yy]$ ]]
+then
+    mv *.md ../${DOMAIN}icongallery/_drafts/
+else
+    mv *.md ../${DOMAIN}icongallery/_posts/
+fi
 
 # Now optimize images, if needed
 # http://stackoverflow.com/questions/1885525/how-do-i-prompt-a-user-for-confirmation-in-bash-script
