@@ -25,3 +25,6 @@ then
     echo -e "\n--> Done!"
 fi
 echo #extra line
+
+# individual file
+# s3cmd put --dry-run --acl-public --guess-mime-type -r _site/2014/mandrill/index.html p s3://iosicongallery.com/2014/mandrill/
