@@ -14,8 +14,8 @@ title: Search
         <option value="search">App Title</option>
         <option value="category">Category</option>
         <option value="tags">Color</option>
-        <!--
         <option value="icon-designer">Designer</option>
+        <!--
         <option value="app-developer">Developer</option>
         -->
     </select>
@@ -45,10 +45,36 @@ title: Search
 
     <select id="icon-designer" class="filter-val">
         <option value="null">Choose a designer...</option>
-        {% for designer in site.data.designers %}
-            <option value="{{ designer.slug }}">{{ designer.nicename }}</option>
-        {% endfor %}
+
+        <!-- Get posts and sort alphabetically by designer -->
+        {% assign sortedPosts = site.posts | sort: 'icon-designer' %}
+
+        <!-- Capture all designers with "|" separator -->
+        {% capture listDesigners %}{% for post in sortedPosts %}{%if post.icon-designer%}{{post.icon-designer}}|{%endif%}{%endfor%}{%endcapture%}
+
+        <!-- Split designers into array, remove duplicates, loop over them -->
+        {% assign arrayDesigners = listDesigners | split:"|" %}
+        {% assign arrayDesigners = arrayDesigners | remove_duplicates %}
+        {% for designer in arrayDesigners %}
+            <option value="{{ designer }}">{{ designer }}</option>
+        {%endfor%}
     </select>
+    
+
+    <!--
+
+    <form id="icon-designer" class="filter-val">
+        <input type="text" placeholder="Search by Icon Designer" list="icon-designer-list"/>
+        <datalist id="icon-designer-list">
+            <option value="Internet Explorer">
+            {% for post in site.posts %}
+                {% if post.icon-designer %}
+                    <option value="{{ post.icon-designer }}">
+                {% endif %}
+            {% endfor %}
+        </datalist>
+    </form>
+    -->
 </div>
 
 <ul class="list-icons">
