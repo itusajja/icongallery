@@ -1,7 +1,17 @@
 # #!/bin/bash
 
 # First get the domain
-read -p "What domain? [ios/mac] " DOMAIN
+# Get it from the working directory
+# http://stackoverflow.com/questions/229551/string-contains-in-bash
+CURDIR=$(pwd);
+if [[ $CURDIR == *iosicongallery* ]]; then
+    DOMAIN="ios"
+elif [[ $CURDIR == *macicongallery* ]]; then
+    DOMAIN="mac"
+else
+    echo 'Cannot get the domain. Exiting...'; exit
+fi
+echo $DOMAIN
 
 # Now get the icon and post info and save them to the current directory
 php _get-icon-data.php
@@ -57,19 +67,6 @@ for file in *.png; do
         find "${DIR}/${variant}/${file}" | imageOptim -a
     done
 
-    # # Create each image size off original
-    # echo "=> Converting image size ..."
-    # convert $file -resize 512x512 "${DIR}/512/${file}"
-    # convert $file -resize 256x256 "${DIR}/256/${file}"
-    # convert $file -resize 128x128 "${DIR}/128/${file}"
-    # convert $file -resize 64 "${DIR}/64/${file}"
-
-    # # Optimize each image size
-    # echo "=> Optimizing images..."
-    # find "${DIR}/512/${file}" | imageOptim -a
-    # find "${DIR}/256/${file}" | imageOptim -a
-    # find "${DIR}/128/${file}" | imageOptim -a
-    # find "${DIR}/64/${file}" | imageOptim -a
 done
 
 # move the file to the built directory
