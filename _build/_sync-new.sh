@@ -1,7 +1,17 @@
 # #!/bin/bash
 
-# Get the domain we're working with
-read -p "What domain? [ios/mac] " DOMAIN
+# First get the domain
+# Get it from the working directory
+# http://stackoverflow.com/questions/229551/string-contains-in-bash
+CURDIR=$(pwd);
+if [[ $CURDIR == *iosicongallery* ]]; then
+    DOMAIN="ios"
+elif [[ $CURDIR == *macicongallery* ]]; then
+    DOMAIN="mac"
+else
+    echo 'Cannot get the domain. Exiting...'; exit
+fi
+echo "--> Syncing with ${DOMAIN}icongallery.com"
 
 # Switch to _site folder
 cd ../_site/
