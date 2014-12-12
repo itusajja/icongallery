@@ -28,12 +28,12 @@ fi
 
 # Now optimize images, if needed
 # http://stackoverflow.com/questions/1885525/how-do-i-prompt-a-user-for-confirmation-in-bash-script
-read -p "Want to optimize the images [y/n] " -n 1 -r
-echo    # (optional) move to a new line
-if [[ ! $REPLY =~ ^[Yy]$ ]]
-then
-    exit 1
-fi
+# read -p "Want to optimize the images [y/n] " -n 1 -r
+# echo    # (optional) move to a new line
+# if [[ ! $REPLY =~ ^[Yy]$ ]]
+# then
+#     exit 1
+# fi
 
 # Take the original 512 or 1024 icon and create optimized versions for each
 # 1024, 512, 256, 128, 64
@@ -41,7 +41,7 @@ fi
 DIR="../${DOMAIN}icongallery/img"
 VARIANTS=(512 256 128 64)
 
-echo "Begin conversions ..."
+echo "Optimizing images ..."
 for file in *.png; do
 
     # Get the file basename
