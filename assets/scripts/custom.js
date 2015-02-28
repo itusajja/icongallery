@@ -77,11 +77,13 @@ var Icons = {
         // search looks in the title key
         // otherwise it matches what the user has chosed (i.e. 'category', 'designer', etc)
         // If it's not search, it must be an exact match (threshold = 0)
-        // Otherwise if it's search, give it some leeway
+        // Otherwise if it's search, give it some leeway.
+        // Also, don't sort non-search as Fuse sometimes returns things weird
+        // And besides, the data is already sorted chronologically which we want
         if(Filter.key == 'search') {
             var f = new Fuse(this.data, {keys: ['title'], threshold: .333});
         } else {
-            var f = new Fuse(this.data, {keys: [Filter.key], threshold: 0});
+            var f = new Fuse(this.data, {keys: [Filter.key], threshold: 0, shouldSort: false});
         }
         var matches = f.search(Filter.val);
 
@@ -101,18 +103,18 @@ var Icons = {
         // Search is sorted by match relevance
         // If it's not search, sort it by year using the 'link' key
         // (Fuse sometimes returns matches sorted weird ...)
-        if(Filter.key != 'search') {
-            this.results.sort(function(a,b){
-                if (a.link < b.link) {
-                    return 1;
-                }
-                if (a.link > b.link) {
-                    return -1;
-                }
-                // a must be equal to b
-                return 0;
-            });
-        }
+        // if(Filter.key != 'search') {
+        //     this.results.sort(function(a,b){
+        //         if (a.link < b.link) {
+        //             return 1;
+        //         }
+        //         if (a.link > b.link) {
+        //             return -1;
+        //         }
+        //         // a must be equal to b
+        //         return 0;
+        //     });
+        // }
         
         console.log('Found ' + this.results.length + ' matches')
     },
