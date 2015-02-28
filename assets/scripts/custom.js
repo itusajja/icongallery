@@ -1,30 +1,30 @@
-// check for exisiting
-// var urlParams;
-// (window.onpopstate = function () {
-//     var match,
-//         pl     = /\+/g,  // Regex for replacing addition symbol with a space
-//         search = /([^&=]+)=?([^&]*)/g,
-//         decode = function (s) { return decodeURIComponent(s.replace(pl, " ")); },
-//         query  = window.location.search.substring(1);
-
-//     urlParams = {};
-//     while (match = search.exec(query))
-//        urlParams[decode(match[1])] = decode(match[2]);
-// })();
-
-// console.log(urlParams.key);
-// if(urlParams.key) {
-//     console.log('Load '+urlParams.key);
-// } else {
-//     console.log('Load default active');
-// }
-
 var Filter = {
     key: null,
     val: null,
 
     init: function() {
-        this.key = $('.filter-key option:selected').val();
+        // If there's a query parameter in the URL, load that
+        // otherwise load search as the default
+        var query = location.search.substring(1);
+        if(query != '') {
+            query = query.split('=');
+            this.key = query[0];
+            this.val = query[1];
+        } else {
+            this.key = 'search',
+            this.val = '';
+        }
+        // load the relevant key/vals on page load
+        $('.filter-key option[value=' + this.key + ']').attr('selected', true);
+        this.changeKey(this.key);
+        this.changeVal(this.val);
+
+        // If there's a parameter passed in, load that
+        if(query != ''){
+            $('#' + this.key + ' option[value=' + this.val + ']').attr('selected', true);        
+            Icons.findMatches();
+            Icons.render();
+        }
     },
 
     changeKey: function(newKey){
@@ -37,7 +37,7 @@ var Filter = {
 
         // Set and show new
         this.key = newKey.trim();
-        $('#' + this.key).show();
+        $('#' + this.key).css('display', 'inline-block');
 
         // Log it
         console.log('Changed type to: ' + this.key);
@@ -46,6 +46,8 @@ var Filter = {
     changeVal: function(newVal){
         this.val = newVal.trim();
         console.log('Changed type value to: ' + this.val);
+
+        //location.search = this.key + '=' + this.val;
     }
 }
 
@@ -57,14 +59,6 @@ var Icons = {
     $elShowMore: $('.show-more'),
     $template: $('#list-icons-template').html(),
     $templateZero: $('#list-icons-zero-template').html(),
-
-
-
-    //var template = $('#template').html();
-    //Mustache.parse(template);   // optional, speeds up future uses
-    //var rendered = Mustache.render(template, {name: "Luke"});
-    //$('#target').html(rendered);
-
 
     intialize: function(jsonResponse) {
         this.data = jsonResponse;
@@ -182,11 +176,8 @@ $(document).ready(function(){
         }
     });
 
-
-
     // Initialize
     Filter.init();
-
 
     $('select.filter-key').on('change', function(){
         Filter.changeKey( $(this).val() );

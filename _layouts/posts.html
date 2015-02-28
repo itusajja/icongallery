@@ -71,8 +71,27 @@ layout: default
                 {% endfor %}
 
                 <dt class="icon-meta__left">Category:</dt>
-                <dd class="icon-meta__right">{{ categoryNiceName }}</dd>
+                <dd class="icon-meta__right">
+                    <a href="/search/?category={{ post.category }}">
+                        {{ categoryNiceName }}
+                    </a>
+                </dd>
+            {% endif %}
 
+            {% comment %} Tags {% endcomment %}
+            {% if post.tags.size > 0 %}
+                <dt class="icon-meta__left">
+                    {% if post.tags.size > 1 %}
+                        Colors:
+                    {% else %}
+                        Color:
+                    {% endif %}
+                </dt>
+                <dd class="icon-meta__right">
+                {% for tag in post.tags %}
+                    <a href="/search/?tags={{tag}}">{{ tag }}</a>{% if forloop.last != true %},{% endif %}
+                {% endfor %}
+                </dd>
             {% endif %}
 
             {% comment %} Post Date {% endcomment %}
