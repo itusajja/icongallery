@@ -65,6 +65,7 @@ var Icons = {
     },
 
     // Create data for rendering the results
+    // Should return `this.results` with massaged data for rendering
     findMatches: function() {
 
         // Reset current results
@@ -72,70 +73,48 @@ var Icons = {
         this.$elShowMore.hide();
         this.results = [];
 
-        // Loop over each object of the original data
-        for (var i = 0; i < this.data.length; i++) {
+        // Use Fuse to search the data object for the specified key
+        // search looks in the title key
+        // otherwise it matches what the user has chosed (i.e. 'category', 'designer', etc)
+        // If it's not search, it must be an exact match (threshold = 0)
+        // Otherwise if it's search, give it some leeway
+        if(Filter.key == 'search') {
+            var f = new Fuse(this.data, {keys: ['title'], threshold: .333});
+        } else {
+            var f = new Fuse(this.data, {keys: [Filter.key], threshold: 0});
+        }
+        var matches = f.search(Filter.val);
 
-            // Get year
-            var year = new Date(this.data[i].date).getFullYear();
-
-            // Amongst all the icons, find the ones that match the criteria
-            var matches = false;
-
-            switch(Filter.key) {
-                case 'tags':
-                    if( this.data[i].tags ) {
-                        tags = this.data[i].tags.split(', ');
-
-                        if( $.inArray(Filter.val, tags) > -1 ) {
-                            matches = true;
-                        }
-                    }
-                    break;
-                case 'search':
-                    // Use fuzzy string match to search title
-                    var f = FuzzySet([this.data[i].title])
-                    var result = f.get(Filter.val, [[0]]); // return 0 in score if nothing
-                    if(result[0][0] > .4) {
-                        matches = true;
-
-                    }
-                default:
-                    if(this.data[i][Filter.key] == Filter.val) {
-                        matches = true;
-                    }
-            }
-
-            // If they match, add them to the render data
-            if(matches){
-                this.results.push(
-                    {
-                        title: this.data[i].title,
-                        link: year + '/' + this.data[i].slug + '/',
-                        icon: this.data[i].slug + '-' + year
-                    }
-                );
-                // Append 'searchScore' to last object if we're searching
-                if(Filter.key == 'search') {
-                    this.results[this.results.length-1].searchScore = result[0][0];
+        // Massage the matched objects data 
+        // and stick what we need in this.results for rendering
+        for (var i = 0; i < matches.length; i++) {
+            var year = new Date(matches[i].date).getFullYear();
+            this.results.push(
+                {
+                    title: matches[i].title,
+                    link: year + '/' + matches[i].slug + '/',
+                    icon: matches[i].slug + '-' + year
                 }
-            }
+            );
         };
 
-        // Sort the array by fuzzy score if applicable
-        if(Filter.key == 'search') {
+        // Search is sorted by match relevance
+        // If it's not search, sort it by year using the 'link' key
+        // (Fuse sometimes returns matches sorted weird ...)
+        if(Filter.key != 'search') {
             this.results.sort(function(a,b){
-                if (a.searchScore < b.searchScore) {
+                if (a.link < b.link) {
                     return 1;
                 }
-                if (a.searchScore > b.searchScore) {
+                if (a.link > b.link) {
                     return -1;
                 }
                 // a must be equal to b
                 return 0;
             });
         }
-
-        console.log('Found '+this.results.length+' matches')
+        
+        console.log('Found ' + this.results.length + ' matches')
     },
 
     // Render more, or render new
