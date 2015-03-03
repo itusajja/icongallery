@@ -25,7 +25,7 @@ layout: default
     <!-- <<first  <next -->
     {% if paginator.previous_page %}
         <a href="{{ site.baseurl | append:'/' }}" class="first">&laquo; first</span>
-        <a href="{{ paginatorURL }}/{{ paginator.page | minus:'1' }}" class="previouspostslink">&#8592;</a>
+        <a href="{{ paginatorURL }}/{{ paginator.page | minus:'1' }}" class="previouspostslink">&#8592; Prev</a>
     {% endif %}
 
 
@@ -68,7 +68,7 @@ layout: default
 
     <!-- next>  last>> -->
     {% if paginator.next_page %}
-        <a href="{{ paginatorURL }}/{{ paginator.page | plus:'1' }}" class="nextpostslink">&#8594;</a>
+        <a href="{{ paginatorURL }}/{{ paginator.page | plus:'1' }}" class="nextpostslink">Next &#8594;</a>
         <a href="{{ paginatorURL }}/{{ paginator.total_pages }}" class="last">last &raquo;</a>
     {% endif %}
 
