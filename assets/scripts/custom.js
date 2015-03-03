@@ -15,13 +15,13 @@ var Filter = {
             this.val = '';
         }
         // load the relevant key/vals on page load
-        $('.filter-key option[value=' + this.key + ']').attr('selected', true);
+        $('.filter-key option[value=' + this.key + ']').prop('selected', true);
         this.changeKey(this.key);
         this.changeVal(this.val);
 
         // If there's a parameter passed in, load that
         if(query != ''){
-            $('#' + this.key + ' option[value=' + this.val + ']').attr('selected', true);        
+            $('#' + this.key + ' option[value=' + this.val + ']').prop('selected', true);        
             Icons.findMatches();
             Icons.render();
         }
@@ -166,7 +166,7 @@ $(document).ready(function(){
 
         // Reset the <select> for the value
         $('.filter-val option:selected').each(function(){
-            $(this).attr('selected', false);
+            $(this).prop('selected', false);
         });
     });
 
