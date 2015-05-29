@@ -1,6 +1,0 @@
-[submodule "content"]
-	path = macicongallery
-	url = https://github.com/jimniels/macicongallery
-[submodule "iosicongallery"]
-	path = iosicongallery
-	url = https://github.com/jimniels/iosicongallery.git
