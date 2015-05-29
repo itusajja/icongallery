@@ -9,42 +9,45 @@ Header
     padding: 1.5em 0;
     margin-bottom: 0em;
 
-    .logo-link {
+    h1 {
         float: left;
-        margin-top: (5em / $font-size-base);
-
-        .logo {
-            display: block;
-            width: 180px;
-            height: 30px;
+        
+        a, 
+        img {
+            line-height: em(50);
+            vertical-align: middle;
         }
     }
 
     nav {
         float: right;
         position: relative;
-        margin-top: em(5);
+        margin-top: em(7);
 
         a {
             font-size: em(16);
             display: block;
-            @include opacity(.45);
+            width: 36px;
+            height: 36px;
+            line-height: 36px;
+            border: 1px solid $color-border;
+            text-align: center;
+            border-radius: 2px;
 
             &:hover {
-                @include opacity(1);
+                background: #e9f6fc;
+                border-color: lighten($color-link, 25%);
             }
 
             &.i:before {
                 position: relative;
-                top: 3px;
-                left: -4px;
+                top: 1px;
+                left: 0px;
             }
 
             &.active {
-                padding: 0 em(12) 0 em(16);
                 background-color: #e9f6fc;
-                border-radius: 2px;
-                @include opacity(1);
+                border-color: lighten($color-link, 25%);
             }
         }
     }

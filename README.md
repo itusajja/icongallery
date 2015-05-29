@@ -1,5 +1,10 @@
 # Galleries
 
+Watch deploy to-do
+- follow on twitter?
+- RSS
+- google analytics
+
 ## Jekyll
 
 Site runs on Jekyll. All jekyll assets are stored in the root with two exceptions which are unique to each project: `_data` and `_config.yml`

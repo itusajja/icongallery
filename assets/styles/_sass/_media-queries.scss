@@ -146,8 +146,7 @@ Default is the main width. +1, -1, etc are up and down one in the wrapper width
         li {
             margin: 20px;
         }
-        .icon-container-256,
-        .icon-container-56 {
+        .icon-container-lg {
             display: none;
         }
     }
@@ -159,7 +158,7 @@ Default is the main width. +1, -1, etc are up and down one in the wrapper width
     .list-icons--featured {
         padding-bottom: 161.8034%;
 
-         .icon-container-512 {
+        .icon-container-xlg {
             top: 0;
             left: 0;
             width: 100%;
@@ -168,7 +167,7 @@ Default is the main width. +1, -1, etc are up and down one in the wrapper width
             border-bottom: 1px solid $color-border-light;
         }
 
-        .icon-container-256 {
+        .icon-container-lg {
             top: 61.8034%;
             left: 0;
             width: 61.8034%;
@@ -177,7 +176,7 @@ Default is the main width. +1, -1, etc are up and down one in the wrapper width
             border-right: 1px solid $color-border-light;
         }
 
-        .icon-container-128 {
+        .icon-container-md {
             top: 61.8034%;
             left: 61.8034%;
             width: (100% - 61.8034);
@@ -186,7 +185,7 @@ Default is the main width. +1, -1, etc are up and down one in the wrapper width
             border-bottom: 1px solid $color-border-light;
         }
 
-        .icon-container-64 {
+        .icon-container-sm {
             top: inherit;
             bottom: 0;
             right: 0;
@@ -229,11 +228,11 @@ Default is the main width. +1, -1, etc are up and down one in the wrapper width
     .list-icons--featured {
         padding-bottom: 161.8034%;
 
-         .icon-container-512 {
+         .icon-container-xlg {
             display: none;
         }
 
-        .icon-container-256 {
+        .icon-container-lg {
             top: 0%;
             left: 0;
             width: 100%;
@@ -242,7 +241,7 @@ Default is the main width. +1, -1, etc are up and down one in the wrapper width
             border-bottom: 1px solid $color-border-light;
         }
 
-        .icon-container-128 {
+        .icon-container-md {
             top: 61.8034%;
             left: 0%;
             width: 61.8034%;
@@ -251,7 +250,7 @@ Default is the main width. +1, -1, etc are up and down one in the wrapper width
             border-right: 1px solid $color-border-light;
         }
 
-        .icon-container-64 {
+        .icon-container-sm {
             top: inherit;
             bottom: 0;
             right: 0;

@@ -30,17 +30,18 @@
     <link rel="alternate" type="application/rss+xml" title="RSS 2.0" href="http://feeds.feedburner.com/{{ site.theme.active }}" />
 
 </head>
-<body>
+<body class="{{ site.theme.active }}">
 
     <header class="header">
         <div class="wrapper clearfix">
             <h1>
-                <a class="logo-link" href="{{ site.baseurl }}/" title="{{ site.title }}" rel="home">
-                    <img class="logo" src="{{ site.baseurl }}/{{ site.assets.images }}/{{ site.theme.active }}-logo@2x.png" width="180" height="30" />
+                <a href="{{ site.baseurl }}/" title="{{ site.title }}" rel="home">
+                    {% capture logoUrl %}{{ site.baseurl }}/{{ site.assets.images }}/{{ site.theme.active }}-logo{% endcapture %}
+                    <img class="logo" src="{{ logoUrl }}.svg" onerror="this.onerror=null; this.src='{{ logoUrl }}.png'" />
                 </a>
             </h1>
             <nav role="navigation">
-                <a href="{{ site.baseurl }}/search/" class="i i--search {% if page.title == 'Search' %}active{% endif %}">Search</a>
+                <a href="{{ site.baseurl }}/search/" class="i i--search {% if page.title == 'Search' %}active{% endif %}"></a>
             </nav>
         </div>
     </header>
@@ -65,7 +66,13 @@
             </ul>
             <ul id="footer-description">
                 <li>design, &lt;code>, &amp; curation by <a href="http://twitter.com/jimniels">@jimniels</a></li>
-                <li>see more great icons at <a href="http://{{ site.theme.inactive }}.com">{{ site.theme.inactive }}.com</a></li>
+                <li>
+                    see more great icons at
+                    {% for site in site.theme.inactive %}
+                        <a href="http://{{ site }}.com">{{ site }}.com</a>
+                        {% unless forloop.last %} and {% endunless %}
+                    {% endfor %}
+                </li>
             </ul>
         </div>
     </footer>

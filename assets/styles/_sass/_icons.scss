@@ -42,4 +42,13 @@ Put mask size on element
         top: 50%;
         left: 50%;
     }
+
+    //
+    //  Apple Watch Radius
+    //  --------------------
+    //  For the apple watch icon site, apply a radius & border
+    .applewatchicongallery & {
+        border-radius: 50%;
+        border: 1px solid rgba(0, 0, 0, .15);
+    }
 }

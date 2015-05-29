@@ -54,15 +54,12 @@ Used when listing icons
     border: 1px solid $color-border-light;
     text-align: center;
 
-
-    .icon-container-512,
-    .icon-container-256,
-    .icon-container-128,
-    .icon-container-64 {
+    [class*="icon-container-"] {
         position: absolute;
     }
 
-    .icon-container-512 {
+    // For ios and mac icon galleries
+    .icon-container-xlg {
         top: 0;
         left: 0;
         width: 61.8034%;
@@ -70,7 +67,7 @@ Used when listing icons
         border-right: 1px solid $color-border-light;
     }
 
-    .icon-container-256 {
+    .icon-container-lg {
         top: 0;
         left: 61.8034%;
         width: (100 - 61.8034%);
@@ -78,7 +75,7 @@ Used when listing icons
         border-bottom: 1px solid $color-border-light;
     }
 
-    .icon-container-128 {
+    .icon-container-md {
         top: 61.8034%;
         left: 61.8034%;
         width: (100 - 61.8034) * (.618034%);
@@ -86,7 +83,7 @@ Used when listing icons
         border-right: 1px solid $color-border-light;
     }
 
-    .icon-container-64 {
+    .icon-container-sm {
         top: 61.8034%;
         right: 0%;
         width: (100 - 61.8034) * (1 - .618034%);
@@ -98,6 +95,7 @@ Used when listing icons
         top: 50%;
         left: 50%;
     }
+
     @each $icon-size in $icon-sizes {
         .icon-#{$icon-size} {
             margin-top: -#{$icon-size / 2}px;

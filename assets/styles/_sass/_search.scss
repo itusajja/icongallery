@@ -1,3 +1,7 @@
+#form {
+    display: inline;
+}
+
 .search-header {
     background: #f7f7f7;
     border: 1px solid $color-border-light;
@@ -19,12 +23,18 @@
         padding: em(3) em(7);
         border-radius: 3px;
     }
+
+    .search-header__count {
+        float: right;
+        color: $color-light-light-gray;
+    }
 }
 
 .show-more {
     padding: 1em 0;
     border: 1px solid $color-border-light;
-    border-top: 0;
+    position: relative;
+    top: -1px;
     text-align: center;
     display: block;
 

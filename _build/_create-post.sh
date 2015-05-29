@@ -8,13 +8,20 @@ if [[ $CURDIR == *iosicongallery* ]]; then
     DOMAIN="ios"
 elif [[ $CURDIR == *macicongallery* ]]; then
     DOMAIN="mac"
+elif [[ $CURDIR == *applewatchicongallery* ]]; then
+    DOMAIN="applewatch"
 else
     echo 'Cannot get the domain. Exiting...'; exit
 fi
 echo $DOMAIN
 
-# Now get the icon and post info and save them to the current directory
-php _get-icon-data.php
+# Export the domain so we can use it in python script
+# http://stackoverflow.com/questions/17435056/read-bash-variables-into-a-python-script
+export DOMAIN
+
+# Retrieve the icon and post info from iTunes API
+# and save them to the current directory
+python _get-icon-data.py
 
 # Now move the post.md file to the proper directory
 read -p "Is this a draft? [y/n] " -n 1 -r
@@ -26,20 +33,21 @@ else
     mv *.md ../${DOMAIN}icongallery/_posts/
 fi
 
-# Now optimize images, if needed
-# http://stackoverflow.com/questions/1885525/how-do-i-prompt-a-user-for-confirmation-in-bash-script
-# read -p "Want to optimize the images [y/n] " -n 1 -r
-# echo    # (optional) move to a new line
-# if [[ ! $REPLY =~ ^[Yy]$ ]]
-# then
-#     exit 1
-# fi
-
 # Take the original 512 or 1024 icon and create optimized versions for each
 # 1024, 512, 256, 128, 64
 # strip warning: find . -type f -name "*.png" -exec convert {} -strip {} \;
 DIR="../${DOMAIN}icongallery/img"
-VARIANTS=(512 256 128 64)
+
+
+# Apple watch, convert .jpg to .png
+echo "Converting JPG to PNG..."
+if [[ $DOMAIN == *applewatch* ]]; then
+    mogrify -format png *.jpeg
+    rm *.jpeg
+    VARIANTS=(256 128 64 32)
+else
+    VARIANTS=(512 256 128 64)
+fi
 
 echo "Optimizing images ..."
 for file in *.png; do
@@ -66,7 +74,6 @@ for file in *.png; do
         convert $file -resize $variant "${DIR}/${variant}/${file}"
         find "${DIR}/${variant}/${file}" | imageOptim -a
     done
-
 done
 
 # move the file to the built directory

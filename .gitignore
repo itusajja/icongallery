@@ -1,2 +1,6 @@
 *.sass-cache
 _site
+*.pyc
+# The `content` folder serves as the modular content for each site
+# i.e. iosicongallery, macicongallery, applewatchicongallery, etc
+content/
