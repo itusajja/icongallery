@@ -28,6 +28,15 @@ Markup
         overflow: hidden;
     }
 
+    .external-link {
+        &:after {
+            @include external-link();
+            position: relative;
+            top: -.1em;
+            left: .2em;
+        }
+    }
+
     a {
         color: inherit;
         text-decoration: underline;
@@ -36,21 +45,6 @@ Markup
             color: $color-link;
         }
     }
-
-    .external-link {
-        &:after {
-            content: '\2192';
-            -webkit-transform: rotate(-45deg);
-            -moz-transform: rotate(-45deg);
-            -o-transform: rotate(-45deg);
-            -ms-transform: rotate(-45deg);
-            transform: rotate(-45deg);
-            @include inline-block();
-            font-size: .75em;
-            position: relative;
-            top: -.1em;
-            left: .2em;
-        }
-    }
-
 }
+
+

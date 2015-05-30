@@ -3,7 +3,7 @@ layout: null
 ---
 <?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" >
-  <channel>
+    <channel>
     <title>{{ site.title | xml_escape }}</title>
     <description>{{ site.description | xml_escape }}</description>
     <link>{{ site.url }}{{ site.baseurl }}/</link>
@@ -17,21 +17,26 @@ layout: null
     </image>
     <generator>Jekyll v{{ jekyll.version }}</generator>
     {% for post in site.posts limit:10 %}
-      <item>
-        <title>{{ post.title | xml_escape }}</title>
-        <enclosure url="{{ site.url | append:site.baseurl }}/{{ site.theme.active }}/img/512/{{post.slug}}-{{ post.date | date: "%Y" }}.png" length="90000" type="image/png" />
-        <description><![CDATA[<a href="{{ post.url | prepend: site.baseurl | prepend: site.url }}"><img width="512" height="512" alt="{{ post.title }} app icon" src="{{ site.url | append:site.baseurl }}/{{ site.theme.active }}/img/512/{{post.slug}}-{{ post.date | date: "%Y" }}.png" /></a>]]></description>
-        <content:encoded><![CDATA[<a href="{{ post.url | prepend: site.baseurl | prepend: site.url }}"><img width="512" height="512" alt="{{ post.title }} app icon" src="{{ site.url | append:site.baseurl }}/{{ site.theme.active }}/img/512/{{post.slug}}-{{ post.date | date: "%Y" }}.png" /></a>]]></content:encoded>
-        <pubDate>{{ post.date | date_to_rfc822 }}</pubDate>
-        <link>{{ post.url | prepend: site.baseurl | prepend: site.url }}</link>
-        <guid isPermaLink="true">{{ post.url | prepend: site.baseurl | prepend: site.url }}</guid>
-        {% for tag in post.tags %}
-        <category>{{ tag | xml_escape }}</category>
+        {% if site.theme.active != 'applewatchicongallery' %}
+            {% assign imgSize = 512 %}
+        {% else %}
+            {% assign imgSize = 256 %}
+        {% endif %}
+        <item>
+            <title>{{ post.title | xml_escape }}</title>
+            <enclosure url="{{ site.url | append:site.baseurl }}/{{ site.theme.active }}/img/{{ imgSize }}/{{post.slug}}-{{ post.date | date: "%Y" }}.png" length="90000" type="image/png" />
+            <description><![CDATA[<a href="{{ post.url | prepend: site.baseurl | prepend: site.url }}"><img width="{{ imgSize }}" height="{{ imgSize }}" alt="{{ post.title }} app icon" src="{{ site.url | append:site.baseurl }}/{{ site.theme.active }}/img/{{ imgSize }}/{{post.slug}}-{{ post.date | date: "%Y" }}.png" /></a>]]></description>
+            <content:encoded><![CDATA[<a href="{{ post.url | prepend: site.baseurl | prepend: site.url }}"><img width="{{ imgSize }}" height="{{ imgSize }}" alt="{{ post.title }} app icon" src="{{ site.url | append:site.baseurl }}/{{ site.theme.active }}/img/{{ imgSize }}/{{post.slug}}-{{ post.date | date: "%Y" }}.png" /></a>]]></content:encoded>
+            <pubDate>{{ post.date | date_to_rfc822 }}</pubDate>
+            <link>{{ post.url | prepend: site.baseurl | prepend: site.url }}</link>
+            <guid isPermaLink="true">{{ post.url | prepend: site.baseurl | prepend: site.url }}</guid>
+            {% for tag in post.tags %}
+            <category>{{ tag | xml_escape }}</category>
+            {% endfor %}
+            {% for cat in post.categories %}
+            <category>{{ cat | xml_escape }}</category>
         {% endfor %}
-        {% for cat in post.categories %}
-        <category>{{ cat | xml_escape }}</category>
-        {% endfor %}
-      </item>
+        </item>
     {% endfor %}
-  </channel>
+    </channel>
 </rss>

@@ -6,14 +6,14 @@ Header
 */
 .header {
     line-height: 30px; // height of #logo
-    padding: 1.5em 0;
+    padding: 1.5em 0 1em;
     margin-bottom: 0em;
 
     h1 {
         float: left;
         
-        a, 
-        img {
+        .logo, 
+        .logo a {
             line-height: em(50);
             vertical-align: middle;
         }
@@ -22,7 +22,6 @@ Header
     nav {
         float: right;
         position: relative;
-        margin-top: em(7);
 
         a {
             font-size: em(16);
@@ -53,7 +52,68 @@ Header
     }
 }
 
-.navigation {
-    margin: 2em 0;
+/*
+    Dropdown
+*/
+.dropdown {
+    float: right;
+    position: relative;
+}
+
+.dropdown__trigger {
+    line-height: em(35);
+    height: em(35);
+    width: em(35);
+    font-size: em(11);
+    @include inline-block();
     text-align: center;
+    margin-left: em(10);
+    color: $color-light-light-gray;
+
+    &:hover {
+        color: $color-dark-gray;
+        text-decoration: none;
+    }
+
+    .dropdown--active & {
+        border: 1px solid $color-light-light-gray;
+        color: $color-dark-gray;
+        border-radius: 2px;
+    }
+}
+
+.dropdown__content {
+    display: none;
+    box-shadow: 0 2px 4px rgba(0,0,0,.2);
+    border-radius: 2px;
+    border: 1px solid $color-border;
+    padding: 10px;
+    width: 380px;
+    margin-left: -190px;
+    left: 50%;
+    background: #fff;
+    z-index: 10;
+    position: absolute;
+
+    li a {
+        display: block;
+        padding: em(10);
+        position: relative;
+        border-radius: 2px;
+
+        &.external-link:after {
+            @include external-link();
+            float: right;
+            color: $color-light-light-gray;
+        }
+
+        &:hover {
+            background: $color-border-light;
+            text-decoration: none;
+        }
+    }
+
+    .dropdown--active & {
+        display: block;
+    }
 }

@@ -2,8 +2,8 @@
 
 Watch deploy to-do
 - follow on twitter?
-- RSS
 - google analytics
+- sync all for the other two sites
 
 ## Jekyll
 

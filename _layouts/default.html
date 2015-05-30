@@ -35,10 +35,23 @@
     <header class="header">
         <div class="wrapper clearfix">
             <h1>
-                <a href="{{ site.baseurl }}/" title="{{ site.title }}" rel="home">
+                <a class="logo" href="{{ site.baseurl }}/" title="{{ site.title }}" rel="home">
                     {% capture logoUrl %}{{ site.baseurl }}/{{ site.assets.images }}/{{ site.theme.active }}-logo{% endcapture %}
-                    <img class="logo" src="{{ logoUrl }}.svg" onerror="this.onerror=null; this.src='{{ logoUrl }}.png'" />
+                    <img src="{{ logoUrl }}.svg" onerror="this.onerror=null; this.src='{{ logoUrl }}.png'" />
                 </a>
+                <div class="dropdown">
+                    <a class="dropdown__trigger" href="#">&#9660;</a>
+                    <ul class="dropdown__content">
+                        {% for website in site.theme.inactive %}
+                            {% capture logoUrl %}{{ site.baseurl }}/{{ site.assets.images }}/{{ website }}-logo{% endcapture %}
+                            <li>
+                                <a href="http://{{ website }}.com" class="external-link">
+                                    <img class="logo" src="{{ logoUrl }}.svg" onerror="this.onerror=null; this.src='{{ logoUrl }}.png'" />
+                                </a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
             </h1>
             <nav role="navigation">
                 <a href="{{ site.baseurl }}/search/" class="i i--search {% if page.title == 'Search' %}active{% endif %}"></a>
@@ -55,10 +68,10 @@
             <ul id="footer-nav">
                 <li class="i i--submit">
                     <!-- mailto encoder: http://email.about.com/library/misc/blmailto_encoder.htm -->
-                    <a href="mailto:jimniels%40gmail.com?subject=Icon%20Suggestion%3A%20http%3A%2F%2F{{ site.theme.active }}.com&body=I%20want%20to%20recommend%20a%20beautiful%20icon%20for%20an%20app%3A%0A%0AApp%20store%20URL%3A%0AIcon%20designer%20%26%20portfolio%20URL%3A" id="submit">submit an icon</a>
+                    <a href="mailto:jimniels%40gmail.com?subject={{ site.theme.active }}.com%20icon%20suggestion%3A&body=I%20want%20to%20recommend%20a%20beautiful%20icon%20for%20an%20app%3A%0A%0AApp%20store%20URL%3A%0AIcon%20designer%20%26%20portfolio%20URL%3A" id="submit">submit an icon</a>
                 </li>
                 <li class="i i--twitter">
-                    <a href="http://twitter.com/{{ site.theme.active }}">follow @{{ site.theme.active }} on twitter</a>
+                    <a href="http://twitter.com/iosicongallery">follow updates on twitter</a>
                 </li>
                 <li class="i i--feed">
                     <a href="http://feeds.feedburner.com/{{ site.theme.active }}">subscribe to rss feed</a>
@@ -78,6 +91,42 @@
     </footer>
 
     <!-- Scripts -->
+    <script type="text/javascript">
+        // This is the only script need on every page
+        // so I'm just including it here
+        // It controls the dropdown in the header
+        var el = document.querySelector('.dropdown__trigger');
+        el.addEventListener('click', function(e){
+            e.stopPropagation();
+            toggleClass(this.parentNode, 'dropdown--active');
+        });
+        var body = document.getElementsByTagName('body');
+        body[0].addEventListener('click', function(e){
+            removeClass(el.parentNode, 'dropdown--active');
+        });
+        function removeClass(el, className){
+            if (el.classList){
+                el.classList.remove(className);
+            } else {
+                el.className = el.className.replace(new RegExp('(^|\\b)' + className.split(' ').join('|') + '(\\b|$)', 'gi'), ' ');
+            }
+        }
+        function toggleClass(el, className){
+            if (el.classList) {
+                el.classList.toggle(className);
+            } else {
+                var classes = el.className.split(' ');
+                var existingIndex = classes.indexOf(className);
+
+                if (existingIndex >= 0){
+                    classes.splice(existingIndex, 1);
+                } else {
+                    classes.push(className);
+                    el.className = classes.join(' ');
+                }
+            }
+        }
+    </script>
     <script type="text/javascript" src="{{site.baseurl}}/{{ site.assets.scripts }}/retina.js"></script>
     <script>
         (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -88,6 +137,5 @@
         ga('create', '{{ site.theme.analytics_key }}', 'auto');
         ga('send', 'pageview');
     </script>
-
 </body>
 </html>

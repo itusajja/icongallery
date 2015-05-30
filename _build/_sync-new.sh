@@ -1,40 +1,38 @@
 # #!/bin/bash
 
-# First get the domain
-# Get it from the working directory
-# http://stackoverflow.com/questions/229551/string-contains-in-bash
-CURDIR=$(pwd);
-if [[ $CURDIR == *iosicongallery* ]]; then
-    DOMAIN="ios"
-elif [[ $CURDIR == *macicongallery* ]]; then
-    DOMAIN="mac"
+# NOTE:You have to run this from the root of the project
+# See http://www.savjee.be/2013/02/howto-host-jekyll-blog-on-amazon-s3/
+
+# Pass the domain you want to sync in
+DOMAIN=$1
+if [[ -n "$DOMAIN" ]]; then
+
+    # Run Jekyll for the right site
+    echo -e "\n--> Compiling ${DOMAIN}icongallery source..."
+    jekyll build --config _config.yml,${DOMAIN}icongallery/_config.yml
+
+    # Dry run upload to S3
+    echo -e "\n--> Dry run sync to ${DOMAIN}icongallery.com"
+    s3cmd sync --dry-run --acl-public --guess-mime-type --no-preserve --skip-existing _site/ s3://${DOMAIN}icongallery.com/
+    echo -e "\n--> Dry run put dependencies..."
+    s3cmd put --dry-run --acl-public --guess-mime-type --no-preserve -r index.html data.json feed.xml p s3://${DOMAIN}icongallery.com/
+
+
+
+    # If dry run is ok, continue sync; otherwise exit
+    echo # new line
+    read -p "Want to continue syncing? [y/n] " -n 1 -r
+    if [[ $REPLY =~ ^[Yy]$ ]]; then
+        echo -e "\n--> Syncing to ${DOMAIN}icongallery.com"
+        s3cmd sync --dry-run --acl-public --guess-mime-type --no-preserve --skip-existing _site/ s3://${DOMAIN}icongallery.com/
+        echo -e "\n--> Put dependencies...\n"
+        s3cmd put --dry-run --acl-public --guess-mime-type --no-preserve -r index.html data.json feed.xml p s3://${DOMAIN}icongallery.com/
+    fi
 else
-    echo 'Cannot get the domain. Exiting...'; exit
+    echo 'You gotta pass in a domain. Exiting...'; exit
 fi
-echo "--> Syncing with ${DOMAIN}icongallery.com"
-
-# Switch to _site folder
-cd ../_site/
-
-# Dry run new and upload to S3 for new and dependant files
-echo -e "\n--> Dry run sync new files...\n"
-s3cmd sync --dry-run --acl-public --guess-mime-type --no-preserve --skip-existing --exclude-from ../_build/_files.exclude . s3://${DOMAIN}icongallery.com/
-echo -e "\n--> Dry run put dependencies...\n"
-s3cmd put --dry-run --acl-public --guess-mime-type --no-preserve -r index.html data.json feed.xml p s3://${DOMAIN}icongallery.com/
-
-# If dry run is ok, continue sync; otherwise exit
-echo # new line
-read -p "Want to continue syncing? [y/n] " -n 1 -r
-echo    # (optional) move to a new line
-if [[ $REPLY =~ ^[Yy]$ ]]
-then
-    echo -e "\n--> Syncing new files...\n"
-    s3cmd sync --acl-public --guess-mime-type --no-preserve --skip-existing --exclude-from ../_build/_files.exclude . s3://${DOMAIN}icongallery.com/
-    echo -e "\n--> Putting new file dependencies...\n"
-    s3cmd put --acl-public --guess-mime-type --no-preserve -r index.html data.json feed.xml p s3://${DOMAIN}icongallery.com/
-    echo -e "\n--> Done!"
-fi
-echo #extra line
 
 # individual file
-# s3cmd put --dry-run --no-preserve --acl-public --guess-mime-type -r _site/2014/desk/index.html p s3://iosicongallery.com/2014/mandrill/
+# s3cmd put --dry-run --no-preserve --acl-public --guess-mime-type _site/2014/desk/index.html s3://iosicongallery.com/2014/mandrill/
+# individual folder
+# s3cmd put --dry-run --no-preserve --acl-public --guess-mime-type -r _site/ s3://iosicongallery.com/
