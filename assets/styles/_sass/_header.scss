@@ -5,23 +5,37 @@ Header
 
 */
 .header {
-    line-height: 30px; // height of #logo
     padding: 1.5em 0 1em;
     margin-bottom: 0em;
 
+    @media screen and (max-width: 600px) {
+        padding: .5em 0;
+    }
+
     h1 {
         float: left;
+        position: relative;
         
-        .logo, 
-        .logo a {
+        > a,
+        .logo {
             line-height: em(50);
             vertical-align: middle;
+        }
+
+        @media screen and (max-width: 600px) {
+            .logo {
+                max-width: 270px;
+            }
         }
     }
 
     nav {
         float: right;
         position: relative;
+
+        @media screen and (max-width: 600px) {
+            display: none;
+        }
 
         a {
             font-size: em(16);
@@ -58,12 +72,17 @@ Header
 .dropdown {
     float: right;
     position: relative;
+
+    @media screen and (max-width: 600px) {
+        position: static;
+    }
 }
 
 .dropdown__trigger {
     line-height: em(35);
     height: em(35);
     width: em(35);
+    margin-top: em(15, 11); // height (35) + 15 = 50 (line height of logo)
     font-size: em(11);
     @include inline-block();
     text-align: center;
@@ -71,11 +90,12 @@ Header
     color: $color-light-light-gray;
 
     &:hover {
-        color: $color-dark-gray;
         text-decoration: none;
+        color: $color-dark-gray;
     }
 
     .dropdown--active & {
+        text-decoration: none;
         border: 1px solid $color-light-light-gray;
         color: $color-dark-gray;
         border-radius: 2px;
@@ -88,12 +108,17 @@ Header
     border-radius: 2px;
     border: 1px solid $color-border;
     padding: 10px;
-    width: 380px;
-    margin-left: -190px;
+    width: 300px;
+    margin-left: -150px;
     left: 50%;
     background: #fff;
     z-index: 10;
     position: absolute;
+
+    @media screen and (max-width: 600px) {
+        left: 0;
+        margin-left: 0;
+    }
 
     li a {
         display: block;
@@ -111,6 +136,10 @@ Header
             background: $color-border-light;
             text-decoration: none;
         }
+    }
+
+    .logo {
+        max-height: 20px;
     }
 
     .dropdown--active & {

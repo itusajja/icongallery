@@ -19,6 +19,16 @@ Along with footer nav
             margin-bottom: 1em;
         }
     }
+
+    // Search is visible on mobile in footer, header on desktop
+    .i--search { 
+        display: none;
+    }
+    @media screen and (max-width: 600px) {
+        .i--search {
+            display: block;
+        }
+    }
 }
 
 #footer-nav {
