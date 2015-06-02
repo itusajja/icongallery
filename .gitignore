@@ -1,7 +1,9 @@
+# Files/folders to exclude
 *.sass-cache
 _site
 *.pyc
-# The `content` folder serves as the modular content for each site
+
+# Exclude content folders for each site
 iosicongallery/
 macicongallery/
 applewatchicongallery/

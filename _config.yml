@@ -18,9 +18,7 @@ safe: false # use plugins
 paginate_path: "p/:num"
 source: .
 destination: ./_site
-exclude: 
-    - README.md
-    - .DS_STORE
+
 
 # Defaults
 defaults:

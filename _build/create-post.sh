@@ -1,19 +1,10 @@
 # #!/bin/bash
 
-# First get the domain
-# Get it from the working directory
-# http://stackoverflow.com/questions/229551/string-contains-in-bash
-CURDIR=$(pwd);
-if [[ $CURDIR == *iosicongallery* ]]; then
-    DOMAIN="ios"
-elif [[ $CURDIR == *macicongallery* ]]; then
-    DOMAIN="mac"
-elif [[ $CURDIR == *applewatchicongallery* ]]; then
-    DOMAIN="applewatch"
-else
-    echo 'Cannot get the domain. Exiting...'; exit
+DOMAIN=$1
+if [[ !(-n "$DOMAIN") ]]; then
+    echo 'You have to pass in the domain'
+    exit
 fi
-echo $DOMAIN
 
 # Export the domain so we can use it in python script
 # http://stackoverflow.com/questions/17435056/read-bash-variables-into-a-python-script
