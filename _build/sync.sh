@@ -39,8 +39,8 @@ syncNew() {
 }
 
 syncAll() {
+    echo -e "\n--> Sync to ${DOMAIN}icongallery.com"
     s3cmd sync $1 \
-        --dry-run \
         --acl-public \
         --guess-mime-type \
         --no-preserve \

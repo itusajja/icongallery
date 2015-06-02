@@ -1,10 +1,18 @@
 # #!/bin/bash
 
 DOMAIN=$1
-if [[ !(-n "$DOMAIN") ]]; then
-    echo 'You have to pass in the domain'
-    exit
-fi
+case "$DOMAIN" in
+    (ios|mac|applewatch) 
+        ;;
+    (*)
+        echo "Usage: $0 {ios|mac|applewatch}"
+        exit 1
+        ;;
+esac 
+
+# Change working directory 
+# (script written to work inside _build)
+cd _build
 
 # Export the domain so we can use it in python script
 # http://stackoverflow.com/questions/17435056/read-bash-variables-into-a-python-script
@@ -12,7 +20,7 @@ export DOMAIN
 
 # Retrieve the icon and post info from iTunes API
 # and save them to the current directory
-python _get-icon-data.py
+python get-icon-data.py
 
 # Now move the post.md file to the proper directory
 read -p "Is this a draft? [y/n] " -n 1 -r
@@ -70,3 +78,6 @@ done
 # move the file to the built directory
 echo "=> Moving to _src directory..."
 mv *.png "${DIR}/_src"
+
+# Go back to root since we changed it
+cd ../
