@@ -35,7 +35,7 @@ syncNew() {
         --guess-mime-type \
         --no-preserve \
         -r \
-        index.html data.json feed.xml p s3://${DOMAIN}icongallery.com/
+        _site/index.html _site/data.json _site/feed.xml _site/p s3://${DOMAIN}icongallery.com/
 }
 
 syncAll() {

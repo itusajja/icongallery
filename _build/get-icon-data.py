@@ -37,15 +37,15 @@ def createPost(app):
     post['itunes-url'] = app['trackViewUrl']
     post['app-developer'] = app['artistName']
     
-    # [optional] app-developer-url, designer, designer-url, tags
+    # [optional] app-developer-url, icon-designer, icon-designer-url, tags
     if 'sellerUrl' in app:
         post['app-developer-url'] = app['sellerUrl']
 
     designer = raw_input('designer: ')
     if(designer != ''):
         designerUrl = raw_input('designer-url: ')
-        post['designer'] = designer
-        post['designer-url'] = designerUrl
+        post['icon-designer'] = designer
+        post['icon-designer-url'] = designerUrl
 
     tags = raw_input('tags (space separated): ')
     if(tags != ''):
