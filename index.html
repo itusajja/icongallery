@@ -5,9 +5,9 @@ layout: default
 <ul class="list-icons">
     {% for post in paginator.posts %}
         {% comment %} If it's the second post, show the ad AND the current post{% endcomment %}
-        {% if forloop.index0 == 1 and site.theme.active == 'iosicongallery' %}
+        {% if forloop.index0 == 1 and site.theme.ad_script %}
             <li class="icon-container icon-container--ad">
-                {% include ads-iosicongallery.html %}
+                {{ site.theme.ad_script }}
             </li>
         {% endif %}
         <li>

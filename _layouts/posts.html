@@ -35,6 +35,11 @@ layout: default
                 {% include icon.html icon-size="32" %}
             {% endif %}
         </li>
+        {% if site.theme.ad_script %}
+            <li class="icon-container icon-container--ad">
+                {{ site.theme.ad_script }}
+            </li>
+        {% endif %}
     </ul>
 
     {% comment %} Header {% endcomment %}
@@ -134,7 +139,7 @@ layout: default
             We don't display more than `limit`
             And we dont' display less than however many related posts are in the cat
         {% endcomment %}
-        
+
         {% capture catId %}{{page.category}}{% endcapture %}
         {% assign posts_in_cat = site.categories.[catId] | size %}
         {% assign post_indicies = posts_in_cat | rand_array %}
@@ -147,17 +152,11 @@ layout: default
                 {% assign limit = limit | plus:1 %}
 
                 {% if limit <= 12 %}
-                    {% if limit == 1 and site.theme.active == 'iosicongallery' %}
-                        <li class="icon-container icon-container--ad">
-                            {% include ads-iosicongallery.html %}
-                        </li>
-                    {% else %}
-                        <li>
-                            <a href="{{ post.url }}" class="icon-container">
-                                {% include icon.html icon-size="128" %}
-                            </a>
-                        </li>
-                    {% endif %}
+                    <li>
+                        <a href="{{ post.url }}" class="icon-container">
+                            {% include icon.html icon-size="128" %}
+                        </a>
+                    </li>
                 {% endif %}
             {% endif %}
 

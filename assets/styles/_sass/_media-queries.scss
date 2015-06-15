@@ -74,55 +74,31 @@ Default is the main width. +1, -1, etc are up and down one in the wrapper width
 //  Deafult +2
 //  ------------------------------
 //
-@media screen and (min-width: breakpoint-width(5px) ) {
+// @media screen and (min-width: breakpoint-width(5px) ) {
 
-    //
-    //  Wrapper
-    //  --------
-    .wrapper {
-        width: wrapper-width(5px);
-    }
+//     //
+//     //  Wrapper
+//     //  --------
+//     .wrapper {
+//         width: wrapper-width(5px);
+//     }
 
-    //
-    //  List Icon Sizes
-    //  ----------------
-    .list-icon-sizes {
-        li {
-            margin: 50px;
-        }
-    }
+//     //
+//     //  List Icon Sizes
+//     //  ----------------
+//     .list-icon-sizes {
+//         li {
+//             margin: 50px;
+//         }
+//     }
 
-    // Make category list 5 column
-    .category-list {
-        li a {
-            width: 20%;
-        }
-    }
-}
-
-//
-//
-//  Deafult +3
-//  ------------------------------
-//
-@media screen and (min-width: breakpoint-width(6px) ) {
-
-    //
-    //  Wrapper
-    //  --------
-    .wrapper {
-        width: wrapper-width(6px);
-    }
-
-    //
-    //  List Icon Sizes
-    //  ----------------
-    .list-icon-sizes {
-        li {
-            margin: 100px;
-        }
-    }
-}
+//     // Make category list 5 column
+//     .category-list {
+//         li a {
+//             width: 20%;
+//         }
+//     }
+// }
 
 
 //
@@ -151,12 +127,23 @@ Default is the main width. +1, -1, etc are up and down one in the wrapper width
         }
     }
 
+    //
+    //  Icon Meta
+    //  ----------------
+    .icon-meta {
+        margin-right: 0; /* ads get bumped below, so no need for this */
+    }
+
 
     //
     //  Featured Icons
     //  -----
     .list-icons--featured {
         padding-bottom: 161.8034%;
+
+        .ads & {
+            margin-bottom: 210px; // height of ad space
+        }
 
         .icon-container-xlg {
             top: 0;
@@ -191,6 +178,14 @@ Default is the main width. +1, -1, etc are up and down one in the wrapper width
             right: 0;
             width: (100% - 61.8034);
             height: (100 - 61.8034) * (1 - .618034%);
+        }
+
+        .icon-container--ad {
+            text-align: center;
+            width: 100%;
+            border: 1px solid $color-border-light;
+            border-top: 0;
+            padding: 20px 10px 10px;
         }
     }
 }

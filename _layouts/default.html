@@ -30,7 +30,7 @@
     <link rel="alternate" type="application/rss+xml" title="RSS 2.0" href="http://feeds.feedburner.com/{{ site.theme.active }}" />
 
 </head>
-<body class="{{ site.theme.active }}">
+<body class="{{ site.theme.active }} {% if site.theme.ad_script %}ads{% endif %}">
 
     <header class="header">
         <div class="wrapper clearfix">
