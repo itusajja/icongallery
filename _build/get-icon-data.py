@@ -23,10 +23,10 @@ def createPost(app):
     global post
 
     # Required
-    # All of the required values should be returned 
+    # All of the required values should be returned
     # by the iTunes API on a proper request
     # And they should be written in this order
-        
+
     # [required] title, slug, date, category, itunes-url, app-developer
     post['title'] = app['trackName']
     slug = re.search('/app/(.*)/', app['trackViewUrl'])
@@ -36,7 +36,7 @@ def createPost(app):
     post['category'] = app['primaryGenreId']
     post['itunes-url'] = app['trackViewUrl']
     post['app-developer'] = app['artistName']
-    
+
     # [optional] app-developer-url, icon-designer, icon-designer-url, tags
     if 'sellerUrl' in app:
         post['app-developer-url'] = app['sellerUrl']
@@ -62,26 +62,29 @@ def modifyPost():
         modifyPost()
 
 def getItunesId():
-    url = raw_input('iTunes URL: ')
-    url = url.strip()
-    urlBeginsCorrectly = re.match('^(http|https):\/\/itunes.apple.com', url)
-    urlHasId = re.search('\/id([\d]+)', url)
-    if(urlBeginsCorrectly != None and urlHasId != None):
-        return urlHasId.group(1)
-    else:
-        printError('Invalid URL. Follow this pattern: https://itunes.apple.com/us/app/angry-birds/id343200656?mt=8')
-        getItunesId()
-    
+    # Run this until we get what we want, then return and break out
+    while True:
+        url = raw_input('iTunes URL: ')
+        url = url.strip()
+        urlBeginsCorrectly = re.match('^(http|https):\/\/itunes.apple.com', url)
+        urlHasId = re.search('\/id([\d]+)', url)
+        if(urlBeginsCorrectly != None and urlHasId != None):
+            return urlHasId.group(1)
+            break
+        else:
+            printError('Invalid URL. Follow this pattern: https://itunes.apple.com/us/app/angry-birds/id343200656?mt=8')
+
+
 def makeItunesRequest(appId):
     response = urllib2.urlopen('https://itunes.apple.com/lookup?id=' + appId)
     data = json.load(response)
-    #validate response data  
+    #validate response data
     if(data['results'][0]['artworkUrl512']):
         return data['results'][0]
     else:
         printError('The iTunes API response appears to be incorrect')
 
-def writePost():    
+def writePost():
     # write .md file
     f = open(post['date'] + '-' + post['slug'] + '.md','w')
     f.write('---\n')
@@ -90,7 +93,7 @@ def writePost():
     f.write('---\n')
     f.close()
     # write image
-    writeImage()  
+    writeImage()
 
 def writeImage():
     if(domain == 'ios' or domain == 'mac' ):
@@ -105,7 +108,7 @@ def writeImage():
         #find the thumbnail by searching by icon size...there should only be one
         img = html.findAll(width="20")
         #get the first list item
-        img = img[0] 
+        img = img[0]
         #get the image's src attribute and change the size to 300px
         src = img['src']
         src = src.replace('40x40', '300x300')

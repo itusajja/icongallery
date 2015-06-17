@@ -7,7 +7,7 @@
 #
 # Parameters:
 #   ios|mac|applewatch : The domain you want to sync
-#   syncNew|syncAll : Synce only new stuff, or sync everything
+#   new|all : Synce only new stuff, or sync everything
 
 # Functions
 # ------------------------------
@@ -20,7 +20,7 @@ buildSite() {
 
 # Sync type functions
 # $1 should pass --dry-run if it's a dry run
-syncNew() {
+new() {
     echo -e "\n--> Sync to ${DOMAIN}icongallery.com"
     s3cmd sync $1 \
         --acl-public \
@@ -38,7 +38,7 @@ syncNew() {
         _site/index.html _site/data.json _site/feed.xml _site/p s3://${DOMAIN}icongallery.com/
 }
 
-syncAll() {
+all() {
     echo -e "\n--> Sync to ${DOMAIN}icongallery.com"
     s3cmd sync $1 \
         --acl-public \
@@ -50,7 +50,7 @@ syncAll() {
 
 # Incorrect parameters
 incorrectParameters() {
-    echo "Usage: $0 {ios|mac|applewatch} {syncNew|syncAll}"
+    echo "Usage: $0 {ios|mac|applewatch} {new|all}"
 }
 
 # Execute
@@ -58,16 +58,16 @@ incorrectParameters() {
 DOMAIN=$1
 SYNCTYPE=$2
 case "$DOMAIN" in
-    (ios|mac|applewatch) 
+    (ios|mac|applewatch)
         case "$SYNCTYPE" in
-            (syncAll|syncNew) 
+            (all|new)
                 # All parameters are correct, deploy it!
                 buildSite
                 $SYNCTYPE --dry-run
-                
-                echo 
+
+                echo
                 read -p "Want to continue syncing? [y/n] " -n 1 -r
-                echo 
+                echo
                 if [[ $REPLY =~ ^[Yy]$ ]]; then
                     $SYNCTYPE
                 fi
@@ -82,7 +82,7 @@ case "$DOMAIN" in
         incorrectParameters
         exit 1
         ;;
-esac 
+esac
 
 # individual file
 # s3cmd put --dry-run --no-preserve --acl-public --guess-mime-type _site/2014/desk/index.html s3://iosicongallery.com/2014/mandrill/
