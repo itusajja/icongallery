@@ -25,6 +25,10 @@ Simply do <li.icon-container.ad-container
         bottom: -200px;
         border: 0;
         text-align: right; /* changes on mobile */
+
+        &:hover {
+            box-shadow: 0;
+        }
     }
 }
 
