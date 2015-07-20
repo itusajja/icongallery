@@ -29,6 +29,27 @@
     <!-- RSS Feed -->
     <link rel="alternate" type="application/rss+xml" title="RSS 2.0" href="http://feeds.feedburner.com/{{ site.theme.active }}" />
 
+    {% comment %}
+    {% if site.theme.active == 'macicongallery' %}
+    <script type="text/javascript" src="{{ site.baseurl }}/{{ site.assets.scripts }}/jquery.js"></script>
+    <script type="text/javascript" src="{{ site.baseurl }}/{{ site.assets.scripts }}/jscroll.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $('main.wrapper').jscroll({
+                nextSelector: 'a.nextpostslink',
+                contentSelector: 'main.wrapper',
+                // for replacing ads
+                callback: function(){
+                    if($('#carbonads').length > 0) {
+                        $('.icon-container--ad').html($('#carbonads').first().clone())
+                    }
+                }
+            });
+        });
+    </script>
+    {% endif %}
+    {% endcomment %}
+
 </head>
 <body class="{{ site.theme.active }} {% if site.theme.ad_script %}ads{% endif %}">
 
@@ -59,9 +80,9 @@
         </div>
     </header>
 
-    <section class="wrapper">
+    <main class="wrapper">
         {{ content }}
-    </section>
+    </main>
 
     <footer id="footer">
         <div class="wrapper clearfix">
