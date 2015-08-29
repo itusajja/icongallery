@@ -31,24 +31,32 @@
 
     {% comment %}
     {% if site.theme.active == 'macicongallery' %}
-    <script type="text/javascript" src="{{ site.baseurl }}/{{ site.assets.scripts }}/jquery.js"></script>
-    <script type="text/javascript" src="{{ site.baseurl }}/{{ site.assets.scripts }}/jscroll.js"></script>
-    <script type="text/javascript">
-        $(document).ready(function(){
-            $('main.wrapper').jscroll({
-                nextSelector: 'a.nextpostslink',
-                contentSelector: 'main.wrapper',
-                // for replacing ads
-                callback: function(){
-                    if($('#carbonads').length > 0) {
-                        $('.icon-container--ad').html($('#carbonads').first().clone())
+        <script type="text/javascript" src="{{ site.baseurl }}/{{ site.assets.scripts }}/jquery.js"></script>
+        <script type="text/javascript" src="{{ site.baseurl }}/{{ site.assets.scripts }}/jscroll.js"></script>
+        <script type="text/javascript">
+            $(document).ready(function(){
+                $('main.wrapper').jscroll({
+                    //autoTrigger: false,
+                    //autoTriggerUntil: 2,
+                    nextSelector: 'a.nextpostslink',
+                    contentSelector: 'main.wrapper',
+                    callback: function(){
+                        // for replacing ads
+                        if($('#carbonads').length > 0) {
+                            $('.icon-container--ad').html($('#carbonads').first().clone())
+                        }
+                        // make icon links open in new tab
+                        $('.list-icons a:not([target="_blank"])').attr('target', '_blank');
                     }
-                }
+                });
+                // Hide nav
+                $('.wp-pagenavi').hide();
+
             });
-        });
-    </script>
+        </script>
     {% endif %}
     {% endcomment %}
+
 
 </head>
 <body class="{{ site.theme.active }} {% if site.theme.ad_script %}ads{% endif %}">
@@ -80,7 +88,7 @@
         </div>
     </header>
 
-    <main class="wrapper">
+    <main class="wrapper" id="main">
         {{ content }}
     </main>
 

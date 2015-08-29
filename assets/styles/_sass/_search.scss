@@ -3,7 +3,7 @@
 }
 
 .search-header {
-    background: #f7f7f7;
+    background: #fff;
     border: 1px solid $color-border-light;
     border-bottom: 0;
     padding: em(10) em(20);
@@ -25,7 +25,6 @@
     }
 
     .search-header__count {
-        float: right;
         color: $color-light-light-gray;
     }
 }
