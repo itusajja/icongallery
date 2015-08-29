@@ -9,10 +9,6 @@
      data-at2x="{{ site.baseurl }}/{{ site.theme.active }}/img/{{ include.icon-size | times:2 }}/{{post.slug}}-{{ post.date | date: "%Y" }}.png"
 />
 
-{% if site.theme.active == 'iosicongallery' %}
-    <span class="mask mask-{{ include.icon-size }}"></span>
-{% endif %}
-
 {% comment %} It's a post page if the post.title is same as page.title {% endcomment %}
 {% if page.title == post.title %}
     <span class="list-icons__label">{{ include.icon-size }}px</span>

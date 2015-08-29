@@ -124,7 +124,6 @@ var IconItem = React.createClass({
             src={'/applewatchicongallery/img/128/' + iconFile + '.png'}
             data-at2x={'/applewatchicongallery/img/256/' + iconFile + '.png'}
           />
-          {/* mask here */}
         </a>    
       </li>
     );

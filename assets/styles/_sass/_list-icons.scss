@@ -9,7 +9,7 @@ Used when listing icons
 
 <ul class="list-icons"
     <li
-        <a class="icon-container"
+        <a class="icon-container icon-container--mask"
             <img class="icon icon-175"
             <span class="sprite sprite-mask-175"
 
@@ -54,7 +54,7 @@ Used when listing icons
     border: 1px solid $color-border-light;
     text-align: center;
 
-    [class*="icon-container-"] {
+    [class*="icon-container"] {
         position: absolute;
     }
 
@@ -75,7 +75,7 @@ Used when listing icons
         border-bottom: 1px solid $color-border-light;
     }
 
-    .icon-container-md {
+    .icon-container {
         top: 61.8034%;
         left: 61.8034%;
         width: (100 - 61.8034) * (.618034%);

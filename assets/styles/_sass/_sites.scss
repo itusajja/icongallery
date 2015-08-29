@@ -1,0 +1,76 @@
+/*
+    ================================================================================
+    Site Specific Styles
+    ================================================================================
+    Styles specific to each site.
+*/
+
+/*
+    Apple Watch Icon Gallery
+    ================================================================================
+*/
+.applewatchicongallery {
+
+    // Apply an icon mask using  CSS
+    .icon {
+        border-radius: 50%;
+        border: 1px solid rgba(0, 0, 0, .15);
+    }
+}
+
+
+/*
+    iOS Icon Gallery
+    ================================================================================
+*/
+.iosicongallery {
+
+    /*
+        Icon Masks
+        ========================================
+        Put mask as pseudo element on container
+        .icon-container is standard 128px container
+        size variants used for individual icon page
+    */
+    @mixin icon-mask($size) {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        background: url(/assets/img/mask-#{$size}.png) no-repeat;
+        width: #{$size}px;
+        height: #{$size}px;
+        margin-top: #{$size / -2}px;
+        margin-left: #{$size / -2}px;
+
+        @media (-webkit-min-device-pixel-ratio: 2), (-o-min-device-pixel-ratio: 3 / 2), (min-device-pixel-ratio: 2) {
+            background: url(/assets/img/mask-#{$size * 2}.png) no-repeat;
+            background-size: 100%;
+        }
+    }
+
+    .icon-container {
+        &:after {
+            @include icon-mask(128);
+        }
+
+        &-xlg:after {
+            @include icon-mask(512);
+        }
+
+        &-lg:after {
+            @include icon-mask(256);
+        }
+
+        &-sm:after {
+            @include icon-mask(64);
+        }
+
+
+    }
+
+    // Hide mask on ad container
+    .icon-container--ad::after {
+        display: none;
+    }
+}
