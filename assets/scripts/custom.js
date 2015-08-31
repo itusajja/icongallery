@@ -1,64 +1,49 @@
-var IconBox = React.createClass({
+var IconApp = React.createClass({
 
   propTypes: {
     icons: React.PropTypes.array.isRequired,
+    site: React.PropTypes.object.isRequired,
     threshold: React.PropTypes.number.isRequired
   },
 
   getInitialState: function(){
     return {
       activeCategory: '',
+      activeColor: '',
       iconCount: this.props.icons.length,
-      //currentIcons: this.props.icons.slice(0, this.props.threshold),
       visibleIcons: this.props.icons.slice(0, this.props.threshold),
       hiddenIcons: this.props.icons,
     };
   },
 
-  handleUserInput: function(activeCategory) {
-    var icons = [];
-    this.props.icons.forEach(function(icon) {
+  handleUserInput: function(filters) {
+    
+    var icons = this.props.icons.filter(function(icon) {
         // if (product.name.indexOf(this.props.filterText) === -1 || (!product.stocked && this.props.inStockOnly)) {
         //     return;
         // }
-        if (activeCategory !== '') {
-          if(activeCategory == icon.category){
-            icons.push(icon);
+        if(filters.activeCategory !== '') {
+          if(filters.activeCategory !== icon.category){
+            return false;
           }
-        } else {
-            icons.push(icon);
-        }        
-    }.bind(this));
+        }
+        if(filters.activeColor !== '') {
+          if(icon.tags.indexOf(filters.activeColor) === -1) {
+            return false;
+          }
+        }
+
+        return true;
+    });
 
     this.setState({
-      activeCategory: activeCategory,
+      activeCategory: filters.activeCategory,
+      activeColor: filters.activeColor,
       iconCount: icons.length,
       visibleIcons: icons.slice(0, this.props.threshold),
       hiddenIcons: icons
     });
   },
-
-  filterIcons: function(activeCategory) {
-    var icons = [];
-    this.props.icons.forEach(function(icon) {
-        // if (product.name.indexOf(this.props.filterText) === -1 || (!product.stocked && this.props.inStockOnly)) {
-        //     return;
-        // }
-        if (activeCategory !== '') {
-          if(activeCategory == icon.category){
-            icons.push(icon);
-          }
-        } else {
-            icons.push(icon);
-        }        
-    }.bind(this)); 
-    return icons;
-  },
-
-  // getIcons: function(){
-  //   const newIcons = this.props.icons.slice(this.state.currentIcons.length, this.state.currentIcons.length + showMoreThreshold);
-  //   return this.state.currentIcons.concat( newIcons );
-  // },
 
   handleShowMore: function(e) {
     e.preventDefault();
@@ -72,11 +57,14 @@ var IconBox = React.createClass({
     return (
       <div>
         <IconFilters 
+          site={this.props.site}
           iconCount={this.state.iconCount}
           activeCategory={this.state.activeCategory}
           onUserInput={this.handleUserInput}
         />
-        <IconList icons={this.state.visibleIcons} /> 
+        <IconList
+          icons={this.state.visibleIcons} 
+        /> 
         {(this.state.hiddenIcons.length > this.state.visibleIcons.length) ? 
           <ShowMoreButton onShowMore={this.handleShowMore}/>
           : null
@@ -87,19 +75,17 @@ var IconBox = React.createClass({
 });
 
 
-
-
 var IconList = React.createClass({
   propTypes: {
-    icons: React.PropTypes.array.isRequired,
+    icons: React.PropTypes.array.isRequired
   },
 
   render: function() {
     return (
         <ul className="list-icons" >
           {
-            (this.props.icons.length > 1) ? this.props.icons.map(function(icon) {
-              return <IconItem key={icon.id} icon={icon}/>;
+            (this.props.icons.length > 1) ? this.props.icons.map(function(icon, i) {
+              return <IconItem key={i} icon={icon} />;
             }) : <IconItemZeroState />
           } 
         </ul>
@@ -108,29 +94,30 @@ var IconList = React.createClass({
 });
 
 var IconItem = React.createClass({
-  
-  render: function() {
-    // Make link
-    var year = new Date(this.props.icon.date).getFullYear();
-    var link = '/' + year + '/' + this.props.icon.slug + '/';
-    var iconFile = this.props.icon.slug + '-' + year;
+  propTypes: {
+    icon: React.PropTypes.object.isRequired
+  },
 
+  render: function() {
+
+    var url = this.props.icon.url,
+        title = this.props.icon.title,
+        src = this.props.icon.src,
+        src2x = this.props.icon.src2x;
     return (
       <li>
-        <a href={link} className="icon-container" title={this.props.icon.title}>
+        <a href={url} className="icon-container" title={title}>
           <img
-            alt={this.props.icon.title + 'app icon'}
+            alt={title + ' app icon'}
             className="icon icon-128"
-            src={'/applewatchicongallery/img/128/' + iconFile + '.png'}
-            data-at2x={'/applewatchicongallery/img/256/' + iconFile + '.png'}
+            src={src}
+            data-at2x={src2x}
           />
         </a>    
       </li>
     );
   }
 });
-
-
 
 var IconItemZeroState = React.createClass({
   render: function() {
@@ -139,9 +126,6 @@ var IconItemZeroState = React.createClass({
     );
   }
 });
-
-
-
 
 var ShowMoreButton = React.createClass({
   propTypes: {
@@ -158,26 +142,37 @@ var ShowMoreButton = React.createClass({
 });
 
 
-
-
 var IconFilters = React.createClass({
   propTypes: {
-    iconCount: React.PropTypes.number,
-    activeCategory: React.PropTypes.string,
-    onUserInput: React.PropTypes.func
+    iconCount: React.PropTypes.number.isRequired,
+    activeCategory: React.PropTypes.string.isRequired,
+    onUserInput: React.PropTypes.func.isRequired,
+    site: React.PropTypes.object.isRequired
   },
 
   handleChange: function() {
-    this.props.onUserInput(
-        this.refs.categoryInput.getDOMNode().value
-    );
+    this.props.onUserInput({
+        'activeCategory': this.refs.categoryInput.getDOMNode().value,
+        'activeColor': this.refs.colorInput.getDOMNode().value
+    });
   },
 
   render: function() {
     return (
       <div className="search-header">
         <span className="search-header__count">{this.props.iconCount} icons</span>
-        <select id="category" className="filter-val" onChange={this.handleChange} ref="categoryInput"> <option value="">All categories...</option> <option value="6018">Books</option> <option value="6000">Business</option> <option value="6022">Catalogs</option> <option value="6017">Education</option> <option value="6016">Entertainment</option> <option value="6015">Finance</option> <option value="6023">Food &amp; Drink</option> <option value="6014">Games</option> <option value="6013">Health &amp; Fitness</option> <option value="6012">Lifestyle</option> <option value="6020">Medical</option> <option value="6011">Music</option> <option value="6010">Navigation</option> <option value="6009">News</option> <option value="6021">Newsstand</option> <option value="6008">Photo &amp; Video</option> <option value="6007">Productivity</option> <option value="6006">Reference</option> <option value="6005">Social Networking</option> <option value="6004">Sports</option> <option value="6003">Travel</option> <option value="6002">Utilities</option> <option value="6001">Weather</option> </select>
+        <select id="category" ref="categoryInput" onChange={this.handleChange}>
+          <option value="">All categories...</option>
+          {this.props.site.categories.map(function(category, i){
+            return <option key={i} value={category.id}>{category.name}</option>;
+          })}
+        </select>
+        <select id="color" ref="colorInput" onChange={this.handleChange}>
+          <option value="">All colors...</option>
+          {this.props.site.colors.map(function(color, i){
+            return <option key={i} value={color.id}>{color.name}</option>;
+          })}
+        </select>
       </div>
     );
   }
@@ -189,17 +184,22 @@ var IconFilters = React.createClass({
 // Kick it off by getting the initial data
 var iconData = []
 $(document).ready(function(){
+
     $.ajax({
-        url: '/data.json',
-        dataType: 'json',
-        async: false,
-        success: function(data) {
-            iconData = data;
-            React.render(
-              <IconBox icons={iconData} threshold={12} />,
-              document.getElementById('main')
-            );
-        }
+      url: '/data.json',
+      dataType: 'json',
+      async: false,
+    }).then(function(response){
+      React.render(
+        <IconApp 
+          icons={response.icons} 
+          site={response.site}
+          threshold={12} 
+        />,
+        document.getElementById('main')
+      );
+    }).fail(function(error){
+      console.log(error);
     });
 });
 

@@ -79,6 +79,7 @@ Because S3 serves `index.html` files only, we will leave a blank file at `/feed/
 2. 404 page, "oops it's not here ... check out some icons while you're here"
 3. Build scripts
 4. Unify categories in build scripts with IDs or something to map them to names. Perhaps map the to app store gener IDs
+5. Figure out way to compress JSON file
 
 ## Deploy
 1. Ads work
