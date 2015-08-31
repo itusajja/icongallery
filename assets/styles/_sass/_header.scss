@@ -32,35 +32,15 @@ Header
     nav {
         float: right;
         position: relative;
+        font-size: #{14 / $font-size-base}em;
+        margin-top: 1em;
 
-        @media screen and (max-width: 600px) {
-            display: none;
-        }
+        li {
+            float: left;
+            margin-left: 1em;
 
-        a {
-            font-size: em(16);
-            display: block;
-            width: 36px;
-            height: 36px;
-            line-height: 36px;
-            border: 1px solid $color-border;
-            text-align: center;
-            border-radius: 2px;
-
-            &:hover {
-                background: #e9f6fc;
-                border-color: lighten($color-link, 25%);
-            }
-
-            &.i:before {
-                position: relative;
-                top: 1px;
-                left: 0px;
-            }
-
-            &.active {
-                background-color: #e9f6fc;
-                border-color: lighten($color-link, 25%);
+            a {
+                color: $color-light-gray;
             }
         }
     }

@@ -1,13 +1,8 @@
-#form {
-    display: inline;
-}
-
-.search-header {
+.filters {
     background: #fff;
     border: 1px solid $color-border-light;
     border-bottom: 0;
     padding: em(10) em(20);
-
 
     input,
     select {
@@ -19,13 +14,15 @@
 
     input {
         background: #fff;
-        border: 1px solid $color-border;
+        border: 1px solid $color-border-dark;
         padding: em(3) em(7);
         border-radius: 3px;
     }
 
-    .search-header__count {
-        color: $color-light-light-gray;
+    &__count {
+        display: block;
+        float: left;
+        width: 5em;
     }
 }
 
@@ -36,9 +33,18 @@
     top: -1px;
     text-align: center;
     display: block;
-
-    &:hover {
-        box-shadow: inset 0 0 30px rgba(0,0,0,.065);
-    }
 }
 
+.scroll-top {
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    border-radius: 2px;
+    width: 50px;
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+    background: rgba(0, 0, 0, .5);
+    color: white;
+    font-size: 14px;
+}

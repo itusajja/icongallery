@@ -94,7 +94,7 @@ layout: default
 
                 <dt class="icon-meta__left">Category:</dt>
                 <dd class="icon-meta__right">
-                    <a href="/search/?category={{ categoryId }}">
+                    <a href="/?category={{ categoryId }}">
                         {{ category }}
                     </a>
                 </dd>
@@ -111,7 +111,7 @@ layout: default
                 </dt>
                 <dd class="icon-meta__right">
                 {% for tag in post.tags %}
-                    <a href="/search/?tags={{tag}}">{{ tag }}</a>{% if forloop.last != true %},{% endif %}
+                    <a href="/?color={{tag}}">{{ tag }}</a>{% if forloop.last != true %},{% endif %}
                 {% endfor %}
                 </dd>
             {% endif %}

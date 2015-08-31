@@ -1,0 +1,9 @@
+{
+  "name": "iconGalleries",
+  "devDependencies": {
+    "babel": "latest"
+  },
+  "scripts": {
+    "babel": "babel assets/scripts/app.jsx -o assets/scripts/app.js"
+  }
+}

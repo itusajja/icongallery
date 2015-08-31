@@ -13,10 +13,12 @@ layout: null
             {% endfor %}
         ],
         "colors": [ 
-            {% for tag in site.tags %}
+            {% capture siteColors %}{% for tag in site.tags %}{{ tag | first }}{% unless forloop.last %},{% endunless %}{% endfor %}{% endcapture %}
+            {% assign colors = siteColors | split: ',' | sort %}
+            {% for color in colors %}
                 {
-                    "name": "{{ tag  | first | capitalize }}",
-                    "id": "{{ tag  | first }}"
+                    "name": "{{ color | capitalize }}",
+                    "id": "{{ color }}"
                 }{% if forloop.last != true %},{% endif %}
             {% endfor %}
         ]
