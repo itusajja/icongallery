@@ -1,0 +1,28 @@
+/*
+
+i - Icons (not content)
+========================================
+
+*/
+$i: submit twitter feed search;
+.i {
+    &:before {
+        content: '';
+        @include inline-block();
+        width: 16px;
+        height: 16px;
+    }
+
+    @each $name in $i {
+        &.i--#{$name}:before {
+            background: url(#{$url-img}/icon-pack/#{$name}.png);
+            background-image: url(#{$url-img}/icon-pack/#{$name}.svg), none;
+        }
+    }
+}
+
+#footer .i:before {
+    position: relative;
+    top: 2px;
+    margin-right: 6px;
+}

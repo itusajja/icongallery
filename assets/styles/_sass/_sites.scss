@@ -37,14 +37,14 @@
         position: absolute;
         top: 50%;
         left: 50%;
-        background: url(/assets/img/mask-#{$size}.png) no-repeat;
+        background: url('/assets/img/mask-#{$size}.png') no-repeat;
         width: #{$size}px;
         height: #{$size}px;
         margin-top: #{$size / -2}px;
         margin-left: #{$size / -2}px;
 
         @media (-webkit-min-device-pixel-ratio: 2), (-o-min-device-pixel-ratio: 3 / 2), (min-device-pixel-ratio: 2) {
-            background: url(/assets/img/mask-#{$size * 2}.png) no-repeat;
+            background: url('/assets/img/mask-#{$size * 2}.png') no-repeat;
             background-size: 100%;
         }
     }

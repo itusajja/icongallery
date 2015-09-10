@@ -2,35 +2,18 @@
 layout: default
 title: Search
 ---
-<div class="search-header">
+{% if site.theme.ad_script %}
+    <div style="display: none">
+        {{ site.theme.ad_script }}
+    </div>
+{% endif %}
 
-    <form id="form" class="filter-val">
-        <!-- Keyword -->
-        <input id="search" type="text" placeholder="Keyword..." autocomplete="off" autocorrect="off" spellcheck="false" />
+<!-- Scripts for search/filter functionality -->
+<div id="search-container"><span class="loading"></span></div>
 
-        <!-- Category -->
-        <select id="category" class="filter-val">
-            <option value="">Categories...</option>
-            {% for category in site.data.categories %}
-                <option value="{{ category.id }}">{{ category.name }}</option>
-            {% endfor %}
-        </select>
-
-        <!-- Tags -->
-        <select id="tags" class="filter-val">
-            <option value="">Colors...</option>
-            <!-- capture tags (must be on single line) -->
-            {% capture site_tags %}{% for tag in site.tags %}{{ tag | first }}{% unless forloop.last %},{% endunless %}{% endfor %}{% endcapture %}
-            <!-- sort tags alphabetically -->
-            {% assign site_tags = site_tags | split:',' | sort %}
-            <!-- output site_tags (site.tags would require tag | first | strip) -->
-            {% for tag in site_tags %}
-                <option value="{{ tag | strip }}">{{ tag | capitalize }}</option>
-            {% endfor %}
-        </select>
-    </form>    
-
-    {% comment %}
+{% comment %}
+<div class="search-header"> 
+    
     <select id="icon-designer" class="filter-val">
         <option value="null">Choose a designer...</option>
 
@@ -60,52 +43,6 @@ title: Search
             {% endfor %}
         </datalist>
     </form>
-    {% endcomment %}
-
-    <span class="search-header__count"></span>
-
+    
 </div>
-
-<!--
-<ul class="list-icons">
-    <li class="list-icons__zero-state">Find icons by keyword, category, and color.</li>
-</ul>
--->
-
-<div id="example"></div>
-
-<a href="#" class="show-more" style="display: none">
-    Show more&hellip;
-</a>
-
-<script id="list-icons-template" type="x-tmpl-mustache">
-{% raw %}{{ #icons }}{% endraw %}
-    <li>
-        <a href="{{ site.baseurl }}/{% raw %}{{ link }}{% endraw %}" class="icon-container" title="{% raw %}{{ title }}{% endraw %}">
-            <img
-                 alt="{% raw %}{{ title }}{% endraw %} app icon"
-                 class="icon icon-128"
-                 src="{{ site.baseurl }}/{{ site.theme.active }}/img/128/{% raw %}{{ icon }}{% endraw %}.png"
-                 data-at2x="{{ site.baseurl }}/{{ site.theme.active }}/img/256/{% raw %}{{ icon }}{% endraw %}.png"
-            />
-
-            {% if site.theme.active == 'iosicongallery' %}
-                <span class="mask mask-128"></span>
-            {% endif %}
-        </a>
-    </li>
-{% raw %}{{ /icons }}{% endraw %}
-</script>
-<script id="list-icons-zero-template" type="x-tmpl-mustache">
-    <li class="list-icons__zero-state">
-        No results.
-    </li>
-</script>
-
-
-<script type="text/javascript" src="{{ site.baseurl }}/{{ site.assets.scripts }}/fuse.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-<script src="https://fb.me/react-0.13.3.js"></script>
-<script src="https://fb.me/JSXTransformer-0.13.3.js"></script>
-
-<script type="text/jsx" src="{{ site.baseurl }}/{{ site.assets.scripts }}/custom.js"></script>
+{% endcomment %}

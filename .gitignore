@@ -2,6 +2,7 @@
 *.sass-cache
 _site
 *.pyc
+node_modules
 
 # Exclude content folders for each site
 iosicongallery/

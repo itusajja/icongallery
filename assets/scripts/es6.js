@@ -1,2 +1,0 @@
-import IconApp from 'IconApp';
-

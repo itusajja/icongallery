@@ -28,36 +28,6 @@
 
     <!-- RSS Feed -->
     <link rel="alternate" type="application/rss+xml" title="RSS 2.0" href="http://feeds.feedburner.com/{{ site.theme.active }}" />
-
-    {% comment %}
-    {% if site.theme.active == 'macicongallery' %}
-        <script type="text/javascript" src="{{ site.baseurl }}/{{ site.assets.scripts }}/jquery.js"></script>
-        <script type="text/javascript" src="{{ site.baseurl }}/{{ site.assets.scripts }}/jscroll.js"></script>
-        <script type="text/javascript">
-            $(document).ready(function(){
-                $('main.wrapper').jscroll({
-                    //autoTrigger: false,
-                    //autoTriggerUntil: 2,
-                    nextSelector: 'a.nextpostslink',
-                    contentSelector: 'main.wrapper',
-                    callback: function(){
-                        // for replacing ads
-                        if($('#carbonads').length > 0) {
-                            $('.icon-container--ad').html($('#carbonads').first().clone())
-                        }
-                        // make icon links open in new tab
-                        $('.list-icons a:not([target="_blank"])').attr('target', '_blank');
-                    }
-                });
-                // Hide nav
-                $('.wp-pagenavi').hide();
-
-            });
-        </script>
-    {% endif %}
-    {% endcomment %}
-
-
 </head>
 <body class="{{ site.theme.active }} {% if site.theme.ad_script %}ads{% endif %}">
 
@@ -83,6 +53,8 @@
                 </div>
             </h1>
             <nav role="navigation">
+                <a href="{{ site.baseurl }}/search/" class="i i--search {% if page.title == 'Search' %}active{% endif %}"></a>
+                {% comment %} 
                 <ul>
                     <li><a href="http://twitter.com/jimniels">Made by @jimniels</a></li>
                     <li>
@@ -96,17 +68,49 @@
                         <a href="http://feeds.feedburner.com/{{ site.theme.active }}">Subscribe to RSS</a>
                     </li>
                 </ul>
+                {% endcomment %}
             </nav>
         </div>
     </header>
 
-    <main class="wrapper" id="main">
+    <main class="wrapper" id="main"> 
         {{ content }}
     </main>
 
-    <!-- Scripts -->
+    <footer id="footer">
+        <div class="wrapper clearfix">
+           <ul id="footer-nav">
+               <li class="i i--search">
+                   <a href="{{ site.baseurl }}/search/">search for icons</a>
+               </li>
+               <li class="i i--submit">
+                   <!-- mailto encoder: http://email.about.com/library/misc/blmailto_encoder.htm -->
+                   <a href="mailto:jimniels%40gmail.com?subject={{ site.theme.active }}.com%20icon%20suggestion%3A&body=I%20want%20to%20recommend%20a%20beautiful%20icon%20for%20an%20app%3A%0A%0AApp%20store%20URL%3A%0AIcon%20designer%20%26%20portfolio%20URL%3A" id="submit">submit an icon</a>
+               </li>
+               <li class="i i--twitter">
+                   <a href="http://twitter.com/icongalleries">follow updates on twitter</a>
+               </li>
+               <li class="i i--feed">
+                   <a href="http://feeds.feedburner.com/{{ site.theme.active }}">subscribe to rss feed</a>
+               </li>
+           </ul>
+           <ul id="footer-description">
+               <li>design, &lt;code>, &amp; curation by <a href="http://twitter.com/jimniels">@jimniels</a></li>
+               <li>
+                   see more great icons at
+                   {% for site in site.theme.inactive %}
+                       <a href="http://{{ site }}.com">{{ site }}.com</a>
+                       {% unless forloop.last %} and {% endunless %}
+                   {% endfor %}
+               </li>
+           </ul>
+        </div>
+    </footer>
+
+    <!-- Scripts for all pagess -->
     <script type="text/javascript" src="{{site.baseurl}}/{{ site.assets.scripts }}/dropdown.js"></script>
     <script type="text/javascript" src="{{site.baseurl}}/{{ site.assets.scripts }}/retina.js"></script>
+    <script type="text/javascript" src="{{site.baseurl}}/{{ site.assets.scripts }}/entry.js"></script>
     <script>
         (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
         (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),

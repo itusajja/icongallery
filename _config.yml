@@ -9,9 +9,9 @@ assets:
     scripts: assets/scripts
     images: assets/img
     styles: assets/styles
-sass:
-    sass_dir: assets/styles/_sass
-    style: :compressed
+# sass:
+#     sass_dir: assets/styles/_sass
+#     style: :compressed
 markdown: kramdown
 permalink: /:year/:title
 safe: false # use plugins

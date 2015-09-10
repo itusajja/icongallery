@@ -8,7 +8,7 @@ Header
     padding: 1.5em 0 1em;
     margin-bottom: 0em;
 
-    @media screen and (max-width: 600px) {
+    @media screen and (max-width: 660px) {
         padding: .5em 0;
     }
 
@@ -22,7 +22,7 @@ Header
             vertical-align: middle;
         }
 
-        @media screen and (max-width: 600px) {
+        @media screen and (max-width: 660px) {
             .logo {
                 max-width: 270px;
             }
@@ -32,17 +32,38 @@ Header
     nav {
         float: right;
         position: relative;
-        font-size: #{14 / $font-size-base}em;
-        margin-top: 1em;
+        margin-top: em(10);
+        
+        @media screen and (max-width: 660px) {
+           display: none;
+        }
 
-        li {
-            float: left;
-            margin-left: 1em;
+        a {
+            font-size: em(16);
+            display: block;
+            width: 36px;
+            height: 36px;
+            line-height: 36px;
+            border: 1px solid $color-border;
+            text-align: center;
+            border-radius: 2px;
 
-            a {
-                color: $color-light-gray;
+            &:hover {
+                background: #e9f6fc;
+                border-color: lighten($color-link, 25%);
+            }
+
+            &.i:before {
+                position: relative;
+                top: 1px;
+                left: 0px;
+            }
+            &.active {
+                background-color: #e9f6fc;
+                border-color: lighten($color-link, 25%);
             }
         }
+
     }
 }
 
@@ -53,7 +74,7 @@ Header
     float: right;
     position: relative;
 
-    @media screen and (max-width: 600px) {
+    @media screen and (max-width: 660px) {
         position: static;
     }
 }
@@ -95,7 +116,7 @@ Header
     z-index: 10;
     position: absolute;
 
-    @media screen and (max-width: 600px) {
+    @media screen and (max-width: 660px) {
         left: 0;
         margin-left: 0;
     }

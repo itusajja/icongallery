@@ -1,9 +1,35 @@
 {
-  "name": "iconGalleries",
+  "name": "icongalleries",
+  "version": "1.0.0",
+  "description": "icon galleries jekyll theme",
+  "main": "index.html",
   "devDependencies": {
-    "babel": "latest"
+    "babelify": "^6.3.0",
+    "browser-sync": "latest",
+    "browserify": "^11.0.1",
+    "gulp": "latest",
+    "gulp-autoprefixer": "latest",
+    "gulp-gzip": "^1.2.0",
+    "gulp-sass": "latest",
+    "gulp-uglify": "^1.4.0",
+    "run-sequence": "^1.1.2",
+    "vinyl-buffer": "^1.0.0",
+    "vinyl-source-stream": "^1.1.0",
+    "yargs": "^3.23.0"
   },
-  "scripts": {
-    "babel": "babel assets/scripts/app.jsx -o assets/scripts/app.js"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jimniels/icongallery.git"
+  },
+  "author": "Jim Nielsen",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jimniels/icongallery/issues"
+  },
+  "homepage": "https://github.com/jimniels/icongallery",
+  "dependencies": {
+    "jquery": "^2.1.4",
+    "react": "^0.13.3",
+    "string_score": "^0.1.22"
   }
 }
