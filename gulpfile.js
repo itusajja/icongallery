@@ -84,7 +84,7 @@ gulp.task('styles', function () {
 */
 gulp.task('scripts', function (cb) {
   var b = browserify({
-    entries: 'assets/scripts/entry.jsx',
+    entries: 'assets/scripts/_entry.jsx',
     extensions: ['.jsx'],
     debug: true,
     transform: ['babelify']
@@ -98,7 +98,7 @@ gulp.task('scripts', function (cb) {
 gulp.task('scripts:prod', function(){
   return gulp.src('_site/assets/scripts/*.js')
     .pipe(uglify())
-    //.pipe(gzip({ append: false }))
+    .pipe(gzip({ append: false }))
     .pipe(gulp.dest('_site/assets/scripts'));
 });
 
@@ -148,8 +148,8 @@ gulp.task('prod', function(cb){
   runSequence(
     'jekyll-build',
     ['styles', 'scripts'],
-    'scripts:prod'
-    //'data:prod'
+    'scripts:prod',
+    'data:prod'
     // uglify the js
   );
 });

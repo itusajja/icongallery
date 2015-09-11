@@ -81,6 +81,7 @@ Used when listing icons
         width: (100 - 61.8034) * (.618034%);
         height: (100 - 61.8034%);
         border-right: 1px solid $color-border-light;
+        border-bottom: 0;
     }
 
     .icon-container-sm {

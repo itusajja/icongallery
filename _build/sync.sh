@@ -12,74 +12,76 @@
 # Functions
 # ------------------------------
 
-# Jekyll build
-buildSite() {
-    echo -e "\n--> Compiling ${DOMAIN}icongallery source..."
-    jekyll build --config _config.yml,${DOMAIN}icongallery/_config.yml
-}
+
+# new() {
+#     echo -e "\n--> Sync to ${DOMAIN}icongallery.com"
+#     s3cmd sync $1 \
+#         --acl-public \
+#         --guess-mime-type \
+#         --no-preserve \
+#         --delete-removed \
+#         --skip-existing \
+#         _site/ s3://${DOMAIN}icongallery.com/
+#     echo -e "\n--> Put dependencies..."
+#     s3cmd put $1 \
+#         --acl-public \
+#         --guess-mime-type \
+#         --no-preserve \
+#         -r \
+#         _site/index.html _site/data.json _site/feed.xml _site/p s3://${DOMAIN}icongallery.com/
+# }
 
 # Sync type functions
 # $1 should pass --dry-run if it's a dry run
-new() {
+# --skip-existing \
+sync() {
     echo -e "\n--> Sync to ${DOMAIN}icongallery.com"
     s3cmd sync $1 \
         --acl-public \
         --guess-mime-type \
         --no-preserve \
         --delete-removed \
-        --skip-existing \
         _site/ s3://${DOMAIN}icongallery.com/
-    echo -e "\n--> Put dependencies..."
+    echo -e "\n--> Manually put gzipped files..."
     s3cmd put $1 \
         --acl-public \
         --guess-mime-type \
         --no-preserve \
-        -r \
-        _site/index.html _site/data.json _site/feed.xml _site/p s3://${DOMAIN}icongallery.com/
-}
-
-all() {
-    echo -e "\n--> Sync to ${DOMAIN}icongallery.com"
-    s3cmd sync $1 \
-        --acl-public \
-        --guess-mime-type \
-        --no-preserve \
-        --delete-removed \
-        _site/ s3://${DOMAIN}icongallery.com/
-}
-
-# Incorrect parameters
-incorrectParameters() {
-    echo "Usage: $0 {ios|mac|applewatch} {new|all}"
+        --recursive \
+        _site/data.json _site/assets/scripts s3://${DOMAIN}icongallery.com/
 }
 
 # Execute
 # ------------------------------
 DOMAIN=$1
-SYNCTYPE=$2
 case "$DOMAIN" in
     (ios|mac|applewatch)
-        case "$SYNCTYPE" in
-            (all|new)
-                # All parameters are correct, deploy it!
-                buildSite
-                $SYNCTYPE --dry-run
+        # All parameters are correct, deploy it!
+        # Run Gulp prod first
+        echo "Starting gulp..."
+        gulp prod --${DOMAIN}
+        sync --dry-run
 
-                echo
-                read -p "Want to continue syncing? [y/n] " -n 1 -r
-                echo
-                if [[ $REPLY =~ ^[Yy]$ ]]; then
-                    $SYNCTYPE
-                fi
-                ;;
-            (*)
-                incorrectParameters
-                exit 1
-                ;;
-        esac
+        echo
+        read -p "Want to continue syncing? [y/n] " -n 1 -r
+        echo
+        if [[ $REPLY =~ ^[Yy]$ ]]; then
+            # sync everything
+            sync
+            # then set gzip content-enconding on gzipped files
+            echo -e "\n--> Modify headers for gzipped files..."
+            s3cmd modify \
+                --acl-public \
+                --add-header=Content-Encoding:gzip \
+                -r \
+                --exclude '*' \
+                --include 'assets/scripts/*.js' \
+                --include 'data.json' \
+                s3://${DOMAIN}icongallery.com/
+        fi
         ;;
     (*)
-        incorrectParameters
+        echo "Usage: $0 {ios|mac|applewatch}"
         exit 1
         ;;
 esac
