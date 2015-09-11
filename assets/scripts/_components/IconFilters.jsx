@@ -1,4 +1,5 @@
 import React from 'react';
+import debounce from '../_utils/debounce';
 
 var IconFilters = React.createClass({
   propTypes: {
@@ -8,7 +9,17 @@ var IconFilters = React.createClass({
     site: React.PropTypes.object.isRequired
   },
 
-  handleChange: function() {
+  // Debounce the keyup event
+  // http://stackoverflow.com/questions/23123138/perform-debounce-in-react-js/24679479#24679479
+  componentWillMount: function () {
+     this.delayedHandleChange = debounce(this.handleChange, 250);
+  },
+  handleKeyUp: function(e) {
+    e.persist();
+    this.delayedHandleChange();
+  },
+  
+  handleChange: function(event) {
     this.props.onUserInput({
       'category': this.refs.categoryInput.getDOMNode().value,
       'color': this.refs.colorInput.getDOMNode().value,
@@ -26,7 +37,7 @@ var IconFilters = React.createClass({
         
         <input 
           ref="searchInput" 
-          onKeyUp={this.handleChange}
+          onKeyUp={this.handleKeyUp}
           defaultValue={this.props.activeFilters.search} 
           type="search" 
           placeholder="Search..." 

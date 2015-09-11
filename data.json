@@ -31,8 +31,8 @@ layout: null
                 "url": "{{ post.url }}",
                 "date": "{{ post.date | date: "%F" }}",
                 "category": "{{ post.category }}",
-                "src": "/{{ site.theme.active }}/img/128/{{post.slug}}-{{ post.date | date: "%Y" }}.png",
-                "src2x": "/{{ site.theme.active }}/img/256/{{post.slug}}-{{ post.date | date: "%Y" }}.png",
+                "filepath": "/{{ site.theme.active }}/img",
+                "filename": "{{post.slug}}-{{ post.date | date: "%Y" }}.png",
 
                 {% if post.tags %}
                     "tags": [

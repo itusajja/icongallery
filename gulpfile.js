@@ -19,17 +19,26 @@ var gzip        = require('gulp-gzip');
 /*
   Determine domain
   var domain used to determine which site to build
+  check for it only when you run jekyll build
 */
 var domain = '';
-if(argv.ios !== undefined) {
-  domain = 'ios';
-} else if(argv.applewatch !== undefined) {
-  domain = 'applewatch';
-} else if(argv.mac !== undefined) {
-  domain = 'mac'
-} else {
-  console.log('Incorrect flag. {--ios | --applewatch | --mac}')
-  process.exit(1);
+function determineDomain(){
+  // Check to see if any args were passed in and set domain accordingly
+  if(argv.ios !== undefined) {
+    domain = 'ios';
+  } 
+  else if(argv.applewatch !== undefined) {
+    domain = 'applewatch';
+  } 
+  else if(argv.mac !== undefined) {
+    domain = 'mac'
+  } 
+
+  // If no arguments, exit process
+  if(domain === '') {
+    console.log('Gotta flag it and flag it right. {--ios | --applewatch | --mac}')
+    process.exit(1);
+  }
 }
 
 /*
@@ -38,6 +47,7 @@ if(argv.ios !== undefined) {
   https://github.com/gulpjs/gulp/blob/master/docs/API.md#async-task-support
 */
 gulp.task('jekyll-build', function(cb) {
+  determineDomain();
   exec('jekyll build --config _config.yml,' + domain + 'icongallery/_config.yml', function(err) {
     if (err) return cb(err); // return error
     cb(); // finished task
@@ -121,8 +131,13 @@ gulp.task('watch', function () {
 
 /*
   Default & Prod Tasks
+  Default task is for developing
+  Prod tasks does same as develop except:
+    - Doesn't launch the 'watch' task
+    - Minifies, uglifies, and gzips scripts
+  Prod task is usually launched from a shell scrip that also uploads everything
 */
-gulp.task('dev', function(cb){
+gulp.task('default', function(cb){
   runSequence(
     'jekyll-build',
     ['styles', 'scripts'],
