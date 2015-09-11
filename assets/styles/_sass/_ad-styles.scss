@@ -1,17 +1,13 @@
 /*
+    ======================================================================
+    Ad Styles
+    ======================================================================
+    Styles for the ads.
+    Ads appear only in .icon-container lists
 
-Ad Styles
-========================================
-Styles for the ads.
-Ads appear only in .icon-container lists
-
-Simply do <li.icon-container.ad-container
-
+    Simply do <li.icon-container.ad-container
 */
-
 .icon-container--ad {
-    padding: 80px 30px 30px;
-    overflow: hidden;
     text-align: center;
 
     // Ads on individual pages
@@ -29,14 +25,38 @@ Simply do <li.icon-container.ad-container
         &:hover {
             box-shadow: 0;
         }
+
+        @include respond-to(tablet) {
+            width: 100%;
+            text-align: center;
+            bottom: -200px;
+            border: 1px solid $color-border-light;
+            
+            #carbonads {
+                padding-top: 0;
+                margin: 0;
+                height: auto;
+                margin: 0 auto;
+                width: 90%;
+                top: initial;
+                left: initial;
+                position: relative;
+            }
+        }
     }
 }
-
 
 
 #carbonads {
     font-size: 13px;
     color: $color-dark-gray;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin: -125px 0 0 -125px;
+    width: 250px;
+    height: 250px;
+    padding-top: 15%;
 
     a {
         color: inherit;

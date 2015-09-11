@@ -16,7 +16,6 @@ Used when listing icons
 */
 
 .list-icons {
-    @include box-sizing(border-box);
     @include clearfix;
     border-left: 1px solid $color-border-light;
     border-top: 1px solid $color-border-light;
@@ -30,16 +29,25 @@ Used when listing icons
         float: left;
         // loading gif shows through on transparent PNGs mac
         //background: url(/assets/img/loading.gif) no-repeat 50%;
+        width: 25%;
+
+        @include respond-to(desktop) {
+            width: 33.333%;
+        }
+        @include respond-to(tablet) {
+            width: 50%;
+        }
+        @include respond-to(mobile) {
+            width: 100%;
+        }
     }
 
     .icon-container {
         position: relative;
         display: block;
-        width: #{$icon-container-width}px;
-        height: #{$icon-container-width}px;
-        @include box-sizing(border-box);
         border-right: 1px solid $color-border-light;
         border-bottom: 1px solid $color-border-light;
+        padding-bottom: 100%;
 
         &:hover {
             box-shadow: inset 0 0 30px rgba(0,0,0,.065);
@@ -75,7 +83,7 @@ Used when listing icons
         border-bottom: 1px solid $color-border-light;
     }
 
-    .icon-container {
+    .icon-container-md {
         top: 61.8034%;
         left: 61.8034%;
         width: (100 - 61.8034) * (.618034%);
@@ -101,6 +109,94 @@ Used when listing icons
         .icon-#{$icon-size} {
             margin-top: -#{$icon-size / 2}px;
             margin-left: -#{$icon-size / 2}px;
+        }
+    }
+
+    // Breakpoints
+    @include respond-to(desktop) {
+        padding-bottom: 111.8034%;
+
+        .icon-container-xlg {
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 61.8034%;
+            border: 0;
+            border-bottom: 1px solid $color-border-light;
+        }
+
+        .icon-container-lg {
+            top: 61.8034%;
+            left: 0;
+            width: 61.8034%;
+            height: (100 - 61.8034%);
+            border: 0;
+            border-right: 1px solid $color-border-light;
+        }
+
+        .icon-container-md {
+            top: 61.8034%;
+            left: 61.8034%;
+            width: (100% - 61.8034);
+            height: (100 - 61.8034) * (.618034%);
+            border: 0;
+            border-bottom: 1px solid $color-border-light;
+        }
+
+        .icon-container-sm {
+            top: inherit;
+            bottom: 0;
+            right: 0;
+            width: (100% - 61.8034);
+            height: (100 - 61.8034) * (1 - .618034%);
+        }
+
+        .icon-container--ad {
+            text-align: center;
+            width: 100%;
+            border: 1px solid $color-border-light;
+            border-top: 0;
+            padding: 20px 10px 10px;
+        }
+    }
+
+    @include respond-to(tablet) {
+        padding-bottom: 161.8034%;
+
+        .ads & {
+            margin-bottom: 210px; // height of ad space
+        }
+    }
+
+    @include respond-to(mobile) {
+        .icon-container-xlg {
+            display: none;
+        }
+
+        .icon-container-lg {
+            top: 0%;
+            left: 0;
+            width: 100%;
+            height: 61.8034%;
+            border: 0;
+            border-bottom: 1px solid $color-border-light;
+        }
+
+        .icon-container-md {
+            top: 61.8034%;
+            left: 0%;
+            width: 61.8034%;
+            height: (100% - 61.8034);
+            border: 0;
+            border-right: 1px solid $color-border-light;
+        }
+
+        .icon-container-sm {
+            top: inherit;
+            bottom: 0;
+            right: 0;
+            width: (100% - 61.8034);
+            height: (100% - 61.8034);
         }
     }
 }

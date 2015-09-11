@@ -1,24 +1,35 @@
 /*
+    ======================================================================
+    Icon Meta (list)
+    ======================================================================
+    Meta info like designer, developer, category
 
-Icon Meta (list)
-========================================
-Meta info like designer, developer, category
-
-Markup
-----------------------------------------
-<h1 Name
-<dl
-    <dt>Attr
-    <dd>Value
-
+    Markup
+    ----------------------------------------
+    <h1 Name
+    <dl
+        <dt>Attr
+        <dd>Value
 */
 .icon-meta {
     margin-right: 250px; /* account for ads on the right */
     margin-top: em(10);
 
+    @include respond-to(tablet) {
+        //margin-right: 0; /* ads get bumped below, so no need for this */
+    }
+
     .icon-meta__left {
         margin-right: em(5);
         float: left;
+
+        @include respond-to(mobile) {
+            float: none;
+            display: block;
+            font-size: em(14);
+            line-height: 1;
+            margin-top: 1em;
+        }
     }
 
     .icon-meta__right {

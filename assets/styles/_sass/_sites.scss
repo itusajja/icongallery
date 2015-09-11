@@ -50,7 +50,8 @@
     }
 
     .icon-container {
-        &:after {
+        &:after,
+        &-md:after {
             @include icon-mask(128);
         }
 

@@ -5,8 +5,10 @@ layout: default
     {% for post in paginator.posts %}
         {% comment %} If it's the second post, show the ad AND the current post{% endcomment %}
         {% if forloop.index0 == 1 and site.theme.ad_script %}
-            <li class="icon-container icon-container--ad">
-                {{ site.theme.ad_script }}
+            <li>
+                <div class="icon-container icon-container--ad">
+                    {{ site.theme.ad_script }}
+                </div>
             </li>
         {% endif %}
         <li>

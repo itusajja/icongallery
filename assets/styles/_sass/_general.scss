@@ -1,22 +1,28 @@
 /*
-
-General
-========================================
-
+    ======================================================================
+    General
+    ======================================================================
 */
 
-* {
-    @include box-sizing(border-box);
+html {
+  box-sizing: border-box;
+}
+*, 
+*:before, 
+*:after {
+  box-sizing: inherit;
 }
 
 body {
     font: #{$font-size-base}px/1.5 $font-family;
     color: $color-dark-gray;
-    -webkit-font-smoothing: antialiased;
+    //-webkit-font-smoothing: antialiased;
 }
 
 .wrapper {
     margin: 0 auto;
+    width: 90%;
+    max-width: em(1300);
 }
 
 #main {

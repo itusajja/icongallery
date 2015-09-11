@@ -83,4 +83,14 @@
     .first {
         margin-right: 1em;
     }
+
+    @include respond-to(mobile) {
+        .page,
+        .current,
+        .extend,
+        .last,
+        .first {
+            display: none;
+        }
+    }
 }
