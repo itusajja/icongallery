@@ -19,55 +19,31 @@ Watch deploy to-do
 
 ## Jekyll
 
-Site runs on Jekyll. All jekyll assets are stored in the root with two exceptions which are unique to each project: `_data` and `_config.yml`
+Site runs on Jekyll. The site is split into two parts: the content and the theme.
 
-### Shared Assets
+Theme files are shared across all sites and can be found in `public/src`. This includes styles and scripts shared across sites. Examples:
 
-Default jekyll files and folders are shared between projects and live in the root directory:
+  _includes
+  _layouts
+  _plugins
+  _site
+  index.html
 
-    _build
-    _includes
-    _layouts
-    _plugins
-    _site
-    index.html
+Content which is unique to each site is stored in their respective folders in `public/src`. These are separate repositories and contain the posts, images, and configuration files for each project. Examples:
 
-Custom assets used for themeing (such as scripts and stylesheets) are shared between sites and stored in `_assets` in the root directory:
+  _config.yml
+  _data
+  _posts
+  img
 
-    _assets
-        _project-files
-        _scss
-        fonts
-        img
-        js
+Make sure you pass both the theme and site-specific config files to jekyll when you build.
 
-### Unique Content
-
-Content which is unique to each site is stored in the `_content` folder in the root. These are submodules of each project and contain the posts, images, and configuration files for each project:
-
-    content
-        _config.yml
-        _data
-        _posts
-        img
-
-Because the jekyll config is in `_content` you have to tell jekyll where it is when testing locally:
-
-`jekyll serve -w --config content/_config.yml`
+`jekyll serve -w --config _config.yml,macicongallery/_config.yml`
 
 ## Plugins
 
 - Alias Generator [https://github.com/tsmango/jekyll_alias_generator](https://github.com/tsmango/jekyll_alias_generator)
-- Custom `filter.rb` which is used to return an array for related posts
 
-## Categories & Tags
-
-Define these in a `_data` file, then loop and check for key value pairs? Something like this:
-
-    {
-        "nicename": "Graphics & Design",
-        "slug": "graphics-design"
-    }
 
 ## Icons
 
