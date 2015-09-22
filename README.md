@@ -7,8 +7,15 @@ Watch deploy to-do
 
 ## To-Do
 
+- 404 page, "oops it's not here ... check out some icons while you're here"
 - 2x versions on /search
 - filter styles on mobile for /search
+
+###  Deploy To-Do
+
+- Ads work
+- Redirects work
+- RSS feeds work (feedburner)
 
 ## Jekyll
 
@@ -77,16 +84,3 @@ Use [retina.js](https://github.com/imulus/retinajs) to get hiDPI versions of eac
 RSS feeds are published through feedburner. The old addressses, however, were transfered. They use to live at `/feed/` (which mean, I assume, a `/feed/index.xml` file at that address). Now, however, the feed lives at `/feed.xml`. This means we need redirects for the old feed.
 
 Because S3 serves `index.html` files only, we will leave a blank file at `/feed/index.html` which has a [301 redirect](http://aws.amazon.com/blogs/aws/amazon-s3-support-for-website-redirects/) through the AWS console to `/feed.xml`. This means anyone who hits `/feed/` in the browser will go to the new feed. Additionally, anyone who hits `/feed/index.xml`, we have an [RSS XML redirect](http://www.rssboard.org/redirect-rss-feed) which sends them to `/feed.xml`.
-
-## To-Do
-
-1. Search page takes parameters, i.e. /search?tag=blue (this can be linked from the individual post page)
-2. 404 page, "oops it's not here ... check out some icons while you're here"
-3. Build scripts
-4. Unify categories in build scripts with IDs or something to map them to names. Perhaps map the to app store gener IDs
-5. Figure out way to compress JSON file
-
-## Deploy
-1. Ads work
-2. Redirects work
-3. RSS feeds work (feedburner)

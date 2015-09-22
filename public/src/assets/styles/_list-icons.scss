@@ -72,6 +72,10 @@ Used when listing icons
     border: 1px solid $color-border-light;
     text-align: center;
 
+    .applewatchicongallery & {
+      padding-bottom: 51.8034%;
+    }
+
     [class*="icon-container"] {
         position: absolute;
     }
@@ -126,6 +130,10 @@ Used when listing icons
     @include respond-to(desktop) {
         padding-bottom: 111.8034%;
 
+        .applewatchicongallery & {
+          padding-bottom: 91.8034%;
+        }
+
         .icon-container-xlg {
             top: 0;
             left: 0;
@@ -173,12 +181,21 @@ Used when listing icons
     @include respond-to(tablet) {
         padding-bottom: 161.8034%;
 
+        .applewatchicongallery & {
+          padding-bottom: 141.8034%;
+        }
+
         .ads & {
             margin-bottom: 210px; // height of ad space
         }
     }
 
     @include respond-to(mobile) {
+
+        .applewatchicongallery & {
+          padding-bottom: 121.8034%;
+        }
+
         .icon-container-xlg {
             display: none;
         }
