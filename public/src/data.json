@@ -4,7 +4,7 @@ layout: null
 {
     "site": {
         "name": "{{ site.theme.active }}",
-        "categories": [ 
+        "categories": [
             {% for category in site.data.categories %}
                 {
                     "name": "{{ category.name }}",
@@ -12,7 +12,7 @@ layout: null
                 }{% if forloop.last != true %},{% endif %}
             {% endfor %}
         ],
-        "colors": [ 
+        "colors": [
             {% capture siteColors %}{% for tag in site.tags %}{{ tag | first }}{% unless forloop.last %},{% endunless %}{% endfor %}{% endcapture %}
             {% assign colors = siteColors | split: ',' | sort %}
             {% for color in colors %}
@@ -33,6 +33,7 @@ layout: null
                 "category": "{{ post.category }}",
                 "filepath": "/{{ site.theme.active }}/img",
                 "filename": "{{post.slug}}-{{ post.date | date: "%Y" }}.png",
+                "id": "{{ post.id }}",
 
                 {% if post.tags %}
                     "tags": [
@@ -47,7 +48,7 @@ layout: null
                 {% if post.icon-designer-url %}"icon-designer-url": "{{ post.icon-designer-url}}",{% endif %}
 
                 "itunes-url": "{{ post.itunes-url }}"
-                
+
             }{% if forloop.last != true %},{% endif %}
         {% endfor %}
     ]

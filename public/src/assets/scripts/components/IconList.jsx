@@ -16,7 +16,7 @@ var IconList = React.createClass({
     if(this.props.icons.length > 0) {
       // Add the icons
       content = this.props.icons.map(function(icon, i) {
-        return <IconItem key={icon.slug} icon={icon} />;
+        return <IconItem key={icon.id} icon={icon} />;
       });
       // If there's more to show, add a loading <li>
       if(this.props.showMore) {

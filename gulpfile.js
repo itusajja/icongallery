@@ -121,7 +121,7 @@ gulp.task('scripts', function (cb) {
 });
 
 gulp.task('scripts:prod', function(){
-  return gulp.src(path.join(files.scripts.src, '*.js'))
+  return gulp.src(path.join(files.scripts.dist, '*.js'))
     .pipe(uglify())
     .pipe(gzip({ append: false }))
     .pipe(gulp.dest(path.join(files.scripts.dist)));

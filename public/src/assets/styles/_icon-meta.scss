@@ -16,7 +16,7 @@
     margin-top: em(10);
 
     @include respond-to(tablet) {
-        //margin-right: 0; /* ads get bumped below, so no need for this */
+        margin-right: 0; /* ads get bumped below, so no need for this */
     }
 
     .icon-meta__left {
@@ -55,5 +55,3 @@
         }
     }
 }
-
-

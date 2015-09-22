@@ -39,7 +39,6 @@ var SearchIcons = React.createClass({
 
     // Get the icons
     var icons = this.getFilteredIcons(activeFilters);
-    console.log('test');
 
     // Return the initial state
     return {
@@ -79,7 +78,7 @@ var SearchIcons = React.createClass({
       if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - footerHeight) {
         this.handleShowMore();
       }
-    }, 250, this);
+    }, 150, this);
   },
 
   // Scroll to top button

@@ -5,6 +5,11 @@ Watch deploy to-do
 - google analytics
 - sync all for the other two sites
 
+## To-Do
+
+- 2x versions on /search
+- filter styles on mobile for /search
+
 ## Jekyll
 
 Site runs on Jekyll. All jekyll assets are stored in the root with two exceptions which are unique to each project: `_data` and `_config.yml`

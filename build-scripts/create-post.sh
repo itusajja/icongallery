@@ -2,17 +2,17 @@
 
 DOMAIN=$1
 case "$DOMAIN" in
-    (ios|mac|applewatch) 
+    (ios|mac|applewatch)
         ;;
     (*)
         echo "Usage: $0 {ios|mac|applewatch}"
         exit 1
         ;;
-esac 
+esac
 
-# Change working directory 
-# (script written to work inside _build)
-cd _build
+# Change working directory
+# (script written to work inside build-scripts)
+cd build-scripts
 
 # Export the domain so we can use it in python script
 # http://stackoverflow.com/questions/17435056/read-bash-variables-into-a-python-script
@@ -27,15 +27,15 @@ read -p "Is this a draft? [y/n] " -n 1 -r
 echo    # (optional) move to a new line
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
-    mv *.md ../${DOMAIN}icongallery/_drafts/
+    mv *.md ../public/src/${DOMAIN}icongallery/_drafts/
 else
-    mv *.md ../${DOMAIN}icongallery/_posts/
+    mv *.md ../public/src/${DOMAIN}icongallery/_posts/
 fi
 
 # Take the original 512 or 1024 icon and create optimized versions for each
 # 1024, 512, 256, 128, 64
 # strip warning: find . -type f -name "*.png" -exec convert {} -strip {} \;
-DIR="../${DOMAIN}icongallery/img"
+DIR="../public/src/${DOMAIN}icongallery/img"
 
 
 # Apple watch, convert .jpg to .png
@@ -76,7 +76,7 @@ for file in *.png; do
 done
 
 # move the file to the built directory
-echo "=> Moving to _src directory..."
+echo "=> Moving original to _src directory..."
 mv *.png "${DIR}/_src"
 
 # Go back to root since we changed it

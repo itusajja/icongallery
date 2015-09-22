@@ -1,14 +1,3 @@
-// This is the one of the only scripts needed on every page
-// It controls the dropdown in the header
-var el = document.querySelector('.dropdown__trigger');
-el.addEventListener('click', function(e){
-    e.stopPropagation();
-    toggleClass(this.parentNode, 'dropdown--active');
-});
-var body = document.getElementsByTagName('body');
-body[0].addEventListener('click', function(e){
-    removeClass(el.parentNode, 'dropdown--active');
-});
 function removeClass(el, className){
     if (el.classList){
         el.classList.remove(className);
@@ -31,3 +20,8 @@ function toggleClass(el, className){
         }
     }
 }
+
+module.exports = {
+  removeClass: removeClass,
+  toggleClass: toggleClass
+};

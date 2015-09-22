@@ -49,6 +49,16 @@ Used when listing icons
         border-bottom: 1px solid $color-border-light;
         padding-bottom: 100%;
 
+        @include respond-to(desktop) {
+            padding-bottom: 85%;
+        }
+        @include respond-to(tablet) {
+            padding-bottom: 75%;
+        }
+        @include respond-to(mobile) {
+            padding-bottom: 65%;
+        }
+
         &:hover {
             box-shadow: inset 0 0 30px rgba(0,0,0,.065);
         }

@@ -41,14 +41,14 @@ sync() {
         --guess-mime-type \
         --no-preserve \
         --delete-removed \
-        _site/ s3://${DOMAIN}icongallery.com/
+        public/dist/ s3://${DOMAIN}icongallery.com/
     echo -e "\n--> Manually put gzipped files..."
     s3cmd put $1 \
         --acl-public \
         --guess-mime-type \
         --no-preserve \
         --recursive \
-        _site/data.json _site/assets/scripts s3://${DOMAIN}icongallery.com/
+        public/dist/data.json public/dist/assets/scripts s3://${DOMAIN}icongallery.com/
 }
 
 # Execute
