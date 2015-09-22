@@ -16,7 +16,7 @@ var IconList = React.createClass({
     if(this.props.icons.length > 0) {
       // Add the icons
       content = this.props.icons.map(function(icon, i) {
-        return <IconItem key={i} icon={icon} />;
+        return <IconItem key={icon.slug} icon={icon} />;
       });
       // If there's more to show, add a loading <li>
       if(this.props.showMore) {
@@ -29,10 +29,10 @@ var IconList = React.createClass({
     } else {
       content = <IconItemZeroState />;
     }
-  
+
     return (
       <ul className="list-icons">
-        {content} 
+        {content}
       </ul>
     );
   }

@@ -1,5 +1,5 @@
 import React from 'react';
-import debounce from '../_utils/debounce';
+import debounce from '../utils/debounce';
 
 var IconFilters = React.createClass({
   propTypes: {
@@ -18,7 +18,7 @@ var IconFilters = React.createClass({
     e.persist();
     this.delayedHandleChange();
   },
-  
+
   handleChange: function(event) {
     this.props.onUserInput({
       'category': this.refs.categoryInput.getDOMNode().value,
@@ -31,24 +31,24 @@ var IconFilters = React.createClass({
     return (
       <div className="filters">
         <span className="filters__count">
-          {this.props.iconCount} 
+          {this.props.iconCount}
           {(this.props.iconCount === 1) ? ' icon' : ' icons'}
         </span>
-        
-        <input 
-          ref="searchInput" 
+
+        <input
+          ref="searchInput"
           onKeyUp={this.handleKeyUp}
-          defaultValue={this.props.activeFilters.search} 
-          type="search" 
-          placeholder="Search..." 
-          autoComplete="off" 
-          autoCorrect="off" 
-          spellCheck="false" 
+          defaultValue={this.props.activeFilters.search}
+          type="search"
+          placeholder="Search..."
+          autoComplete="off"
+          autoCorrect="off"
+          spellCheck="false"
         />
-        
-        <select 
-          ref="categoryInput" 
-          onChange={this.handleChange} 
+
+        <select
+          ref="categoryInput"
+          onChange={this.handleChange}
           value={this.props.activeFilters.category}>
             <option value="">All categories...</option>
             {this.props.site.categories.map(function(category, i){
@@ -56,8 +56,8 @@ var IconFilters = React.createClass({
             })}
         </select>
 
-        <select 
-          ref="colorInput" 
+        <select
+          ref="colorInput"
           onChange={this.handleChange}
           value={this.props.activeFilters.color}>
             <option value="">All colors...</option>

@@ -14,8 +14,24 @@ var babelify    = require('babelify');
 var source      = require('vinyl-source-stream');
 var buffer      = require('vinyl-buffer');
 var gzip        = require('gulp-gzip');
+var path = require('path');
 
-
+/*
+  Paths
+*/
+var files = {
+  base: 'public',
+  src: 'public/src',
+  dist: 'public/dist',
+  scripts: {
+    src: 'public/src/assets/scripts',
+    dist: 'public/dist/assets/scripts'
+  },
+  styles: {
+    src: 'public/src/assets/styles',
+    dist: 'public/dist/assets/styles'
+  }
+}
 /*
   Determine domain
   var domain used to determine which site to build
@@ -26,13 +42,13 @@ function determineDomain(){
   // Check to see if any args were passed in and set domain accordingly
   if(argv.ios !== undefined) {
     domain = 'ios';
-  } 
+  }
   else if(argv.applewatch !== undefined) {
     domain = 'applewatch';
-  } 
+  }
   else if(argv.mac !== undefined) {
     domain = 'mac'
-  } 
+  }
 
   // If no arguments, exit process
   if(domain === '') {
@@ -48,7 +64,9 @@ function determineDomain(){
 */
 gulp.task('jekyll-build', function(cb) {
   determineDomain();
-  exec('jekyll build --config _config.yml,' + domain + 'icongallery/_config.yml', function(err) {
+  var configTheme = path.join(files.base, '_config.yml');
+  var configSite = path.join(files.src, domain + 'icongallery', '_config.yml')
+  exec('jekyll build --config ' + configTheme + ',' + configSite, function(err) {
     if (err) return cb(err); // return error
     cb(); // finished task
   });
@@ -66,14 +84,21 @@ gulp.task('jekyll-rebuild', function () {
   Styles
 */
 gulp.task('styles', function () {
-  return gulp.src('assets/styles/styles.scss')
+  return gulp.src(path.join(files.styles.src, 'styles.scss'))
     .pipe(sass({
-      includePaths: ['assets/styles/_sass'],
       onError: browserSync.notify
     }))
     .pipe(prefix(['last 5 versions', '> 1%', 'ie 8'], { cascade: true }))
-    .pipe(gulp.dest('_site/assets/styles'))
+    .pipe(gulp.dest( path.join(files.styles.dist) ))
     .pipe(browserSync.stream());
+});
+gulp.task('styles:prod', function () {
+  return gulp.src(path.join(files.styles.src, 'styles.scss'))
+    .pipe(sass({
+      outputStyle: 'compressed'
+    }))
+    .pipe(prefix(['last 5 versions', '> 1%', 'ie 8'], { cascade: true }))
+    .pipe(gulp.dest( path.join(files.styles.dist) ));
 });
 
 /*
@@ -84,48 +109,48 @@ gulp.task('styles', function () {
 */
 gulp.task('scripts', function (cb) {
   var b = browserify({
-    entries: 'assets/scripts/_entry.jsx',
+    entries: path.join(files.scripts.src, 'entry.jsx'),
     extensions: ['.jsx'],
     debug: true,
     transform: ['babelify']
   });
   return b.bundle()
     .pipe(source('entry.js'))
-    .pipe(gulp.dest('_site/assets/scripts'))
+    .pipe(gulp.dest(files.scripts.dist))
     .pipe(browserSync.stream());
 });
 
 gulp.task('scripts:prod', function(){
-  return gulp.src('_site/assets/scripts/*.js')
+  return gulp.src(path.join(files.scripts.src, '*.js'))
     .pipe(uglify())
     .pipe(gzip({ append: false }))
-    .pipe(gulp.dest('_site/assets/scripts'));
+    .pipe(gulp.dest(path.join(files.scripts.dist)));
 });
 
 gulp.task('data:prod', function(){
-  return gulp.src('_site/data.json')
+  return gulp.src(path.join(files.dist, 'data.json'))
     .pipe(gzip({ append: false }))
-    .pipe(gulp.dest('_site/'));
+    .pipe(gulp.dest(files.dist));
 });
 
 /*
-  Watch 
+  Watch
 */
 gulp.task('watch', function () {
   browserSync.init({
-    server: "./_site"
+    server: "./public/dist"
   });
-  gulp.watch('assets/styles/**/*.scss', ['styles']);
-  gulp.watch('assets/scripts/**/*', ['scripts']);
+  gulp.watch(path.join(files.styles.src, '**/*.scss'), ['styles']);
+  gulp.watch(path.join(files.scripts.src, '**/*'), ['scripts']);
   gulp.watch([
-    '*.html',
-    '*.xml',
-    '*.json',
-    '_layouts/*.html',
-    '_includes/*.html', 
-    '*icongallery/**/*',
-    'search/*',
-    'feed/*'
+    path.join(files.src, '*.html'),
+    path.join(files.src, '*.xml'),
+    path.join(files.src, '*.json'),
+    path.join(files.src, '_layouts/*.html'),
+    path.join(files.src, '_includes/*.html'),
+    path.join(files.src, '*icongallery/**/*'),
+    path.join(files.src, 'search/*'),
+    path.join(files.src, 'feed/*')
   ], ['jekyll-rebuild']);
 });
 
@@ -147,9 +172,8 @@ gulp.task('default', function(cb){
 gulp.task('prod', function(cb){
   runSequence(
     'jekyll-build',
-    ['styles', 'scripts'],
-    'scripts:prod',
-    'data:prod'
+    'scripts',
+    ['styles:prod', 'scripts:prod', 'data:prod']
     // uglify the js
   );
 });

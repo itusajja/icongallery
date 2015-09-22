@@ -16,8 +16,16 @@ markdown: kramdown
 permalink: /:year/:title
 safe: false # use plugins
 paginate_path: "p/:num"
-source: .
-destination: ./_site
+source: ./public/src
+destination: ./public/dist
+exclude:
+  - node_modules
+  - gulpfile.js
+  - package.json
+  - .DS_STORE
+  - README.md
+  - assets/scripts
+  - assets/styles
 
 
 # Defaults

@@ -1,14 +1,14 @@
 //import $ from 'jquery';
 import React from 'react';
-import getJSON from './_utils/getJSON';
-import shuffleArray from './_utils/shuffleArray';
-import SearchIcons from './_components/SearchIcons';
-import RelatedIcons from './_components/RelatedIcons';
-    
+import getJSON from './utils/getJSON';
+import shuffleArray from './utils/shuffleArray';
+import SearchIcons from './components/SearchIcons';
+import RelatedIcons from './components/RelatedIcons';
+
 // If it's the home page
 if(location.pathname === '/') {
-  
-} 
+
+}
 // If it's a blog post page
 // (these all start with `/20` because it's `/:year/:postname` pattern)
 else if(location.pathname.indexOf('/20') === 0 ) {
@@ -20,18 +20,17 @@ else if(location.pathname.indexOf('/20') === 0 ) {
     var icons = data.icons.filter(function(icon){
       return (icon.category === activeCategoryId && icon.title !== activePostName) ? true : false;
     });
-    shuffleArray(icons);
     React.render(
-      <RelatedIcons 
-        icons={icons}
+      <RelatedIcons
+        icons={shuffleArray(icons).slice(0, 12)}
         activeCategoryName={activeCategoryName}
         activeCategoryId={activeCategoryId}
         activePostName={activePostName}
-      />, 
+      />,
       el
     );
   });
-} 
+}
 // If it's the search page
 else if(location.pathname.indexOf('/search') === 0) {
   // Get the hidden ad if it's there
@@ -48,17 +47,13 @@ else if(location.pathname.indexOf('/search') === 0) {
   // Load the data & kick off react
   getJSON('/data.json', function(data){
     React.render(
-      <SearchIcons 
-        icons={data.icons} 
+      <SearchIcons
+        icons={data.icons}
         site={data.site}
-        threshold={threshold} 
+        threshold={threshold}
         ad={ad}
       />,
       document.getElementById('search-container')
     );
   });
 }
-
-
-
-

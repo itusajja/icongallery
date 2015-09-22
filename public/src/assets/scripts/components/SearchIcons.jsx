@@ -2,7 +2,7 @@ import React from 'react';
 import IconList from './IconList';
 import IconFilters from './IconFilters';
 import 'string_score';
-import scrollTo from '../_utils/scrollTo';
+import scrollTo from '../utils/scrollTo';
 
 var SearchIcons = React.createClass({
 
@@ -20,7 +20,7 @@ var SearchIcons = React.createClass({
       'color': '',
       'search': ''
     };
-    
+
     // Check to see if params were passed via URL
     // If they were, set the appropriate filter val
     var query = location.search.substring(1);
@@ -39,7 +39,8 @@ var SearchIcons = React.createClass({
 
     // Get the icons
     var icons = this.getFilteredIcons(activeFilters);
-    
+    console.log('test');
+
     // Return the initial state
     return {
       activeFilters: activeFilters,
@@ -102,7 +103,7 @@ var SearchIcons = React.createClass({
   // Return an array of icon objects (filtered if relevant)
   getFilteredIcons: function(activeFilters) {
     return this.props.icons.filter(function(icon) {
-      
+
       if(activeFilters.category !== '') {
         if(activeFilters.category !== icon.category){
           return false;
@@ -138,7 +139,7 @@ var SearchIcons = React.createClass({
   render: function() {
     return (
       <div>
-        <IconFilters 
+        <IconFilters
           site={this.props.site}
           iconCount={this.state.iconCount}
           activeFilters={this.state.activeFilters}
@@ -151,7 +152,7 @@ var SearchIcons = React.createClass({
           ad={(this.props.ad.length > 0 ? this.props.ad : null)}
         />
 
-        <a href="#" className="scroll-top" onClick={this.handleScrollTop}>Top</a>    
+        <a href="#" className="scroll-top" onClick={this.handleScrollTop}>Top</a>
       </div>
     );
   }

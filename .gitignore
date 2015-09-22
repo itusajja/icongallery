@@ -1,10 +1,11 @@
 # Files/folders to exclude
 *.sass-cache
-_site
+public/dist
 *.pyc
 node_modules
+*.DS_Store
 
 # Exclude content folders for each site
-iosicongallery/
-macicongallery/
-applewatchicongallery/
+public/src/iosicongallery
+public/src/macicongallery
+public/src/applewatchicongallery

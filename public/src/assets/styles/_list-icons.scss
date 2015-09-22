@@ -206,7 +206,7 @@ Used when listing icons
     text-align: center;
     color: $color-light-light-gray;
     float: none;
-    width: 100%;
+    width: 100% !important;
     padding: 3em 2em;
     border: 1px solid $color-border-light;
     border-left: 0;
@@ -222,7 +222,7 @@ Used when listing icons
     border-top: 1px solid $color-border-light;
     position: relative;
     top: -1px;
-    
+
     img {
         width: 20px;
         height: 20px;
