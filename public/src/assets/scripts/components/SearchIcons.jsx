@@ -45,7 +45,7 @@ var SearchIcons = React.createClass({
       activeFilters: activeFilters,
       iconCount: icons.length,
       visibleIcons: icons.slice(0, this.props.threshold),
-      hiddenIcons: icons,
+      allIcons: icons,
     };
   },
 
@@ -95,7 +95,7 @@ var SearchIcons = React.createClass({
       activeFilters: activeFilters,
       iconCount: icons.length,
       visibleIcons: icons.slice(0, this.props.threshold),
-      hiddenIcons: icons
+      allIcons: icons
     });
   },
 
@@ -129,7 +129,7 @@ var SearchIcons = React.createClass({
     //e.preventDefault();
     var sliceBegin = this.state.visibleIcons.length;
     var sliceEnd = sliceBegin + this.props.threshold;
-    var newIcons = this.state.hiddenIcons.slice(sliceBegin, sliceEnd);
+    var newIcons = this.state.allIcons.slice(sliceBegin, sliceEnd);
     this.setState({
       visibleIcons: this.state.visibleIcons.concat( newIcons )
     });
@@ -147,7 +147,7 @@ var SearchIcons = React.createClass({
 
         <IconList
           icons={this.state.visibleIcons}
-          showMore={(this.state.hiddenIcons.length > this.state.visibleIcons.length) ? true : false}
+          showMore={(this.state.allIcons.length > this.state.visibleIcons.length) ? true : false}
           ad={(this.props.ad.length > 0 ? this.props.ad : null)}
         />
 

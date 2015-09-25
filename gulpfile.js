@@ -14,7 +14,7 @@ var babelify    = require('babelify');
 var source      = require('vinyl-source-stream');
 var buffer      = require('vinyl-buffer');
 var gzip        = require('gulp-gzip');
-var path = require('path');
+var path        = require('path');
 
 /*
   Paths
