@@ -28,7 +28,6 @@
   },
   "homepage": "https://github.com/jimniels/icongallery",
   "dependencies": {
-    "jquery": "^2.1.4",
     "react": "^0.13.3",
     "string_score": "^0.1.22"
   }
