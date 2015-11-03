@@ -79,6 +79,7 @@ case "$DOMAIN" in
                 --include 'data.json' \
                 s3://${DOMAIN}icongallery.com/
         fi
+        echo -e "\nDone. Don't forget to commit changes."
         ;;
     (*)
         echo "Usage: $0 {ios|mac|applewatch}"
