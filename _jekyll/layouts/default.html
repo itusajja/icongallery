@@ -28,6 +28,18 @@
 
     <!-- RSS Feed -->
     <link rel="alternate" type="application/rss+xml" title="RSS 2.0" href="http://feeds.feedburner.com/{{ site.theme.active }}" />
+
+    <!-- Github pages redirect
+         This site is hosted on github pages. Because my root user page is jim-nielsen.com
+         this site is published at both the CNAME place (XXXgallery.com url)
+         as well as jim-nielsen.com/XXXgallery. So we have to redirect any
+         jim-nielsen.com stuff to the proper place
+    -->
+    <script>
+      if (location.hostname === "localhost") {
+        location.href = "{{ site.url }}" + location.pathname
+      }
+    </script>
 </head>
 <body class="{{ site.theme.active }} {% if site.theme.ad_script %}ads{% endif %}">
 
