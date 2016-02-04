@@ -22,8 +22,8 @@
         <item>
             <title>{{ post.title | xml_escape }}</title>
             <enclosure url="{{ site.url | append:site.baseurl }}/{{ site.theme.active }}/img/{{ imgSize }}/{{post.slug}}-{{ post.date | date: "%Y" }}.png" length="90000" type="image/png" />
-            <description><![CDATA[<a href="{{ post.url | prepend: site.baseurl | prepend: site.url }}"><img width="{{ imgSize }}" height="{{ imgSize }}" alt="{{ post.title }} app icon" src="{{ site.url | append:site.baseurl }}/{{ site.theme.active }}/img/{{ imgSize }}/{{post.slug}}-{{ post.date | date: "%Y" }}.png" /></a>]]></description>
-            <content:encoded><![CDATA[<a href="{{ post.url | prepend: site.baseurl | prepend: site.url }}"><img width="{{ imgSize }}" height="{{ imgSize }}" alt="{{ post.title }} app icon" src="{{ site.url | append:site.baseurl }}/{{ site.theme.active }}/img/{{ imgSize }}/{{post.slug}}-{{ post.date | date: "%Y" }}.png" /></a>]]></content:encoded>
+            <description><![CDATA[<a href="{{ post.url | prepend: site.baseurl | prepend: site.url }}"><img width="{{ imgSize }}" height="{{ imgSize }}" alt="{{ post.title }} app icon" src="{{ site.url | append:site.baseurl }}/img/{{ imgSize }}/{{post.slug}}-{{ post.date | date: "%Y" }}.png" /></a>]]></description>
+            <content:encoded><![CDATA[<a href="{{ post.url | prepend: site.baseurl | prepend: site.url }}"><img width="{{ imgSize }}" height="{{ imgSize }}" alt="{{ post.title }} app icon" src="{{ site.url | append:site.baseurl }}/img/{{ imgSize }}/{{post.slug}}-{{ post.date | date: "%Y" }}.png" /></a>]]></content:encoded>
             <pubDate>{{ post.date | date_to_rfc822 }}</pubDate>
             <link>{{ post.url | prepend: site.baseurl | prepend: site.url }}</link>
             <guid isPermaLink="true">{{ post.url | prepend: site.baseurl | prepend: site.url }}</guid>
