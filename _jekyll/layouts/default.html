@@ -58,8 +58,7 @@
       if (pathname.indexOf(sitename) === 0) {
         pathname = pathname.slice(sitename.length, pathname.length);
       }
-      
-      //location.href = "{{ site.url }}" + pathname
+      location.href = "{{ site.url }}" + pathname
     }
     </script>
 </head>
