@@ -31,7 +31,7 @@ layout: null
                 "url": "{{ post.url }}",
                 "date": "{{ post.date | date: "%F" }}",
                 "category": "{{ post.category }}",
-                "filepath": "/{{ site.theme.active }}/img",
+                "filepath": "/img",
                 "filename": "{{post.slug}}-{{ post.date | date: "%Y" }}.png",
                 "id": "{{ post.id }}",
 

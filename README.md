@@ -1,12 +1,9 @@
 # Galleries
 
-Watch deploy to-do
-- follow on twitter?
-- google analytics
-- sync all for the other two sites
-
 ## To-Do
 
+- Save filter states in URL for /search
+- Move site-specific image files to site repos
 - 404 page, "oops it's not here ... check out some icons while you're here"
 - 2x versions on /search
 - filter styles on mobile for /search
@@ -16,6 +13,10 @@ Watch deploy to-do
 - Ads work
 - Redirects work
 - RSS feeds work (feedburner)
+
+### Someday
+
+- Use native browser `srcset` or `picture` for 2x images (though remember that `srcset` doesn't actually do a fallback to 1x for 2x specified images, so the currently javascript method works best ...)
 
 ## Jekyll
 
@@ -47,7 +48,7 @@ Make sure you pass both the theme and site-specific config files to jekyll when 
 
 ## Icons
 
-The original icons reside in their respective repos under `[content/]img/_src`. These are the icons pulled directly from Apple's source. I keep the originals in this spot and generate all needed assets using a script.
+The original icons reside in their respective repos under `/img/_src`. These are the icons pulled directly from Apple's source. I keep the originals in this spot and generate all needed assets using a script.
 
 To do so, simply place whatever image you need the 512,256,128,64 variants for and place it in `_build`. Then run the `_build-images.sh` script. This will make copies at each size, optimize them, and stick them in the correct folder in `content/img/_src`.
 

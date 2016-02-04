@@ -7,8 +7,7 @@ import IconItemAd from './IconItemAd';
 var IconList = React.createClass({
   propTypes: {
     icons: React.PropTypes.array.isRequired,
-    showMore: React.PropTypes.bool,
-    ad: React.PropTypes.string
+    showMore: React.PropTypes.bool
   },
 
   render: function() {
@@ -20,11 +19,7 @@ var IconList = React.createClass({
       });
       // If there's more to show, add a loading <li>
       if(this.props.showMore) {
-        content.push(<IconItemLoading />);
-      }
-      // If there's an ad, add it to the front
-      if(this.props.ad && this.props.ad.length > 0) {
-        content.unshift(<IconItemAd ad={this.props.ad} />);
+        content.push(<IconItemLoading key='loading' />);
       }
     } else {
       content = <IconItemZeroState />;

@@ -9,8 +9,7 @@ var SearchIcons = React.createClass({
   propTypes: {
     icons: React.PropTypes.array.isRequired,
     site: React.PropTypes.object.isRequired,
-    threshold: React.PropTypes.number.isRequired,
-    ad: React.PropTypes.string.isRequired
+    threshold: React.PropTypes.number.isRequired
   },
 
   getInitialState: function(){
@@ -148,7 +147,6 @@ var SearchIcons = React.createClass({
         <IconList
           icons={this.state.visibleIcons}
           showMore={(this.state.allIcons.length > this.state.visibleIcons.length) ? true : false}
-          ad={(this.props.ad.length > 0 ? this.props.ad : null)}
         />
 
         <a href="#" className="scroll-top" onClick={this.handleScrollTop}>Top</a>

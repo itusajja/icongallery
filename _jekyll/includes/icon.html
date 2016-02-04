@@ -2,11 +2,13 @@
     {{ include.icon-size }}
 {% endcomment %}
 
+{% capture imgSrc %}{{ site.baseurl }}/img/{{ include.icon-size }}/{{post.slug}}-{{ post.date | date: "%Y" }}.png{% endcapture %}
+{% capture imgSrc2x %}{{ site.baseurl }}/img/{{ include.icon-size | times:2 }}/{{post.slug}}-{{ post.date | date: "%Y" }}.png{% endcapture %}
 <img
      alt="{{ post.title }} app icon"
      class="icon icon-{{ include.icon-size }}"
-     src="{{ site.baseurl }}/{{ site.theme.active }}/img/{{ include.icon-size }}/{{post.slug}}-{{ post.date | date: "%Y" }}.png"
-     data-at2x="{{ site.baseurl }}/{{ site.theme.active }}/img/{{ include.icon-size | times:2 }}/{{post.slug}}-{{ post.date | date: "%Y" }}.png"
+     src="{{ imgSrc }}"
+     data-at2x="{{ imgSrc2x }}"
 />
 
 {% comment %} It's a post page if the post.title is same as page.title {% endcomment %}

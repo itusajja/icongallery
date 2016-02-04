@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import getJSON from './utils/getJSON';
 import shuffleArray from './utils/shuffleArray';
 import cx from './utils/classNames';
@@ -16,11 +17,12 @@ else if(location.pathname.indexOf('/20') === 0 ) {
     activePostName = el.getAttribute('data-post-name'),
     activeCategoryId = el.getAttribute('data-category-id'),
     activeCategoryName = el.getAttribute('data-category-name');
-  getJSON('/data.json', function(data){
+
+  getJSON('/shared/api/index.json', function(data){
     var icons = data.icons.filter(function(icon){
       return (icon.category === activeCategoryId && icon.title !== activePostName) ? true : false;
     });
-    React.render(
+    ReactDOM.render(
       <RelatedIcons
         icons={shuffleArray(icons).slice(0, 12)}
         activeCategoryName={activeCategoryName}
@@ -33,25 +35,14 @@ else if(location.pathname.indexOf('/20') === 0 ) {
 }
 // If it's the search page
 else if(location.pathname.indexOf('/search') === 0) {
-  // Get the hidden ad if it's there
-  var adNode = document.getElementById('carbonads');
-  if(adNode) {
-    var ad = adNode.outerHTML;
-  } else {
-    var ad = '';
-  }
-
-  // Set the threshold to one less if there's an ad
-  var threshold = (ad && ad.length > 0) ? 19 : 20;
 
   // Load the data & kick off react
-  getJSON('/data.json', function(data){
-    React.render(
+  getJSON('/shared/api/index.json', function(data){
+    ReactDOM.render(
       <SearchIcons
         icons={data.icons}
         site={data.site}
-        threshold={threshold}
-        ad={ad}
+        threshold={20}
       />,
       document.getElementById('search-container')
     );

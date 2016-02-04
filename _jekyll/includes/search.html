@@ -1,7 +1,3 @@
----
-layout: default
-title: Search
----
 {% if site.theme.ad_script %}
     <div style="display: none">
         {{ site.theme.ad_script }}
@@ -12,8 +8,8 @@ title: Search
 <div id="search-container"><span class="loading"></span></div>
 
 {% comment %}
-<div class="search-header"> 
-    
+<div class="search-header">
+
     <select id="icon-designer" class="filter-val">
         <option value="null">Choose a designer...</option>
 
@@ -30,7 +26,7 @@ title: Search
             <option value="{{ designer }}">{{ designer }}</option>
         {%endfor%}
     </select>
-    
+
 
     <form id="icon-designer" class="filter-val">
         <input type="text" placeholder="Search by Icon Designer" list="icon-designer-list"/>
@@ -43,6 +39,6 @@ title: Search
             {% endfor %}
         </datalist>
     </form>
-    
+
 </div>
 {% endcomment %}
