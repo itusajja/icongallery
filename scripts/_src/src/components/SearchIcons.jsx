@@ -22,6 +22,10 @@ var SearchIcons = React.createClass({
 
     // Check to see if params were passed via URL
     // If they were, set the appropriate filter val
+    // function getQueryParams(str) {
+    //   return (str || document.location.search).replace(/(^\?)/,'').split("&").map(function(n){return n=n.split("="),this[n[0]]=n[1],this;}.bind({}))[0];
+    // };
+    // var activeFilters
     var query = location.search.substring(1);
     if(query !== '') {
       query = query.split('=');
