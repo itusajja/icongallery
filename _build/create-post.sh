@@ -1,18 +1,25 @@
 # #!/bin/bash
 
-DOMAIN=$1
-case "$DOMAIN" in
-    (ios|mac|applewatch)
-        ;;
-    (*)
-        echo "Usage: $0 {ios|mac|applewatch}"
-        exit 1
-        ;;
-esac
+# Capture the DOMAIN dynamically based off parent folder
+# all folders should be the domain name, i.e. applewatchicongallery.com
+dir=$(basename `pwd`)
+DOMAIN=${dir/icongallery.com/}
+echo ${DOMAIN}
+
+# For capturing the domain Manually
+# DOMAIN=$1
+# case "$DOMAIN" in
+#     (ios|mac|applewatch)
+#         ;;
+#     (*)
+#         echo "Usage: $0 {ios|mac|applewatch}"
+#         exit 1
+#         ;;
+# esac
 
 # Change working directory
 # (script written to work inside build-scripts)
-cd build-scripts
+cd shared/_build
 
 # Export the domain so we can use it in python script
 # http://stackoverflow.com/questions/17435056/read-bash-variables-into-a-python-script
@@ -27,15 +34,15 @@ read -p "Is this a draft? [y/n] " -n 1 -r
 echo    # (optional) move to a new line
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
-    mv *.md ../public/src/${DOMAIN}icongallery/_drafts/
+    mv *.md ../../_drafts/
 else
-    mv *.md ../public/src/${DOMAIN}icongallery/_posts/
+    mv *.md ../../_posts/
 fi
 
 # Take the original 512 or 1024 icon and create optimized versions for each
 # 1024, 512, 256, 128, 64
 # strip warning: find . -type f -name "*.png" -exec convert {} -strip {} \;
-DIR="../public/src/${DOMAIN}icongallery/img"
+DIR="../../img"
 
 
 # Apple watch, convert .jpg to .png
@@ -80,4 +87,4 @@ echo "=> Moving original to _src directory..."
 mv *.png "${DIR}/_src"
 
 # Go back to root since we changed it
-cd ../
+cd ../../
