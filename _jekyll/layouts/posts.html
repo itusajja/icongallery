@@ -48,8 +48,9 @@ layout: default
         {% comment %} App Name {% endcomment %}
         <h1 class="bold">
             <span class="icon-meta__left">App Name:</span>
+            {% comment %} Add query string `?at=XXXX` for affliate linking {% endcomment %}
             {% if post.itunes-url %}
-                <a href="{{ post.itunes-url}}" class="icon-meta__right external-link">{{ post.title }}</a>
+                <a href="{{ post.itunes-url}}?at=1l3vtCx" class="icon-meta__right external-link">{{ post.title }}</a>
             {% else %}
                 <span class="icon-meta__right">{{ post.title }}</span>
             {% endif %}
