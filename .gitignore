@@ -1,11 +1,7 @@
-# Files/folders to exclude
-*.sass-cache
-public/dist
-*.pyc
-node_modules
-*.DS_Store
+# ------------------------------
+# Submodule .gitignore
+# ------------------------------
+# Should ignore all files irrelevant to this directory specifically.
 
-# Exclude content folders for each site
-public/src/iosicongallery
-public/src/macicongallery
-public/src/applewatchicongallery
+
+node_modules

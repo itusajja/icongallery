@@ -27,6 +27,7 @@ Unique content is stored in the root directory. The following are files/folders 
 
 ```
 .
+├── .gitignore          // can copy/paste between sites
 ├── _config.yml         // can copy/paste shared vars of config between sites
 ├── _data/
 ├── _drafts/
