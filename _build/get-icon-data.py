@@ -34,7 +34,7 @@ def createPost(app):
     post['slug'] = slug
     post['date'] = time.strftime("%Y-%m-%d")
     post['category'] = app['primaryGenreId']
-    post['itunes-url'] = app['trackViewUrl']
+    post['itunes-url'] = re.sub(r'\?.*$', '', app['trackViewUrl']) # remove ? query string
     post['app-developer'] = app['artistName']
 
     # [optional] app-developer-url, icon-designer, icon-designer-url, tags
