@@ -7,31 +7,35 @@ import SearchIcons from './components/SearchIcons';
 import RelatedIcons from './components/RelatedIcons';
 
 // If it's the home page
-if(location.pathname === '/') {
-
+if (location.pathname === '/') {
+  // Do nothing for now...
 }
 // If it's a blog post page
 // (these all start with `/20` because it's `/:year/:postname` pattern)
-else if(location.pathname.indexOf('/20') === 0 ) {
-  var el = document.getElementById('related-icons'),
-    activePostName = el.getAttribute('data-post-name'),
-    activeCategoryId = el.getAttribute('data-category-id'),
-    activeCategoryName = el.getAttribute('data-category-name');
+else if (location.pathname.indexOf('/20') === 0) {
 
-  getJSON('/shared/api/index.json', function(data){
-    var icons = data.icons.filter(function(icon){
-      return (icon.category === activeCategoryId && icon.title !== activePostName) ? true : false;
-    });
+  // Get the page's info we need to render related icons
+  const el = document.getElementById('related-icons'),
+        activePostName = el.getAttribute('data-post-name'),
+        activeCategoryId = el.getAttribute('data-category-id'),
+        activeCategoryName = el.getAttribute('data-category-name');
+
+  getJSON('/shared/api/index.json', data => {
+    // Remove the current page's icon from the list of 'related icons'
+    const icons = data.icons.filter(icon =>
+      icon.category === activeCategoryId && icon.title !== activePostName
+      ? true
+      : false
+    )
+
     ReactDOM.render(
       <RelatedIcons
         icons={shuffleArray(icons).slice(0, 12)}
         activeCategoryName={activeCategoryName}
-        activeCategoryId={activeCategoryId}
-        activePostName={activePostName}
       />,
       el
-    );
-  });
+    )
+  })
 }
 // If it's the search page
 else if(location.pathname.indexOf('/search') === 0) {

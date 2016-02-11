@@ -1,30 +1,22 @@
-import React from 'react';
-import IconList from './IconList';
-import getJSON from '../utils/getJSON';
-import shuffleArray from '../utils/shuffleArray';
+import React from 'react'
+import IconList from './IconList'
 
-var RelatedIcons = React.createClass({
+const RelatedIcons = React.createClass({
 
   propTypes: {
     icons: React.PropTypes.array.isRequired,
-    activeCategoryName: React.PropTypes.string.isRequired,
-    activeCategoryId: React.PropTypes.string.isRequired,
-    activePostName: React.PropTypes.string.isRequired
-  },
-
-  getInitialState: function(){
-    return { icons: this.props.icons };
+    activeCategoryName: React.PropTypes.string.isRequired
   },
 
   render: function() {
+    const { icons, activeCategoryName } = this.props
+
     return (
       <div>
         <h2>
-          Related Icons in the category “{this.props.activeCategoryName}”
+          Related icons in the category “{activeCategoryName}”
         </h2>
-        <IconList
-          icons={this.state.icons}
-        />
+        <IconList icons={icons} />
       </div>
     );
   }
