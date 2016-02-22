@@ -14,12 +14,12 @@ var IconItem = React.createClass({
       <li>
         <a href={url} className="icon-container" title={title}>
           <img
-            alt={title + ' app icon'}
+            alt={`${title} app icon`}
             className="icon icon-128"
-            src={filepath + '/128/' + filename}
-            data-at2x={filepath + '/256/' + filename}
+            src={`${filepath}/128/${filename}`}
+            srcSet={`${filepath}/256/${filename} 2x`}
           />
-        </a>    
+        </a>
       </li>
     );
   }

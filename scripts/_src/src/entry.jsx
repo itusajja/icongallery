@@ -79,7 +79,7 @@ body[0].addEventListener('click', function(e){
     var root = window;
     var config = {
         // An option to choose a suffix for 2x images
-        retinaImageSuffix : '@2x',
+        // retinaImageSuffix : '@2x',
 
         // Ensure Content-Type is an image before trying to load @2x image
         // https://github.com/imulus/retinajs/pull/45)
@@ -114,7 +114,7 @@ body[0].addEventListener('click', function(e){
         var existing_onload = context.onload || function(){};
 
         context.onload = function() {
-            var images = document.querySelectorAll('img.icon'), imagesLength = images.length, retinaImages = [], i, image;
+            var images = document.querySelectorAll('img[data-at2x]'), imagesLength = images.length, retinaImages = [], i, image;
             for (i = 0; i < imagesLength; i += 1) {
                 image = images[i];
                 if (!!!image.getAttributeNode('data-no-retina')) {
