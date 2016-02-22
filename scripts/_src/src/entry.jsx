@@ -62,7 +62,7 @@ dropdown.addEventListener('click', function(e){
 });
 var body = document.getElementsByTagName('body');
 body[0].addEventListener('click', function(e){
-    cx.removeClass(el.parentNode, 'dropdown--active');
+    cx.removeClass(dropdown.parentNode, 'dropdown--active');
 });
 
 /*!
