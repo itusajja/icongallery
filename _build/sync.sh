@@ -6,7 +6,7 @@
 # See http://www.savjee.be/2013/02/howto-host-jekyll-blog-on-amazon-s3/
 #
 # Parameters:
-#   ios|mac|watchos : The domain you want to sync
+#   ios|macos|watchos : The domain you want to sync
 #   new|all : Synce only new stuff, or sync everything
 
 # Functions
@@ -55,7 +55,7 @@ sync() {
 # ------------------------------
 DOMAIN=$1
 case "$DOMAIN" in
-    (ios|mac|watchos)
+    (ios|macos|watchos)
         # All parameters are correct, deploy it!
         # Run Gulp prod first
         echo "Starting gulp..."
@@ -82,7 +82,7 @@ case "$DOMAIN" in
         echo -e "\nDone. Don't forget to commit changes."
         ;;
     (*)
-        echo "Usage: $0 {ios|mac|watchos}"
+        echo "Usage: $0 {ios|macos|watchos}"
         exit 1
         ;;
 esac

@@ -43,16 +43,16 @@ function determineDomain(){
   if(argv.ios !== undefined) {
     domain = 'ios';
   }
-  else if(argv.applewatch !== undefined) {
-    domain = 'applewatch';
+  else if(argv.watchos !== undefined) {
+    domain = 'watchos';
   }
-  else if(argv.mac !== undefined) {
-    domain = 'mac'
+  else if(argv.macos !== undefined) {
+    domain = 'macos'
   }
 
   // If no arguments, exit process
   if(domain === '') {
-    console.log('Gotta flag it and flag it right. {--ios | --applewatch | --mac}')
+    console.log('Gotta flag it and flag it right. {--ios | --watchos | --macos}')
     process.exit(1);
   }
 }

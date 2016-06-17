@@ -96,11 +96,7 @@ def writePost():
     writeImage()
 
 def writeImage():
-    if(domain == 'ios'):
-        # if it's a 1024 icon, the store provides it in the 512 prop
-        urllib.urlretrieve(itunesResponse['artworkUrl512'], post['slug'] + '-' + time.strftime("%Y") + '.png')
-    elif(domain == 'mac'):
-        # for mac, try explicitly getting the 1024, if it fails, get the regular 512
+    if(domain == 'ios' or domain == 'macos'):
         try:
             url1024 = re.sub('512x512', '1024x1024',itunesResponse['artworkUrl512'])
             urllib.urlretrieve(url1024, post['slug'] + '-' + time.strftime("%Y") + '.png')

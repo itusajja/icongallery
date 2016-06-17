@@ -39,8 +39,8 @@ Unique content is stored in the root directory. The following are files/folders 
     ├── 64
     ├── 128
     ├── 256
-    ├── 512             // ios, mac
-    └── 1024            // ios, mac
+    ├── 512             // ios, macos
+    └── 1024            // ios, macos
 ```
 
 ### Shared content files

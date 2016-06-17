@@ -9,10 +9,10 @@ echo ${DOMAIN}
 # For capturing the domain Manually
 # DOMAIN=$1
 # case "$DOMAIN" in
-#     (ios|mac|watchos)
+#     (ios|macos|watchos)
 #         ;;
 #     (*)
-#         echo "Usage: $0 {ios|mac|watchos}"
+#         echo "Usage: $0 {ios|macos|watchos}"
 #         exit 1
 #         ;;
 # esac
