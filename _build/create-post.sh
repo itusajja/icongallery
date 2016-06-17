@@ -1,7 +1,7 @@
 # #!/bin/bash
 
 # Capture the DOMAIN dynamically based off parent folder
-# all folders should be the domain name, i.e. applewatchicongallery.com
+# all folders should be the domain name, i.e. watchosicongallery.com
 dir=$(basename `pwd`)
 DOMAIN=${dir/icongallery.com/}
 echo ${DOMAIN}
@@ -9,10 +9,10 @@ echo ${DOMAIN}
 # For capturing the domain Manually
 # DOMAIN=$1
 # case "$DOMAIN" in
-#     (ios|mac|applewatch)
+#     (ios|mac|watchos)
 #         ;;
 #     (*)
-#         echo "Usage: $0 {ios|mac|applewatch}"
+#         echo "Usage: $0 {ios|mac|watchos}"
 #         exit 1
 #         ;;
 # esac
@@ -47,7 +47,7 @@ DIR="../../img"
 
 # Apple watch, convert .jpg to .png
 echo "Converting JPG to PNG..."
-if [[ $DOMAIN == *applewatch* ]]; then
+if [[ $DOMAIN == *watchos* ]]; then
     mogrify -format png *.jpeg
     rm *.jpeg
     VARIANTS=(256 128 64 32)

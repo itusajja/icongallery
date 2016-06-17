@@ -8,28 +8,28 @@ layout: default
     {% comment %} Icon Sizes {% endcomment %}
     <ul class="list-icons list-icons--featured">
         <li class="icon-container-xlg">
-            {% if site.theme.active != 'applewatchicongallery' %}
+            {% if site.theme.active != 'watchosicongallery' %}
                 {% include icon.html icon-size="512" %}
             {% else %}
                 {% include icon.html icon-size="256" %}
             {% endif %}
         </li>
         <li class="icon-container-lg">
-            {% if site.theme.active != 'applewatchicongallery' %}
+            {% if site.theme.active != 'watchosicongallery' %}
                 {% include icon.html icon-size="256" %}
             {% else %}
                 {% include icon.html icon-size="128" %}
             {% endif %}
         </li>
         <li class="icon-container-md">
-            {% if site.theme.active != 'applewatchicongallery' %}
+            {% if site.theme.active != 'watchosicongallery' %}
                 {% include icon.html icon-size="128" %}
             {% else %}
                 {% include icon.html icon-size="64" %}
             {% endif %}
         </li>
         <li class="icon-container-sm">
-            {% if site.theme.active != 'applewatchicongallery' %}
+            {% if site.theme.active != 'watchosicongallery' %}
                 {% include icon.html icon-size="64" %}
             {% else %}
                 {% include icon.html icon-size="32" %}
@@ -126,8 +126,8 @@ layout: default
     </header>
 </article>
 
-{% comment %} 
-    Sidebar Related Posts 
+{% comment %}
+    Sidebar Related Posts
     Prep info needed for react to render related icons
 {% endcomment %}
 {% for category in site.data.categories %}
@@ -136,10 +136,10 @@ layout: default
         {% assign categoryName = category.name %}
     {% endif %}
 {% endfor %}
-<aside 
-    class="module related" 
-    id="related-icons" 
-    data-category-id="{{ categoryId }}" 
+<aside
+    class="module related"
+    id="related-icons"
+    data-category-id="{{ categoryId }}"
     data-category-name="{{ categoryName }}"
     data-post-name="{{ post.title }}">
         <span class="loading"></span>

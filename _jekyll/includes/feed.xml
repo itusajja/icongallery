@@ -14,7 +14,7 @@
     </image>
     <generator>Jekyll v{{ jekyll.version }}</generator>
     {% for post in site.posts limit:10 %}
-        {% if site.theme.active != 'applewatchicongallery' %}
+        {% if site.theme.active != 'watchosicongallery' %}
             {% assign imgSize = 512 %}
         {% else %}
             {% assign imgSize = 256 %}

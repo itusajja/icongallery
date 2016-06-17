@@ -72,7 +72,7 @@ Used when listing icons
     border: 1px solid $color-border-light;
     text-align: center;
 
-    .applewatchicongallery & {
+    .watchosicongallery & {
       padding-bottom: 51.8034%;
     }
 
@@ -130,7 +130,7 @@ Used when listing icons
     @include respond-to(desktop) {
         padding-bottom: 111.8034%;
 
-        .applewatchicongallery & {
+        .watchosicongallery & {
           padding-bottom: 91.8034%;
         }
 
@@ -181,7 +181,7 @@ Used when listing icons
     @include respond-to(tablet) {
         padding-bottom: 161.8034%;
 
-        .applewatchicongallery & {
+        .watchosicongallery & {
           padding-bottom: 141.8034%;
         }
 
@@ -192,7 +192,7 @@ Used when listing icons
 
     @include respond-to(mobile) {
 
-        .applewatchicongallery & {
+        .watchosicongallery & {
           padding-bottom: 121.8034%;
         }
 

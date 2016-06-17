@@ -23,7 +23,7 @@ Site runs on Jekyll. The site is split into two parts: the content and the theme
 
 ### Unique content files
 
-Unique content is stored in the root directory. The following are files/folders that are unique to each project itself (iosicongallery, applewatchicongallery, etc). These:
+Unique content is stored in the root directory. The following are files/folders that are unique to each project itself (iosicongallery, watchosicongallery, etc). These:
 
 ```
 .
@@ -35,7 +35,7 @@ Unique content is stored in the root directory. The following are files/folders 
 ├── CNAME
 └── img
     ├── _src/
-    ├── 32              // applewatch
+    ├── 32              // watchos
     ├── 64
     ├── 128
     ├── 256

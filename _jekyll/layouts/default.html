@@ -27,7 +27,11 @@
     <![endif]-->
 
     <!-- RSS Feed -->
-    <link rel="alternate" type="application/rss+xml" title="RSS 2.0" href="http://feeds.feedburner.com/{{ site.theme.active }}" />
+    {% if site.theme.active != 'watchosicongallery' %}
+      <link rel="alternate" type="application/rss+xml" title="RSS 2.0" href="http://feeds.feedburner.com/{{ site.theme.active }}" />
+    {% else %}
+      <link rel="alternate" type="application/rss+xml" title="RSS 2.0" href="{{ site.baseurl }}/feed.xml" />
+    {% endif %}
 
     <!-- Github pages redirect -->
     <script>
@@ -40,19 +44,19 @@
       When redirecting, it will be from http://jim-nielsen.com/SITENAME
         - http://jim-nielsen.com/iosicongallery
         - http://jim-nielsen.com/macicongallery
-        - http://jim-nielsen.com/applewatchicongallery
+        - http://jim-nielsen.com/watchosicongallery
       So to properly redirect all pages, we have to remove the sitename
       from the initial part of the pathname
 
-      jim-nielsen.com/applewatchicongallery/
-        -> applewatchicongallery.com/
-      jim-nielsen.com/applewatchicongallery/2015/facebook
-        -> applewatchicongallery.com/2015/facebook
+      jim-nielsen.com/watchosicongallery/
+        -> watchosicongallery.com/
+      jim-nielsen.com/watchosicongallery/2015/facebook
+        -> watchosicongallery.com/2015/facebook
     */
     if (location.hostname === "jim-nielsen.com") {
-      // Sitename, i.e. "/applewatchicongallery"
+      // Sitename, i.e. "/watchosicongallery"
       var sitename = "/{{ site.theme.active }}";
-      // Pathname, i.e. jim-nielsen.com"/applewathcicongallery/2015/facebook"
+      // Pathname, i.e. jim-nielsen.com"/watchosicongallery/2015/facebook"
       var pathname = location.pathname;
       // If the pathname starts with the sitename, remove it
       if (pathname.indexOf(sitename) === 0) {
@@ -87,21 +91,6 @@
             </h1>
             <nav role="navigation">
                 <a href="{{ site.baseurl }}/search/" class="i i--search {% if page.title == 'Search' %}active{% endif %}"></a>
-                {% comment %}
-                <ul>
-                    <li><a href="http://twitter.com/jimniels">Made by @jimniels</a></li>
-                    <li>
-                        <!-- mailto encoder: http://email.about.com/library/misc/blmailto_encoder.htm -->
-                        <a href="mailto:jimniels%40gmail.com?subject={{ site.theme.active }}.com%20icon%20suggestion%3A&body=I%20want%20to%20recommend%20a%20beautiful%20icon%20for%20an%20app%3A%0A%0AApp%20store%20URL%3A%0AIcon%20designer%20%26%20portfolio%20URL%3A" id="submit">Submit icon</a>
-                    </li>
-                    <li>
-                        <a href="http://twitter.com/icongalleries">Follow @icongalleries</a>
-                    </li>
-                    <li>
-                        <a href="http://feeds.feedburner.com/{{ site.theme.active }}">Subscribe to RSS</a>
-                    </li>
-                </ul>
-                {% endcomment %}
             </nav>
         </div>
     </header>
@@ -124,7 +113,11 @@
                    <a href="http://twitter.com/icongalleries">follow updates on twitter</a>
                </li>
                <li class="i i--feed">
-                   <a href="http://feeds.feedburner.com/{{ site.theme.active }}">subscribe to rss feed</a>
+                    {% if site.theme.active != 'watchosicongallery' %}
+                        <a href="http://feeds.feedburner.com/{{ site.theme.active }}">subscribe to rss feed</a>
+                    {% else %}
+                        <a href="{{ site.baseurl }}/feed.xml">subscribe to rss feed</a>
+                    {% endif %}
                </li>
            </ul>
            <ul id="footer-description">

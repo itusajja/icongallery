@@ -107,7 +107,7 @@ def writeImage():
         except URLError, e:
             urllib.urlretrieve(itunesResponse['artworkUrl512'], post['slug'] + '-' + time.strftime("%Y") + '.png')
 
-    elif(domain == 'applewatch'):
+    elif(domain == 'watchos'):
         # Read from the object, storing the page's contents in 's'.
         f = urllib.urlopen(post['itunes-url'])
         html = f.read()

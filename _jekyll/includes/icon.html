@@ -2,7 +2,7 @@
     {{ include.icon-size }}
 
     Retina images
-    If it's applewatch, only do srcset on 128px and lower, as 256 is our max size
+    If it's watchos, only do srcset on 128px and lower, as 256 is our max size
     If it's ios or mac, do srcset on 256 and lower because we can gurantee 512
     and lower. But we don't always have 1024. That one we have to check for
     with js and replace only if it exists.
@@ -16,7 +16,7 @@
     class="icon icon-{{ include.icon-size }}"
     src="{{ imgSrc }}"
 
-    {% if site.theme.active == 'applewatchicongallery' %}
+    {% if site.theme.active == 'watchosicongallery' %}
         {% if include.icon-size != '256' %}
             srcset="{{ imgSrc2x }} 2x"
         {% endif %}
