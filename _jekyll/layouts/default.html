@@ -27,7 +27,7 @@
     <![endif]-->
 
     <!-- RSS Feed -->
-    {% if site.theme.active != 'watchosicongallery' %}
+    {% if site.theme.active == 'iosicongallery' %}
       <link rel="alternate" type="application/rss+xml" title="RSS 2.0" href="http://feeds.feedburner.com/{{ site.theme.active }}" />
     {% else %}
       <link rel="alternate" type="application/rss+xml" title="RSS 2.0" href="{{ site.baseurl }}/feed.xml" />
@@ -43,7 +43,7 @@
 
       When redirecting, it will be from http://jim-nielsen.com/SITENAME
         - http://jim-nielsen.com/iosicongallery
-        - http://jim-nielsen.com/macicongallery
+        - http://jim-nielsen.com/macosicongallery
         - http://jim-nielsen.com/watchosicongallery
       So to properly redirect all pages, we have to remove the sitename
       from the initial part of the pathname
@@ -113,7 +113,7 @@
                    <a href="http://twitter.com/icongalleries">follow updates on twitter</a>
                </li>
                <li class="i i--feed">
-                    {% if site.theme.active != 'watchosicongallery' %}
+                    {% if site.theme.active == 'iosicongallery' %}
                         <a href="http://feeds.feedburner.com/{{ site.theme.active }}">subscribe to rss feed</a>
                     {% else %}
                         <a href="{{ site.baseurl }}/feed.xml">subscribe to rss feed</a>
