@@ -66,12 +66,19 @@
         &-sm:after {
             @include icon-mask(64);
         }
-
-
     }
 
-    // Hide mask on ad container
-    .icon-container--ad::after {
+    // For stuff before ios 7, apply the old mask
+    .icon-container[data-os*="before-ios-7"] {
+      .icon {
+        border-radius: 17.544%; // http://jim-nielsen.com/blog/2012/calculate-the-ios-border-radius/
+        box-shadow: 0 0 0 1px rgba(0, 0, 0, .15);
+      }
+    }
+
+    // Hide mask on ad container where needed
+    .icon-container--ad::after,
+    .icon-container[data-os*="before-ios-7"]::after {
         display: none;
     }
 }

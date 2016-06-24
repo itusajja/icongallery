@@ -1,0 +1,15 @@
+{% comment %}
+    {{ include.post }}
+
+    For returning `data-os` attribute.
+    data-date ISO 8601 format (yyyy-mm-dd).
+{% endcomment %}
+{% if site.theme.active == 'iosicongallery' %}
+  {% capture ios7Date %}{{ '2013-09-18' | date: '%F' }}{% endcapture %}
+  {% capture iconDate %}{{ post.date | date: '%F' }}{% endcapture %}
+  {% if iconDate < ios7Date %}
+    before-ios-7
+  {% else %}
+    after-ios-7
+  {% endif %}
+{% endif %}

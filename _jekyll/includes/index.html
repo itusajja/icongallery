@@ -9,7 +9,7 @@
             </li>
         {% endif %}
         <li>
-            <a class="icon-container" href="{{ post.url | prepend: site.baseurl }}" title="{{ post.title }}">
+            <a class="icon-container" href="{{ post.url | prepend: site.baseurl }}" title="{{ post.title }}" data-os="{% include data-os.html post=post %}">
                 {% include icon.html icon-size="128" %}
             </a>
         </li>
