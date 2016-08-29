@@ -8,36 +8,36 @@ layout: default
     {% comment %} Icon Sizes {% endcomment %}
     <ul class="list-icons list-icons--featured">
         <li class="icon-container-xlg">
-            {% if site.theme.active != 'watchosicongallery' %}
+            {% if site.theeme.active != 'watchosicongallery' %}
                 {% include icon.html icon-size="512" %}
             {% else %}
                 {% include icon.html icon-size="256" %}
             {% endif %}
         </li>
         <li class="icon-container-lg">
-            {% if site.theme.active != 'watchosicongallery' %}
+            {% if site.theeme.active != 'watchosicongallery' %}
                 {% include icon.html icon-size="256" %}
             {% else %}
                 {% include icon.html icon-size="128" %}
             {% endif %}
         </li>
         <li class="icon-container-md">
-            {% if site.theme.active != 'watchosicongallery' %}
+            {% if site.theeme.active != 'watchosicongallery' %}
                 {% include icon.html icon-size="128" %}
             {% else %}
                 {% include icon.html icon-size="64" %}
             {% endif %}
         </li>
         <li class="icon-container-sm">
-            {% if site.theme.active != 'watchosicongallery' %}
+            {% if site.theeme.active != 'watchosicongallery' %}
                 {% include icon.html icon-size="64" %}
             {% else %}
                 {% include icon.html icon-size="32" %}
             {% endif %}
         </li>
-        {% if site.theme.ad_script %}
+        {% if site.theeme.ad_script %}
             <li class="icon-container icon-container--ad">
-                {{ site.theme.ad_script }}
+                {{ site.theeme.ad_script }}
             </li>
         {% endif %}
     </ul>

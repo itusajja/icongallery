@@ -3,7 +3,7 @@ layout: null
 ---
 {
     "site": {
-        "name": "{{ site.theme.active }}",
+        "name": "{{ site.theeme.active }}",
         "categories": [
             {% for category in site.data.categories %}
                 {

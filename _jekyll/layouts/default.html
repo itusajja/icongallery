@@ -15,9 +15,9 @@
     <link rel="canonical" href="{{ page.url | replace:'index.html','' | prepend: site.baseurl | prepend: site.url }}">
 
     <!-- Favicon & Touch Icon -->
-    <link rel="icon" href="{{ site.baseurl }}/{{ site.assets.images }}/{{ site.theme.active }}-favicon.ico" type="image/x-icon">
-    <link rel="shortcut icon" href="{{ site.baseurl }}/{{ site.assets.images }}/{{ site.theme.active }}-favicon.ico" type="image/x-icon">
-    <link rel="apple-touch-icon" href="{{ site.baseurl }}/{{ site.assets.images }}/{{ site.theme.active }}-apple-touch-icon.png">
+    <link rel="icon" href="{{ site.baseurl }}/{{ site.assets.images }}/{{ site.theeme.active }}-favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="{{ site.baseurl }}/{{ site.assets.images }}/{{ site.theeme.active }}-favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" href="{{ site.baseurl }}/{{ site.assets.images }}/{{ site.theeme.active }}-apple-touch-icon.png">
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="{{ site.baseurl }}/{{ site.assets.styles }}/styles.css">
@@ -27,8 +27,8 @@
     <![endif]-->
 
     <!-- RSS Feed -->
-    {% if site.theme.active == 'iosicongallery' %}
-      <link rel="alternate" type="application/rss+xml" title="RSS 2.0" href="http://feeds.feedburner.com/{{ site.theme.active }}" />
+    {% if site.theeme.active == 'iosicongallery' %}
+      <link rel="alternate" type="application/rss+xml" title="RSS 2.0" href="http://feeds.feedburner.com/{{ site.theeme.active }}" />
     {% else %}
       <link rel="alternate" type="application/rss+xml" title="RSS 2.0" href="{{ site.baseurl }}/feed.xml" />
     {% endif %}
@@ -55,7 +55,7 @@
     */
     if (location.hostname === "jim-nielsen.com") {
       // Sitename, i.e. "/watchosicongallery"
-      var sitename = "/{{ site.theme.active }}";
+      var sitename = "/{{ site.theeme.active }}";
       // Pathname, i.e. jim-nielsen.com"/watchosicongallery/2015/facebook"
       var pathname = location.pathname;
       // If the pathname starts with the sitename, remove it
@@ -66,19 +66,19 @@
     }
     </script>
 </head>
-<body class="{{ site.theme.active }} {% if site.theme.ad_script %}ads{% endif %}">
+<body class="{{ site.theeme.active }} {% if site.theeme.ad_script %}ads{% endif %}">
 
     <header class="header">
         <div class="wrapper clearfix">
             <h1>
                 <a href="{{ site.baseurl }}/" title="{{ site.title }}" rel="home">
-                    {% capture logoUrl %}{{ site.baseurl }}/{{ site.assets.images }}/{{ site.theme.active }}-logo{% endcapture %}
+                    {% capture logoUrl %}{{ site.baseurl }}/{{ site.assets.images }}/{{ site.theeme.active }}-logo{% endcapture %}
                     <img class="logo" src="{{ logoUrl }}.svg" onerror="this.onerror=null; this.src='{{ logoUrl }}.png'" />
                 </a>
                 <div class="dropdown">
                     <a class="dropdown__trigger" href="#">&#9660;</a>
                     <ul class="dropdown__content">
-                        {% for website in site.theme.inactive %}
+                        {% for website in site.theeme.inactive %}
                             {% capture logoUrl %}{{ site.baseurl }}/{{ site.assets.images }}/{{ website }}-logo{% endcapture %}
                             <li>
                                 <a href="http://{{ website }}.com" class="external-link">
@@ -107,14 +107,14 @@
                </li>
                <li class="i i--submit">
                    <!-- mailto encoder: http://email.about.com/library/misc/blmailto_encoder.htm -->
-                   <a href="mailto:jimniels%40gmail.com?subject={{ site.theme.active }}.com%20icon%20suggestion%3A&body=I%20want%20to%20recommend%20a%20beautiful%20icon%20for%20an%20app%3A%0A%0AApp%20store%20URL%3A%0AIcon%20designer%20%26%20portfolio%20URL%3A" id="submit">submit an icon</a>
+                   <a href="mailto:jimniels%40gmail.com?subject={{ site.theeme.active }}.com%20icon%20suggestion%3A&body=I%20want%20to%20recommend%20a%20beautiful%20icon%20for%20an%20app%3A%0A%0AApp%20store%20URL%3A%0AIcon%20designer%20%26%20portfolio%20URL%3A" id="submit">submit an icon</a>
                </li>
                <li class="i i--twitter">
                    <a href="http://twitter.com/icongalleries">follow updates on twitter</a>
                </li>
                <li class="i i--feed">
-                    {% if site.theme.active == 'iosicongallery' %}
-                        <a href="http://feeds.feedburner.com/{{ site.theme.active }}">subscribe to rss feed</a>
+                    {% if site.theeme.active == 'iosicongallery' %}
+                        <a href="http://feeds.feedburner.com/{{ site.theeme.active }}">subscribe to rss feed</a>
                     {% else %}
                         <a href="{{ site.baseurl }}/feed.xml">subscribe to rss feed</a>
                     {% endif %}
@@ -124,7 +124,7 @@
                <li>design, &lt;code>, &amp; curation by <a href="http://twitter.com/jimniels">@jimniels</a></li>
                <li>
                    see more great icons at
-                   {% for site in site.theme.inactive %}
+                   {% for site in site.theeme.inactive %}
                        <a href="http://{{ site }}.com">{{ site }}.com</a>
                        {% unless forloop.last %} and {% endunless %}
                    {% endfor %}
@@ -141,7 +141,7 @@
         m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
         })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-        ga('create', '{{ site.theme.analytics_key }}', 'auto');
+        ga('create', '{{ site.theeme.analytics_key }}', 'auto');
         ga('send', 'pageview');
     </script>
 </body>

@@ -8,20 +8,20 @@
     <pubDate>{{ site.time | date_to_rfc822 }}</pubDate>
     <lastBuildDate>{{ site.time | date_to_rfc822 }}</lastBuildDate>
     <image>
-        <url>{{ site.url | append:site.baseurl }}/{{ site.assets.images }}/{{ site.theme.active }}-rss.png</url>
+        <url>{{ site.url | append:site.baseurl }}/{{ site.assets.images }}/{{ site.theeme.active }}-rss.png</url>
         <title>{{ site.title | xml_escape }}</title>
         <link>{{ site.url }}{{ site.baseurl }}/</link>
     </image>
     <generator>Jekyll v{{ jekyll.version }}</generator>
     {% for post in site.posts limit:10 %}
-        {% if site.theme.active != 'watchosicongallery' %}
+        {% if site.theeme.active != 'watchosicongallery' %}
             {% assign imgSize = 512 %}
         {% else %}
             {% assign imgSize = 256 %}
         {% endif %}
         <item>
             <title>{{ post.title | xml_escape }}</title>
-            <enclosure url="{{ site.url | append:site.baseurl }}/{{ site.theme.active }}/img/{{ imgSize }}/{{post.slug}}-{{ post.date | date: "%Y" }}.png" length="90000" type="image/png" />
+            <enclosure url="{{ site.url | append:site.baseurl }}/{{ site.theeme.active }}/img/{{ imgSize }}/{{post.slug}}-{{ post.date | date: "%Y" }}.png" length="90000" type="image/png" />
             <description><![CDATA[<a href="{{ post.url | prepend: site.baseurl | prepend: site.url }}"><img width="{{ imgSize }}" height="{{ imgSize }}" alt="{{ post.title }} app icon" src="{{ site.url | append:site.baseurl }}/img/{{ imgSize }}/{{post.slug}}-{{ post.date | date: "%Y" }}.png" /></a>]]></description>
             <content:encoded><![CDATA[<a href="{{ post.url | prepend: site.baseurl | prepend: site.url }}"><img width="{{ imgSize }}" height="{{ imgSize }}" alt="{{ post.title }} app icon" src="{{ site.url | append:site.baseurl }}/img/{{ imgSize }}/{{post.slug}}-{{ post.date | date: "%Y" }}.png" /></a>]]></content:encoded>
             <pubDate>{{ post.date | date_to_rfc822 }}</pubDate>
