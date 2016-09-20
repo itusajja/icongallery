@@ -3,5 +3,5 @@
 # ------------------------------
 # Should ignore all files irrelevant to this directory specifically.
 
-
+.DS_Store
 node_modules
