@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>
         {% if page.title %}
             {{ page.title }} | {{ site.title }}
@@ -10,6 +8,10 @@
             {{ site.title }}
         {% endif %}
     </title>
+
+    <!-- Meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="{{ site.description }}">
     <link rel="canonical" href="{{ page.url | replace:'index.html','' | prepend: site.baseurl | prepend: site.url }}">
@@ -19,7 +21,7 @@
     <link rel="shortcut icon" href="{{ site.baseurl }}/{{ site.assets.images }}/{{ site.theeme.active }}-favicon.ico" type="image/x-icon">
     <link rel="apple-touch-icon" href="{{ site.baseurl }}/{{ site.assets.images }}/{{ site.theeme.active }}-apple-touch-icon.png">
 
-    <!-- Custom CSS -->
+    <!-- CSS -->
     <link rel="stylesheet" href="{{ site.baseurl }}/{{ site.assets.styles }}/styles.css">
 
     <!--[if IE]>
@@ -32,6 +34,9 @@
     {% else %}
       <link rel="alternate" type="application/rss+xml" title="RSS 2.0" href="{{ site.baseurl }}/feed.xml" />
     {% endif %}
+
+    <!-- JSON Feed -->
+    <link rel="alternate" title="JSON Feed" type="application/json" href="{{ site.baseurl }}/feed.json" />
 
     <!-- Github pages redirect -->
     <script>
@@ -68,6 +73,9 @@
 </head>
 <body class="{{ site.theeme.active }} {% if site.theeme.ad_script %}ads{% endif %}">
 
+    <!-- Include our sprite of svg icons -->
+    {% include svgconSprite.svg %}
+
     <header class="header">
         <div class="wrapper clearfix">
             <h1>
@@ -76,7 +84,9 @@
                     <img class="logo" src="{{ logoUrl }}.svg" onerror="this.onerror=null; this.src='{{ logoUrl }}.png'" />
                 </a>
                 <div class="dropdown">
-                    <a class="dropdown__trigger" href="#">&#9660;</a>
+                    <a class="dropdown__trigger" href="#">
+                        {% include svgcon.svg id='caret-down' %}
+                    </a>
                     <ul class="dropdown__content">
                         {% for website in site.theeme.inactive %}
                             {% capture logoUrl %}{{ site.baseurl }}/{{ site.assets.images }}/{{ website }}-logo{% endcapture %}
@@ -90,7 +100,9 @@
                 </div>
             </h1>
             <nav role="navigation">
-                <a href="{{ site.baseurl }}/search/" class="i i--search {% if page.title == 'Search' %}active{% endif %}"></a>
+                <a href="{{ site.baseurl }}/search/" class="{% if page.title == 'Search' %}active{% endif %}">
+                    {% include svgcon.svg id='search' %}
+                </a>
             </nav>
         </div>
     </header>
@@ -102,22 +114,37 @@
     <footer id="footer">
         <div class="wrapper clearfix">
            <ul id="footer-nav">
-               <li class="i i--search">
-                   <a href="{{ site.baseurl }}/search/">search for icons</a>
+               <li>
+                   <a href="{{ site.baseurl }}/search/">
+                        {% include svgcon.svg id='search' %}
+                        search for icons
+                    </a>
                </li>
-               <li class="i i--submit">
+               <li>
                    <!-- mailto encoder: http://email.about.com/library/misc/blmailto_encoder.htm -->
-                   <a href="mailto:jimniels%40gmail.com?subject={{ site.theeme.active }}.com%20icon%20suggestion%3A&body=I%20want%20to%20recommend%20a%20beautiful%20icon%20for%20an%20app%3A%0A%0AApp%20store%20URL%3A%0AIcon%20designer%20%26%20portfolio%20URL%3A" id="submit">submit an icon</a>
+                   <a href="mailto:jimniels%40gmail.com?subject={{ site.theeme.active }}.com%20icon%20suggestion%3A&body=I%20want%20to%20recommend%20a%20beautiful%20icon%20for%20an%20app%3A%0A%0AApp%20store%20URL%3A%0AIcon%20designer%20%26%20portfolio%20URL%3A" id="submit">
+                        {% include svgcon.svg id='email' %}
+                        submit an icon
+                    </a>
                </li>
-               <li class="i i--twitter">
-                   <a href="http://twitter.com/icongalleries">follow updates on twitter</a>
+               <li>
+                   <a href="http://twitter.com/icongalleries">
+                        {% include svgcon.svg id='twitter' %}
+                        follow updates on twitter
+                    </a>
                </li>
-               <li class="i i--feed">
-                    {% if site.theeme.active == 'iosicongallery' %}
-                        <a href="http://feeds.feedburner.com/{{ site.theeme.active }}">subscribe to rss feed</a>
-                    {% else %}
-                        <a href="{{ site.baseurl }}/feed.xml">subscribe to rss feed</a>
-                    {% endif %}
+               <li>
+                    {% capture rssLink %}
+                        {% if site.theeme.active == 'iosicongallery' %}
+                            http://feeds.feedburner.com/{{ site.theeme.active }}
+                        {% else %}
+                            {{ site.baseurl }}/feed.xml
+                        {% endif %}
+                    {% endcapture %}
+                    <a href="{{ rssLink }}">
+                        {% include svgcon.svg id='rss' %}
+                        subscribe to rss feed
+                    </a>
                </li>
            </ul>
            <ul id="footer-description">

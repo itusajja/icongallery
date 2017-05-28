@@ -39,27 +39,23 @@
 
         a {
             font-size: em(16);
-            display: block;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             width: 36px;
             height: 36px;
-            line-height: 36px;
             border: 1px solid $color-border;
             text-align: center;
             border-radius: 2px;
 
-            &:hover {
+            &:hover,
+            &.active {
                 background: #e9f6fc;
                 border-color: lighten($color-link, 25%);
-            }
 
-            &.i:before {
-                position: relative;
-                top: 1px;
-                left: 0px;
-            }
-            &.active {
-                background-color: #e9f6fc;
-                border-color: lighten($color-link, 25%);
+                svg {
+                    fill: lighten($color-link, 25%);
+                }
             }
         }
 
@@ -87,7 +83,11 @@
     @include inline-block();
     text-align: center;
     margin-left: em(10);
-    color: $color-light-light-gray;
+    
+
+    .svgcon {
+        fill: $color-light-light-gray;
+    }
 
     &:hover {
         text-decoration: none;

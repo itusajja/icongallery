@@ -17,15 +17,19 @@
             text-align: center !important;
             margin-bottom: 1em;
         }
+
+        li {
+            margin-bottom: 3px;
+        }
     }
 
     // Search is visible on mobile in footer, header on desktop
-    .i--search { 
+    a[href*="/search"] { 
         display: none;
     }
     @media screen and (max-width: 600px) {
-        .i--search {
-            display: block;
+        a[href*="/search"] {
+            display: flex;
         }
     }
 }
@@ -34,6 +38,22 @@
     float: left;
     font-size: (16em / $font-size-base);
     text-align: left;
+
+    a {
+        display: flex;
+        align-items: center;
+
+        @media screen and (max-width: 1024px) {
+            justify-content: center;
+        }
+
+        .svgcon {
+            width: 21px;
+            height: 21px;
+            fill: $color-link;
+            margin-right: 10px;
+        }
+    }
 }
 
 #footer-description {
