@@ -18,15 +18,15 @@
   },
   "homepage": "https://github.com/jimniels/icongallery",
   "devDependencies": {
-    "babel-core": "^6.4.5",
-    "babel-loader": "^6.2.1",
-    "babel-preset-es2015": "^6.3.13",
-    "babel-preset-react": "^6.3.13",
-    "webpack": "^1.12.12"
+    "babel-core": "6.4.5",
+    "babel-loader": "6.2.1",
+    "babel-preset-es2015": "6.3.13",
+    "babel-preset-react": "6.3.13",
+    "webpack": "1.12.12"
   },
   "dependencies": {
-    "react": "^0.14.7",
-    "react-dom": "^0.14.7",
-    "string_score": "^0.1.22"
+    "react": "0.14.7",
+    "react-dom": "0.14.7",
+    "string_score": "0.1.22"
   }
 }
