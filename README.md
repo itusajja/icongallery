@@ -2,28 +2,20 @@
 
 ## To-Do
 
-- Save filter states in URL for /search
-- 404 page, "oops it's not here ... check out some icons while you're here"
-- 2x versions on /search
-- filter styles on mobile for /search
+- [ ] Save filter states in URL for /search
+- [ ] 404 page, "oops it's not here ... check out some icons while you're here"
+- [ ] 2x versions on /search
+- [ ] filter styles on mobile for /search
+- [ ] Use native browser `srcset` or `picture` for 2x images (though remember that `srcset` doesn't actually do a fallback to 1x for 2x specified images, so the currently javascript method works best ...)
+- [ ] Stop using retina JS and just manually add a fetch for 2x images, but only on the 1024 as that's the only one we can't guarantee
 
-###  Deploy To-Do
+## How it Works
 
-- Ads work
-- Redirects work
-- RSS feeds work (feedburner)
+Site runs on Jekyll. The site consists of two repos: the site repo and the theme repo (this one).
 
-### Someday
+### Site Repo
 
-- Use native browser `srcset` or `picture` for 2x images (though remember that `srcset` doesn't actually do a fallback to 1x for 2x specified images, so the currently javascript method works best ...)
-
-## Jekyll
-
-Site runs on Jekyll. The site is split into two parts: the content and the theme.
-
-### Unique content files
-
-Unique content is stored in the root directory. The following are files/folders that are unique to each project itself (iosicongallery, watchosicongallery, etc). These:
+Unique content is stored in the root directory of the site repo. The following are files/folders that are unique to site and it's respective repo (iosicongallery, watchosicongallery, macosicongallery):
 
 ```
 .
@@ -43,9 +35,9 @@ Unique content is stored in the root directory. The following are files/folders 
     └── 1024            // ios, macos
 ```
 
-### Shared content files
+#### Shared Files
 
-The following files/folders in the root directory are shared in the sense that they share templates that are in the theme directory. You can easily copy/paste these specific files between projects. The reason we cannot put them in the shared directory is because of how we integrate with github pages.
+The following files/folders in each respecitve site repo are shared in the sense that they share templates that are in the theme repo. You can easily copy/paste these specific files between projects. The reason we cannot put them in the shared directory is because of how we integrate with github pages.
 
 ```
 .
@@ -59,43 +51,33 @@ The following files/folders in the root directory are shared in the sense that t
     └── index.html
 ```
 
-### Theme files
+### Theme Repo
 
-Theme files are shared across all sites and can be found in `shared/`. This folder is a submodule of this repository. It includes styles, scripts, build scripts, and images shared across all three sites. Examples:
+Theme files are shared across all site projects and can be found in `shared/`. This folder is a submodule of each site repository. It includes styles, scripts, automation scripts, and images shared across all three sites. Examples:
 
 ```
 .
-├── _build/             // scripts for creating new content
-├── _jekyll/            // shared jekyll templates
-|   ├── includes/
-|   └── layouts/
+├── src/
+|   ├── automation/     // scripts for creating new content
+|   ├── jekyll/         // shared jekyll templates
+|   |   ├── includes/
+|   |   └── layouts/
+|   ├── scripts/        // source .js files
+|   └── styles/         // source .sass files
 ├── api/
 |   └── index.json      // shared template for outputting json of site icons
-├── img/                // bunch of image files
-├── scripts/
-|   ├── bundle.js       // compiled JS for site
-|   └── _src/           // source files for JS, npm/webpack stuff
-└── styles/
-    ├── _sass/          // scss partials
-    └── styles.scss     // source .scss compiled by jekyll
+├── img/                // shared of image files
+├── bundle.js           // shared, compiled JS
+└── styles.scss         // source .scss, gets compiled to .css by jekyll
 ```
 
 ## Plugins/Gems
 
 Since we are deploying with github pages, we use the [gh-pages gem](https://github.com/github/pages-gem) so we most accurately match the prod environment for site generation.
 
-
-## Icons
-
-The original icons reside in their respective repos under `/img/_src`. These are the icons pulled directly from Apple's source. I keep the originals in this spot and generate all needed assets using a script.
-
-To do so, simply place whatever image you need the 512,256,128,64 variants for and place it in `_build`. Then run the `_build-images.sh` script. This will make copies at each size, optimize them, and stick them in the correct folder in `img/_src`.
-
-
 ### Retina Images
 
 Use [retina.js](https://github.com/imulus/retinajs) to get hiDPI versions of each thumbnail. I modified the `RetinaImagePath()` function so it checks for images defined in the `data-at2x` attributes (because they may not exist). Additionally, I changed the selector from `getElementsByTagName('img')` to `querySelectorAll('img.icon')` so it only looks for higher resolution versions of the icons.
-
 
 ### Feeds
 
