@@ -1,25 +1,19 @@
-import React from 'react'
-import IconList from './IconList'
+import React from "react";
+import PropTypes from "prop-types";
+import IconList from "./IconList";
 
-const RelatedIcons = React.createClass({
+RelatedIcons.propTypes = {
+  icons: PropTypes.array.isRequired,
+  activeCategoryName: PropTypes.string.isRequired
+};
 
-  propTypes: {
-    icons: React.PropTypes.array.isRequired,
-    activeCategoryName: React.PropTypes.string.isRequired
-  },
-
-  render: function() {
-    const { icons, activeCategoryName } = this.props
-
-    return (
-      <div>
-        <h2>
-          Related icons in the category “{activeCategoryName}”
-        </h2>
-        <IconList icons={icons} />
-      </div>
-    );
-  }
-});
-
-module.exports = RelatedIcons;
+export default function RelatedIcons({ icons, activeCategoryName }) {
+  return (
+    <div>
+      <h2>
+        Related icons in the category “{activeCategoryName}”
+      </h2>
+      <IconList icons={icons} />
+    </div>
+  );
+}
