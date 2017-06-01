@@ -102,7 +102,7 @@ export default class SearchIcons extends Component {
 
   // User input filters
   handleUserInput = activeFilters => {
-    const { threshhold } = this.props;
+    const { threshold } = this.props;
     const icons = this.getFilteredIcons(activeFilters);
     this.setState({
       activeFilters: activeFilters,

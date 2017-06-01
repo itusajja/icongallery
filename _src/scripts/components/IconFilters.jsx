@@ -23,9 +23,9 @@ export default class IconFilters extends Component {
 
   handleChange = e => {
     this.props.onUserInput({
-      category: this.refs.categoryInput.getDOMNode().value,
-      color: this.refs.colorInput.getDOMNode().value,
-      search: this.refs.searchInput.getDOMNode().value
+      category: this.categoryInput.value,
+      color: this.colorInput.value,
+      search: this.searchInput.value
     });
   };
 
@@ -38,7 +38,7 @@ export default class IconFilters extends Component {
         </span>
 
         <input
-          ref="searchInput"
+          ref={input => this.searchInput = input}
           onKeyUp={this.handleKeyUp}
           defaultValue={this.props.activeFilters.search}
           type="search"
@@ -49,7 +49,7 @@ export default class IconFilters extends Component {
         />
 
         <select
-          ref="categoryInput"
+          ref={input => this.categoryInput = input}
           onChange={this.handleChange}
           value={this.props.activeFilters.category}>
           <option value="">All categories...</option>
@@ -59,7 +59,7 @@ export default class IconFilters extends Component {
         </select>
 
         <select
-          ref="colorInput"
+          ref={input => this.colorInput = input}
           onChange={this.handleChange}
           value={this.props.activeFilters.color}>
           <option value="">All colors...</option>
