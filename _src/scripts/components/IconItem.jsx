@@ -1,28 +1,23 @@
-import React from 'react';
+import React from "react";
+import PropTypes from "prop-types";
 
-var IconItem = React.createClass({
-  propTypes: {
-    icon: React.PropTypes.object.isRequired
-  },
+IconItem.propTypes = {
+  icon: PropTypes.object.isRequired
+};
 
-  render: function() {
-    var url = this.props.icon.url,
-        title = this.props.icon.title,
-        filepath = this.props.icon.filepath,
-        filename = this.props.icon.filename;
-    return (
-      <li>
-        <a href={url} className="icon-container" title={title}>
-          <img
-            alt={`${title} app icon`}
-            className="icon icon-128"
-            src={`${filepath}/128/${filename}`}
-            srcSet={`${filepath}/256/${filename} 2x`}
-          />
-        </a>
-      </li>
-    );
-  }
-});
+export default function IconItem({ icon }) {
+  const { url, title, filepath, filename } = icon;
 
-module.exports = IconItem;
+  return (
+    <li>
+      <a href={url} className="icon-container" title={title}>
+        <img
+          alt={`${title} app icon`}
+          className="icon icon-128"
+          src={`${filepath}/128/${filename}`}
+          srcSet={`${filepath}/256/${filename} 2x`}
+        />
+      </a>
+    </li>
+  );
+}

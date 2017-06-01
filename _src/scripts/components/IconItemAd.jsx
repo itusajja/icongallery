@@ -1,18 +1,15 @@
-import React from 'react';
+import React from "react";
+import PropTypes from "prop-types";
 
-var IconItemAd = React.createClass({
-  propTypes: {
-    ad: React.PropTypes.string.isRequired
-  },
+IconItemAd.propTypes = {
+  ad: PropTypes.string.isRequired
+};
 
-  render: function() {
-    return (
-      <li 
-        className="icon-container icon-container--ad" 
-        dangerouslySetInnerHTML={{__html: this.props.ad}}>
-      </li>
-    );
-  }
-});
-
-module.exports = IconItemAd;
+export default function IconItemAd({ ad }) {
+  return (
+    <li
+      className="icon-container icon-container--ad"
+      dangerouslySetInnerHTML={{ __html: this.props.ad }}
+    />
+  );
+}
