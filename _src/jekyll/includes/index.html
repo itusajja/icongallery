@@ -1,76 +1,80 @@
+<!-- Home Page Template -->
+
+<!-- Icon List -->
 <ul class="list-icons">
-    {% for post in paginator.posts %}
-        {% comment %} If it's the second post, show the ad AND the current post{% endcomment %}
-        {% if forloop.index0 == 1 and site.theeme.ad_script %}
-            <li>
-                <div class="icon-container icon-container--ad">
-                    {{ site.theeme.ad_script }}
-                </div>
-            </li>
-        {% endif %}
-        <li>
-            <a class="icon-container" href="{{ post.url | prepend: site.baseurl }}" title="{{ post.title }}">
-                {% include icon.html icon-size="128" %}
-            </a>
-        </li>
-    {% endfor %}
+  {% for post in paginator.posts %}
+    <!-- If it's the second post, show the ad AND the current post -->
+    {% if forloop.index0 == 1 and site.theeme.ad_script %}
+      <li>
+        <div class="icon-container icon-container--ad">
+          {{ site.theeme.ad_script }}
+        </div>
+      </li>
+    {% endif %}
+    <li>
+      <a class="icon-container" href="{{ post.url | prepend: site.baseurl }}" title="{{ post.title }}">
+        {% include icon.html icon-size="128" %}
+      </a>
+    </li>
+  {% endfor %}
 </ul>
 
+<!-- Pagination -->
 <nav class="navigatio wp-pagenavi">
 
-    {% capture paginatorURL %}{{ site.baseurl | append:'/p' }}{% endcapture %}
+  {% capture paginatorURL %}{{ site.baseurl | append:'/p' }}{% endcapture %}
 
-    <!-- <<first  <next -->
-    {% if paginator.previous_page %}
-        <a href="{{ site.baseurl | append:'/' }}" class="first">&laquo; first</span>
-        <a href="{{ paginatorURL }}/{{ paginator.page | minus:'1' }}" class="previouspostslink">&lsaquo; Prev</a>
+  <!-- <<first  <next -->
+  {% if paginator.previous_page %}
+      <a href="{{ site.baseurl | append:'/' }}" class="first">&laquo; first</span>
+      <a href="{{ paginatorURL }}/{{ paginator.page | minus:'1' }}" class="previouspostslink">&lsaquo; Prev</a>
+  {% endif %}
+
+
+  <!-- 4 5 [6] 7 8 -->
+  {% for i in (1..2) %}
+    {% assign limit = paginator.page | minus:forloop.rindex %}
+    {% if limit > 1 %}
+      <a href="{{ paginatorURL }}/{{ paginator.page | minus:forloop.rindex }}" class="page extend">{{ paginator.page | minus:forloop.rindex }}</a>
+    {% elsif limit == 1 %}
+      <a href="{{ site.baseurl | append:'/' }}" class="page extend">{{ limit }}</a>
     {% endif %}
+  {% endfor %}
 
+  <span class="page current">{{ paginator.page }}</span>
 
-    <!-- 4 5 [6] 7 8 -->
-    {% for i in (1..2) %}
-        {% assign limit = paginator.page | minus:forloop.rindex %}
-        {% if limit > 1 %}
-            <a href="{{ paginatorURL }}/{{ paginator.page | minus:forloop.rindex }}" class="page extend">{{ paginator.page | minus:forloop.rindex }}</a>
-        {% elsif limit == 1 %}
-            <a href="{{ site.baseurl | append:'/' }}" class="page extend">{{ limit }}</a>
-        {% endif %}
-    {% endfor %}
-
-    <span class="page current">{{ paginator.page }}</span>
-
-    {% for i in (1..2) %}
-        {% assign limit = paginator.total_pages | minus:i %}
-        {% if paginator.page <= limit %}
-            <a href="{{ paginatorURL }}/{{ paginator.page | plus:i }}" class="page extend">{{ paginator.page | plus:i }}</a>
-        {% endif %}
-    {% endfor %}
-
-    <!-- 5 6 7 [... 10] -->
-    {% comment %}
-    {% assign k = 0 %}
-    {% assign extend = false %}
-    {% for i in (1..5) %}
-        {% assign baseTen = i | times:10 %}
-        {% assign increment = paginator.page | divided_by:baseTen %}
-        {% if increment == 0 and k < 3 %}
-            {% if extend == false %}
-                <span class="extend">&hellip;</span>
-                {% assign extend = true %}
-            {% endif %}
-            <a href="{{ paginatorURL }}/{{ baseTen }}" class="page">{{ baseTen }}</a>
-            {% assign k = k | plus:1 %}
-        {% endif %}
-    {% endfor %}
-    {% endcomment %}
-
-    <!-- next>  last>> -->
-    {% if paginator.next_page %}
-        <a href="{{ paginatorURL }}/{{ paginator.page | plus:'1' }}" class="nextpostslink">Next &rsaquo;</a>
-        <a href="{{ paginatorURL }}/{{ paginator.total_pages }}" class="last">last &raquo;</a>
+  {% for i in (1..2) %}
+    {% assign limit = paginator.total_pages | minus:i %}
+    {% if paginator.page <= limit %}
+      <a href="{{ paginatorURL }}/{{ paginator.page | plus:i }}" class="page extend">{{ paginator.page | plus:i }}</a>
     {% endif %}
+  {% endfor %}
+
+  <!-- 5 6 7 [... 10] -->
+  <!--
+  {% assign k = 0 %}
+  {% assign extend = false %}
+  {% for i in (1..5) %}
+      {% assign baseTen = i | times:10 %}
+      {% assign increment = paginator.page | divided_by:baseTen %}
+      {% if increment == 0 and k < 3 %}
+          {% if extend == false %}
+              <span class="extend">&hellip;</span>
+              {% assign extend = true %}
+          {% endif %}
+          <a href="{{ paginatorURL }}/{{ baseTen }}" class="page">{{ baseTen }}</a>
+          {% assign k = k | plus:1 %}
+      {% endif %}
+  {% endfor %}
+  -->
+
+  <!-- next>  last>> -->
+  {% if paginator.next_page %}
+    <a href="{{ paginatorURL }}/{{ paginator.page | plus:'1' }}" class="nextpostslink">Next &rsaquo;</a>
+    <a href="{{ paginatorURL }}/{{ paginator.total_pages }}" class="last">last &raquo;</a>
+  {% endif %}
 
 
-    <!-- page 1 of 5 -->
-    <span class="pages">Page: {{ paginator.page }} of {{ paginator.total_pages }}</span>
+  <!-- page 1 of 5 -->
+  <span class="pages">Page: {{ paginator.page }} of {{ paginator.total_pages }}</span>
 </nav>
