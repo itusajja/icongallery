@@ -22,11 +22,20 @@
 <!-- Pagination -->
 <nav class="pagination">
 
-  {% capture paginatorURL %}{{ site.baseurl | append:'/p' }}{% endcapture %}
+  {% assign paginatorURL = site.baseurl | append:'/p' %}
 
   <!-- Prev -->
   {% if paginator.previous_page %}
-    <a href="{{ paginatorURL }}/{{ paginator.page | minus:'1' }}" class="pagination__button">Prev</a>
+    {% assign prevPage = paginator.page | minus: 1 %}
+    <a
+      {% if prevPage < 2 %}
+        href="{{ site.baseurl | append: '/' }}"
+      {% else %}
+        href="{{ paginatorURL }}/{{ prevPage }}"
+      {% endif %}
+      class="pagination__button">
+      Prev
+    </a>
   {% else %}
     <span class="pagination__button">Prev</span>
   {% endif %}
@@ -61,7 +70,7 @@
 
   <!-- Next -->
   {% if paginator.next_page %}
-    <a href="{{ paginatorURL }}/{{ paginator.page | plus:'1' }}" class="pagination__button">Next</a>
+    <a href="{{ paginatorURL }}/{{ paginator.page | plus: 1 }}" class="pagination__button">Next</a>
   {% else %}
     <span class="pagination__button">Next</span>
   {% endif %}
