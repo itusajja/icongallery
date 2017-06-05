@@ -1,44 +1,8 @@
 {% if site.theeme.ad_script %}
-    <div style="display: none">
-        {{ site.theeme.ad_script }}
-    </div>
+  <div style="display: none">
+    {{ site.theeme.ad_script }}
+  </div>
 {% endif %}
 
 <!-- Scripts for search/filter functionality -->
 <div id="search-container"><span class="loading"></span></div>
-
-{% comment %}
-<div class="search-header">
-
-    <select id="icon-designer" class="filter-val">
-        <option value="null">Choose a designer...</option>
-
-        <!-- Get posts and sort alphabetically by designer -->
-        {% assign sortedPosts = site.posts | sort: 'icon-designer' %}
-
-        <!-- Capture all designers with "|" separator -->
-        {% capture listDesigners %}{% for post in sortedPosts %}{%if post.icon-designer%}{{post.icon-designer}}|{%endif%}{%endfor%}{%endcapture%}
-
-        <!-- Split designers into array, remove duplicates, loop over them -->
-        {% assign arrayDesigners = listDesigners | split:"|" %}
-        {% assign arrayDesigners = arrayDesigners | remove_duplicates %}
-        {% for designer in arrayDesigners %}
-            <option value="{{ designer }}">{{ designer }}</option>
-        {%endfor%}
-    </select>
-
-
-    <form id="icon-designer" class="filter-val">
-        <input type="text" placeholder="Search by Icon Designer" list="icon-designer-list"/>
-        <datalist id="icon-designer-list">
-            <option value="Internet Explorer">
-            {% for post in site.posts %}
-                {% if post.icon-designer %}
-                    <option value="{{ post.icon-designer }}">
-                {% endif %}
-            {% endfor %}
-        </datalist>
-    </form>
-
-</div>
-{% endcomment %}

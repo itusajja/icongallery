@@ -1,35 +1,35 @@
-{% comment %}
-    {{ include.icon-size }}
+<!--
+  {{ include.icon-size }}
 
-    Retina images
-    If it's watchos, only do srcset on 128px and lower, as 256 is our max size
-    If it's ios or macos, do srcset on 256 and lower because we can gurantee 512
-    and lower. But we don't always have 1024. That one we have to check for
-    with js and replace only if it exists.
-{% endcomment %}
+  Retina images
+  If it's watchos, only do srcset on 128px and lower, as 256 is our max size
+  If it's ios or macos, do srcset on 256 and lower because we can gurantee 512
+  and lower. But we don't always have 1024. That one we have to check for
+  with js and replace only if it exists.
+-->
 
 {% capture imgSrc %}{{ site.baseurl }}/img/{{ include.icon-size }}/{{post.slug}}-{{ post.date | date: "%Y" }}.png{% endcapture %}
 {% capture imgSrc2x %}{{ site.baseurl }}/img/{{ include.icon-size | times:2 }}/{{post.slug}}-{{ post.date | date: "%Y" }}.png{% endcapture %}
 
 <img
-    alt="{{ post.title }} app icon"
-    class="icon icon-{{ include.icon-size }}"
-    src="{{ imgSrc }}"
+  alt="{{ post.title }} app icon"
+  class="icon icon-{{ include.icon-size }}"
+  src="{{ imgSrc }}"
 
-    {% if site.theeme.active == 'watchosicongallery' %}
-        {% if include.icon-size != '256' %}
-            srcset="{{ imgSrc2x }} 2x"
-        {% endif %}
-    {% else %}
-        {% if include.icon-size != '512' %}
-            srcset="{{ imgSrc2x }} 2x"
-        {% else %}
-            data-at2x="{{ imgSrc2x }}"
-        {% endif %}
+  {% if site.theeme.active == 'watchosicongallery' %}
+    {% if include.icon-size != '256' %}
+      srcset="{{ imgSrc2x }} 2x"
     {% endif %}
+  {% else %}
+    {% if include.icon-size != '512' %}
+      srcset="{{ imgSrc2x }} 2x"
+    {% else %}
+      data-at2x="{{ imgSrc2x }}"
+    {% endif %}
+  {% endif %}
 />
 
-{% comment %} It's a post page if the post.title is same as page.title {% endcomment %}
+<!-- It's a post page if the post.title is same as page.title -->
 {% if page.title == post.title %}
-    <span class="list-icons__label">{{ include.icon-size }}px</span>
+  <span class="list-icons__label">{{ include.icon-size }}px</span>
 {% endif %}

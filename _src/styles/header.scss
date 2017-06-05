@@ -89,17 +89,17 @@
         fill: $color-light-light-gray;
     }
 
-    &:hover {
+    &:hover .svgcon {
         text-decoration: none;
-        color: $color-dark-gray;
+        fill: $color-dark-gray;
     }
+}
 
-    .dropdown--active & {
-        text-decoration: none;
-        border: 1px solid $color-light-light-gray;
-        color: $color-dark-gray;
-        border-radius: 2px;
-    }
+.dropdown--active .dropdown__trigger .svgcon {
+    text-decoration: none;
+    background: $color-dark-gray;
+    fill: white;
+    border-radius: 2px;
 }
 
 .dropdown__content {
