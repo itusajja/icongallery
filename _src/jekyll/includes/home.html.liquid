@@ -1,19 +1,15 @@
-<!-- Home Page Template -->
-
 <!-- Icon List -->
-<ul class="list-icons">
+<ul class="icon-list">
   {% for post in paginator.posts %}
     <!-- If it's the second post, show the ad AND the current post -->
     {% if forloop.index0 == 1 and site.theeme.ad_script %}
       <li>
-        <div class="icon-container icon-container--ad">
-          {{ site.theeme.ad_script }}
-        </div>
+        {{ site.theeme.ad_script }}
       </li>
     {% endif %}
     <li>
-      <a class="icon-container" href="{{ post.url | prepend: site.baseurl }}" title="{{ post.title }}">
-        {% include icon.html icon-size="128" %}
+      <a href="{{ post.url | prepend: site.baseurl }}" title="{{ post.title }}">
+        {% include icon.html.liquid icon-size="128" %}
       </a>
     </li>
   {% endfor %}
@@ -33,11 +29,16 @@
       {% else %}
         href="{{ paginatorURL }}/{{ prevPage }}"
       {% endif %}
-      class="pagination__button">
-      Prev
+      class="pagination__button"
+    >
+  {% else %}
+    <span class="pagination__button">
+  {% endif %}
+  {% include svgcon.svg.liquid id='caret-left' %} Prev
+  {% if paginator.previous_page %}
     </a>
   {% else %}
-    <span class="pagination__button">Prev</span>
+    </span>
   {% endif %}
 
   <!-- Page X of Y -->
@@ -70,8 +71,14 @@
 
   <!-- Next -->
   {% if paginator.next_page %}
-    <a href="{{ paginatorURL }}/{{ paginator.page | plus: 1 }}" class="pagination__button">Next</a>
+    <a href="{{ paginatorURL }}/{{ paginator.page | plus: 1 }}" class="pagination__button">
   {% else %}
-    <span class="pagination__button">Next</span>
+    <span class="pagination__button">
+  {% endif %}
+  Next {% include svgcon.svg.liquid id='caret-right' %}
+  {% if paginator.next_page %}
+    </a>
+  {% else %}
+    </span>
   {% endif %}
 </nav>

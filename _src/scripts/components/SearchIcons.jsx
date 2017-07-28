@@ -16,40 +16,35 @@ export default class SearchIcons extends Component {
     super(props);
     const { threshold } = this.props;
 
-    // Setup intial filters
-    let activeFilters = {
-      category: "",
-      color: "",
-      search: ""
-    };
+    // Default to 'search'
+    let activeFilter = { type: "search", value: "" };
 
-    // Check to see if params were passed via URL
-    // If they were, set the appropriate filter val
-    // function getQueryParams(str) {
-    //   return (str || document.location.search).replace(/(^\?)/,'').split("&").map(function(n){return n=n.split("="),this[n[0]]=n[1],this;}.bind({}))[0];
-    // };
-    // var activeFilters
+    // Setup initial filters by checking to see if params were passed via URL
+    // If they were, set the appropriate filter
+    function getQueryParams(str) {
+      return (str || document.location.search)
+        .replace(/(^\?)/, "")
+        .split("&")
+        .map(
+          function(n) {
+            return (n = n.split("=")), (this[n[0]] = n[1]), this;
+          }.bind({})
+        )[0];
+    }
     let query = location.search.substring(1);
     if (query !== "") {
       query = query.split("=");
-      const key = query[0];
-      const val = query[1];
-
-      if (key === "category") {
-        activeFilters.category = val;
-      } else if (key === "color") {
-        activeFilters.color = val;
-      } else if (key === "search") {
-        activeFilters.search = val;
-      }
+      const type = query[0];
+      const value = query[1];
+      activeFilter = { type, value };
     }
 
     // Get the icons
-    const icons = this.getFilteredIcons(activeFilters);
+    const icons = this.getFilteredIcons(activeFilter);
 
     // Return the initial state
     this.state = {
-      activeFilters: activeFilters,
+      activeFilter,
       iconCount: icons.length,
       visibleIcons: icons.slice(0, threshold),
       allIcons: icons
@@ -64,7 +59,8 @@ export default class SearchIcons extends Component {
       return function() {
         let context = scope || this;
 
-        let now = +new Date(), args = arguments;
+        let now = +new Date(),
+          args = arguments;
         if (last && now < last + threshhold) {
           // hold on to it
           clearTimeout(deferTimer);
@@ -78,7 +74,7 @@ export default class SearchIcons extends Component {
         }
       };
     };
-    const footerHeight = document.getElementById("footer").offsetHeight;
+    const footerHeight = 0; // document.getElementById("footer").offsetHeight;
     window.onscroll = throttle(
       function() {
         if (
@@ -100,42 +96,35 @@ export default class SearchIcons extends Component {
     scrollTo(document.body, 0, 500);
   };
 
-  // User input filters
-  handleUserInput = activeFilters => {
-    const { threshold } = this.props;
-    const icons = this.getFilteredIcons(activeFilters);
-    this.setState({
-      activeFilters: activeFilters,
-      iconCount: icons.length,
-      visibleIcons: icons.slice(0, threshold),
-      allIcons: icons
-    });
-  };
-
   // Return an array of icon objects (filtered if relevant)
-  getFilteredIcons = activeFilters => {
+  getFilteredIcons = activeFilter => {
     const { icons } = this.props;
-    return icons.filter(function(icon) {
-      if (activeFilters.category !== "") {
-        if (activeFilters.category !== icon.category) {
-          return false;
-        }
-      }
+    return activeFilter.value
+      ? icons.filter(function(icon) {
+          if (
+            activeFilter.type === "category" &&
+            activeFilter.value === icon.category
+          ) {
+            return true;
+          }
 
-      if (activeFilters.color !== "") {
-        if (icon.tags.indexOf(activeFilters.color) === -1) {
-          return false;
-        }
-      }
+          if (
+            activeFilter.type === "color" &&
+            icon.tags.indexOf(activeFilter.value) !== -1
+          ) {
+            return true;
+          }
 
-      if (activeFilters.search !== "") {
-        if (icon.title.score(activeFilters.search) < 0.3) {
-          return false;
-        }
-      }
+          if (
+            activeFilter.type === "search" &&
+            icon.title.score(activeFilter.value) >= 0.3
+          ) {
+            return true;
+          }
 
-      return true;
-    });
+          return false;
+        })
+      : icons;
   };
 
   handleShowMore = e => {
@@ -150,27 +139,40 @@ export default class SearchIcons extends Component {
     });
   };
 
+  handleChangeActiveFilter = (type, value) => {
+    const { threshold } = this.props;
+    const newActiveFilter = { type, value };
+    const icons = this.getFilteredIcons(newActiveFilter);
+
+    // Save state in URL
+    window.history.replaceState({}, "", `?${type}=${value}`);
+
+    this.setState({
+      activeFilter: newActiveFilter,
+      iconCount: icons.length,
+      visibleIcons: icons.slice(0, threshold),
+      allIcons: icons
+    });
+  };
+
   render() {
-    const { iconCount, activeFilters, visibleIcons, allIcons } = this.state;
+    const { activeFilter, iconCount, visibleIcons, allIcons } = this.state;
     const { site } = this.props;
 
     return (
       <div>
         <IconFilters
+          handleChangeActiveFilter={this.handleChangeActiveFilter}
+          activeFilter={activeFilter}
           site={site}
           iconCount={iconCount}
-          activeFilters={activeFilters}
-          onUserInput={this.handleUserInput}
         />
 
         <IconList
+          activeFilter={activeFilter}
           icons={visibleIcons}
           showMore={allIcons.length > visibleIcons.length}
         />
-
-        <a href="#" className="scroll-top" onClick={this.handleScrollTop}>
-          Top
-        </a>
       </div>
     );
   }

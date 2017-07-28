@@ -1,13 +1,8 @@
 # Galleries
 
-## To-Do
+## Develop `npm start`
 
-- [ ] Save filter states in URL for /search
-- [ ] 404 page, "oops it's not here ... check out some icons while you're here"
-- [ ] 2x versions on /search
-- [ ] filter styles on mobile for /search
-- [ ] Use native browser `srcset` or `picture` for 2x images (though remember that `srcset` doesn't actually do a fallback to 1x for 2x specified images, so the currently javascript method works best ...)
-- [ ] Stop using retina JS and just manually add a fetch for 2x images, but only on the 1024 as that's the only one we can't guarantee
+## Deploy `npm run deploy`
 
 ## How it Works
 
@@ -75,12 +70,13 @@ Theme files are shared across all site projects and can be found in `shared/`. T
 
 Since we are deploying with github pages, we use the [gh-pages gem](https://github.com/github/pages-gem) so we most accurately match the prod environment for site generation.
 
-### Retina Images
-
-Use [retina.js](https://github.com/imulus/retinajs) to get hiDPI versions of each thumbnail. I modified the `RetinaImagePath()` function so it checks for images defined in the `data-at2x` attributes (because they may not exist). Additionally, I changed the selector from `getElementsByTagName('img')` to `querySelectorAll('img.icon')` so it only looks for higher resolution versions of the icons.
-
 ### Feeds
 
 RSS feeds are published through feedburner. The old addresses, however, were transfered. They use to live at `/feed/` (which means, I assume, a `/feed/index.xml` file at that address as we used to host on wordpress). Now, however, the feed lives at `/feed.xml`. This means we need redirects for the old feed.
 
 (OLD) Because S3 serves `index.html` files only, we will leave a blank file at `/feed/index.html` which has a [301 redirect](http://aws.amazon.com/blogs/aws/amazon-s3-support-for-website-redirects/) through the AWS console to `/feed.xml`. This means anyone who hits `/feed/` in the browser will go to the new feed. Additionally, anyone who hits `/feed/index.xml`, we have an [RSS XML redirect](http://www.rssboard.org/redirect-rss-feed) which sends them to `/feed.xml`.
+
+## To-Do
+
+- [ ] 404 page, "oops it's not here ... check out some icons while you're here"
+- [ ] filter styles on mobile for /search

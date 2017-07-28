@@ -4,8 +4,8 @@
   "description": "icon galleries jekyll theme",
   "main": "index.html",
   "scripts": {
-    "dev": "./node_modules/.bin/webpack --watch --config webpack.config.js",
-    "prod": "./node_modules/.bin/webpack -p --config webpack.config.js"
+    "start": "webpack --watch --config webpack.config.js",
+    "deploy": "webpack -p --config webpack.config.js"
   },
   "repository": {
     "type": "git",

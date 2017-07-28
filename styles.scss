@@ -1,25 +1,8 @@
 ---
 # this ensures Jekyll reads the file to be transformed into CSS later
-# all imports here point to ./_src/styles. This file will be converted to a 
+# Any imports point to ./_src/styles. This file will be converted to a 
 # .css file automatically by jekyll on compilation.
 ---
 
 @import "reset";
-@import "variables";
-@import "mixins";
-
-@import "svgcon";
-@import "icons";
-@import "sites";
-@import "general";
-@import "header";
-@import "footer";
-@import "module";
-@import "page-title";
-@import "list-icons";
-@import "icon-meta";
-
-@import "pagination";
-@import "filters";
-
-@import "ad-styles";
+@import "styles";

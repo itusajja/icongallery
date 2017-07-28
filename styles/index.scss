@@ -1,0 +1,897 @@
+// =============================================================================
+// Variables
+// =============================================================================
+
+// Breakpoints
+// These are all done on 300px increments (from a mobile first approach)
+// i.e. min-width: 300px, min-width: 600px, min-width: 900px, min-width: 1200px
+
+// Fonts
+$font-size-base: 16;
+// https://www.smashingmagazine.com/2015/11/using-system-ui-fonts-practical-guide/#details-of-approach-a
+$font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+  "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+
+// Colors
+
+// Text
+$color-light-gray: #aaa;
+$color-medium-gray: #777;
+$color-dark-gray: #333;
+
+// Borders
+$color-border: #e9e9e9;
+$color-border-light: #f0f0f0;
+
+// Icons
+$list-icon-size: 128px;
+$icon-sizes: 512 256 128 64 32;
+
+// Img url
+$url-img: "/shared/img";
+
+// =============================================================================
+// Mixins
+// =============================================================================
+
+@mixin clearfix {
+  zoom: 1;
+
+  &:before,
+  &:after {
+    content: "";
+    display: table;
+  }
+
+  &:after {
+    clear: both;
+  }
+}
+
+@mixin inline-block() {
+  display: -moz-inline-stack;
+  display: inline-block;
+  vertical-align: top;
+  zoom: 1;
+  *display: inline;
+}
+
+@mixin external-link() {
+  content: '\2192';
+  -webkit-transform: rotate(-45deg);
+  -moz-transform: rotate(-45deg);
+  -o-transform: rotate(-45deg);
+  -ms-transform: rotate(-45deg);
+  transform: rotate(-45deg);
+  @include inline-block();
+  font-size: .75em;
+}
+
+@function em($px, $context: $font-size-base) {
+  @return #{$px / $context}em;
+}
+
+@mixin inline-block {
+  display: -moz-inline-stack; // ff 2
+  display: inline-block;
+  zoom: 1;
+  *display: inline;
+  _height: 15px; // ie 6-7
+}
+
+// =============================================================================
+// General
+// =============================================================================
+
+html {
+  box-sizing: border-box;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+body {
+  font: #{$font-size-base}px/1.5 $font-family;
+  color: $color-dark-gray;
+  padding-bottom: 40px;
+}
+
+.wrapper {
+  margin: 0 auto;
+  width: 100%;
+  max-width: 300px;
+
+  @media screen and (min-width: 600px) {
+    max-width: 600px;
+  }
+  @media screen and (min-width: 900px) {
+    max-width: 900px;
+  }
+  @media screen and (min-width: 1200px) {
+    max-width: 1200px;
+  }
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+
+  &:hover {
+    color: darken($color-dark-gray, 10%);
+    text-decoration: underline;
+  }
+}
+
+b,
+strong,
+.bold {
+  font-weight: bold;
+}
+
+em {
+  font-style: italic;
+}
+
+.clearfix {
+  @include clearfix;
+}
+
+// reset button styles
+input[type="submit"],
+input[type="reset"],
+input[type="button"],
+button {
+  background: none;
+  border: 0;
+  color: inherit;
+  font: inherit;
+  line-height: normal;
+  overflow: visible;
+  padding: 0;
+  // for input
+  -webkit-appearance: button;
+  // for button
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  &:active,
+  &:focus {
+    outline: none;
+  }
+}
+
+// Main H1 on page title
+.page-title,
+.no-posts {
+  font-size: 48px;
+  line-height: 1.1;
+  letter-spacing: -1px;
+}
+
+.no-posts {
+  margin-bottom: 3em;
+}
+
+// Default styles for svg icons
+.svgcon {
+  width: 24px;
+  height: 24px;
+}
+
+// Sticky footer at bottom no matter height
+// https://philipwalton.github.io/solved-by-flexbox/demos/sticky-footer/
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+#main {
+  flex: 1;
+}
+
+// =============================================================================
+// Ads
+// =============================================================================
+// Styles for the ads which appear only in .icon-container lists
+// Simply do <li.icon-container.ad-container
+
+.icon-container--ad {
+  text-align: center;
+}
+
+// Styles commong to all representations of the ad
+#carbonads {
+  // Shared styles
+  font-size: 13px;
+  color: $color-dark-gray;
+
+  a {
+    color: inherit;
+  }
+
+  .carbon-text {
+    display: block;
+  }
+
+  .carbon-poweredby {
+    font-size: 11px;
+    color: $color-light-gray;
+  }
+
+  // Contextual styles
+  .icon-list & {
+    text-align: center;
+    padding: 20px;
+  }
+
+  .icon-view & {
+    // @TODO
+    float: right;
+    text-align: right;
+    width: 230px;
+    margin-top: 10px;
+  }
+}
+
+// =============================================================================
+// Site-specific Styles
+// =============================================================================
+
+.watchosicongallery {
+  .icon {
+    border-radius: 50%;
+    border: 1px solid rgba(0, 0, 0, .15);
+  }
+}
+
+.iosicongallery {
+  // Add a pseudo element with a mask in it that overlays the icon
+  @each $size in $icon-sizes {
+    .icon-wrapper--#{$size}:after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      background: url('/shared/img/mask-#{$size}.png') no-repeat;
+      width: #{$size}px;
+      height: #{$size}px;
+      margin-top: #{$size / -2}px;
+      margin-left: #{$size / -2}px;
+
+      @media (-webkit-min-device-pixel-ratio: 2),
+        (-o-min-device-pixel-ratio: 3 / 2),
+        (min-device-pixel-ratio: 2) {
+        background: url('/shared/img/mask-#{$size * 2}.png') no-repeat;
+        background-size: 100%;
+      }
+    }
+  }
+}
+
+// =============================================================================
+// Pagination
+// =============================================================================
+
+.pagination {
+  margin: 40px 0 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 15px;
+
+  &__button {
+    border: 1px solid $color-dark-gray;
+    padding: 7px 15px;
+    color: inherit;
+  }
+
+  .svgcon {
+    width: 18px;
+    height: 18px;
+  }
+
+  .pagination__button {
+    display: flex;
+    align-items: center;
+
+    &:first-child .svgcon {
+      margin-right: 4px;
+      margin-left: -4px;
+    } // prev
+    &:last-child .svgcon {
+      margin-left: 4px;
+      margin-right: -4px;
+    } // next
+  }
+
+  span.pagination__button {
+    color: $color-light-gray;
+    border-color: $color-border;
+
+    .svgcon {
+      fill: $color-light-gray;
+    }
+  }
+
+  a.pagination__button:hover {
+    border-color: $color-dark-gray;
+    background-color: $color-dark-gray;
+    color: white;
+    text-decoration: none;
+
+    .svgcon {
+      fill: white;
+    }
+  }
+
+  &__jump-to {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    @media screen and (max-width: 400px) {
+      font-size: 14px;
+    }
+
+    select {
+      margin: 0 5px;
+      -webkit-appearance: none;
+      background: #fff;
+      border: 0;
+      font-size: 1em;
+      padding: 3px 12px;
+      border: 1px solid $color-dark-gray;
+      border-radius: 0;
+
+      &:hover {
+        cursor: pointer;
+        background: $color-dark-gray;
+        color: white;
+      }
+    }
+  }
+}
+
+// =============================================================================
+// Header
+// =============================================================================
+
+.header {
+  padding: 10px 0;
+  color: $color-medium-gray;
+
+  .wrapper {
+    position: relative;
+    font-size: 14px;
+
+    @media screen and (min-width: 900px) {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+  }
+
+  h1 {
+    position: relative;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+
+    @media screen and (max-width: 899px) {
+      justify-content: center;
+      border-bottom: 1px solid $color-border-light;
+      padding-bottom: 10px;
+      margin-bottom: 5px;
+    }
+
+    @media screen and (min-width: 900px) {
+      flex-wrap: nowrap;
+    }
+
+    > a,
+    .logo {
+      display: flex;
+    }
+
+    p {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      text-align: center;
+
+      @media screen and (min-width: 900px) {
+        margin-left: 14px;
+      }
+    }
+  }
+
+  nav {
+    display: flex;
+    align-items: center;
+    position: relative;
+    top: 2px;
+    line-height: 1;
+
+    @media screen and (max-width: 899px) {
+      justify-content: center;
+    }
+
+    a {
+      padding: 7px;
+
+      .svgcon {
+        fill: lighten($color-medium-gray, 5%);
+      }
+
+      &:hover {
+        &[href*="twitter.com"] .svgcon {
+          fill: #1da1f2;
+        }
+        &[href*="feed.json"] .svgcon {
+          fill: #609c1b;
+        }
+        &[href*="feed.xml"] .svgcon {
+          fill: #ff6600;
+        }
+      }
+
+      &.active {
+        background: rgba(0, 0, 0, 1);
+        color: white;
+      }
+    }
+  }
+}
+
+// Dropdown
+// =============================================================================
+
+.dropdown {
+  // float: right;
+  position: relative;
+
+  @media screen and (max-width: 660px) {
+    position: static;
+  }
+}
+
+.dropdown__trigger {
+  display: flex;
+  align-items: center;
+  height: 35px;
+  width: 35px;
+  margin-left: 7px;
+
+  .svgcon {
+    fill: $color-light-gray;
+  }
+
+  &:hover .svgcon {
+    text-decoration: none;
+    fill: $color-dark-gray;
+  }
+}
+
+.dropdown--active .dropdown__trigger .svgcon {
+  text-decoration: none;
+  background: $color-dark-gray;
+  fill: white;
+}
+
+.dropdown__content {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, .2);
+  border: 1px solid $color-border;
+  padding: 10px;
+  width: 300px;
+  margin-left: -150px;
+  left: 50%;
+  background: #fff;
+  z-index: 10;
+  position: absolute;
+
+  top: 80%;
+  visibility: hidden;
+  opacity: 0;
+  transition: .2s ease all;
+
+  @media screen and (max-width: 660px) {
+    left: 0;
+    margin-left: 0;
+  }
+
+  li a {
+    display: block;
+    padding: em(10);
+    position: relative;
+    border-radius: 2px;
+
+    &.external-link:after {
+      @include external-link();
+      color: $color-light-gray;
+      position: absolute;
+      right: 14px;
+      top: 10px;
+    }
+
+    &:hover {
+      background: $color-border-light;
+      text-decoration: none;
+    }
+  }
+
+  .logo {
+    max-height: 20px;
+  }
+
+  .dropdown--active & {
+    visibility: visible;
+    opacity: 1;
+    top: 100%;
+  }
+}
+
+// =============================================================================
+// Icons (Lists and Views)
+// =============================================================================
+
+// All icon sizes are defined here, i.e. <img class="icon icon--128">
+// @icon-sizes is in variables.scss
+
+@each $icon-size in $icon-sizes {
+  .icon--#{$icon-size} {
+    width: #{$icon-size}px;
+    height: #{$icon-size}px;
+    display: block;
+  }
+}
+
+// List of icons for home screen
+.icon-list {
+  display: flex;
+  flex-wrap: wrap;
+  box-shadow: inset 1px 1px 0 $color-border-light;
+
+  @mixin icon-list-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 300px;
+    height: 250px;
+
+    @media screen and (min-width: 900px) {
+      height: 300px;
+    }
+  }
+
+  > li {
+    @include icon-list-center;
+    box-shadow: inset -1px -1px 0px $color-border-light;
+
+    > a {
+      @include icon-list-center;
+
+      &:hover {
+        box-shadow: inset 0 0 30px rgba(0, 0, 0, .065);
+
+        // Don't do the hover box shadow on non-linkable items (placeholder)
+        &[href="#"] {
+          box-shadow: none;
+          cursor: default;
+        }
+      }
+    }
+  }
+}
+
+// Wraps the <img.icon> element (useful for iOS where we need masks)
+.icon-wrapper {
+  position: relative;
+  display: block;
+}
+@each $size in $icon-sizes {
+  .icon-wrapper--#{$size} {
+    width: #{$size}px;
+    height: #{$size}px;
+  }
+}
+
+// Individual view of icons
+.icon-view {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px 0;
+  border-top: 1px solid $color-border-light;
+  border-bottom: 1px solid $color-border-light;
+  // margin-bottom: 20px;
+
+  @media screen and (min-width: 1200px) {
+    padding: 50px 0;
+    flex-direction: row;
+  }
+
+  // Hide 512 on smaller screens
+  li {
+    margin-bottom: 20px;
+
+    @media screen and (min-width: 1200px) {
+      margin-bottom: 0;
+    }
+
+    &:first-child {
+      display: none;
+
+      @media screen and (min-width: 600px) {
+        display: block;
+      }
+    }
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+
+// =============================================================================
+// Icon Meta
+// =============================================================================
+
+.icon-meta-wrapper {
+  display: flex;
+
+  .icon-meta {
+    margin-top: 15px;
+  }
+
+  .icon-meta-ad {
+    text-align: center;
+    padding: 15px;
+  }
+
+  @media screen and (min-width: 900px) {
+    justify-content: space-between;
+
+    .icon-meta-ad {
+      max-width: 320px;
+      border-left: 1px solid $color-border-light;
+    }
+  }
+
+  @media screen and (max-width: 899px) {
+    flex-direction: column;
+
+    .icon-meta {
+      // Header
+      order: 2;
+    }
+
+    .icon-meta-ad {
+      // Ad
+      order: 1;
+      border-bottom: 1px solid $color-border-light;
+      padding-bottom: 10px;
+      margin-bottom: 10px;
+    }
+  }
+}
+
+// Meta info like designer, developer, category
+.icon-meta {
+  .icon-meta__left {
+    margin-right: 5px;
+    float: left;
+    color: $color-light-gray;
+
+    @media only screen and (max-width: 620px) {
+      float: none;
+      display: block;
+      line-height: 1;
+      margin-top: 10px;
+    }
+  }
+
+  .icon-meta__right {
+    margin-right: 20px;
+    overflow: hidden;
+  }
+
+  .external-link {
+    &:after {
+      @include external-link();
+      position: relative;
+      top: -2px;
+      left: 3px;
+    }
+  }
+
+  h1 {
+    font-size: 24px;
+    font-weight: 600;
+  }
+
+  dl {
+    // font-size: em(15);
+    margin-bottom: 10px;
+  }
+}
+
+// =============================================================================
+// About Page
+// =============================================================================
+
+.about {
+  font-size: 14px;
+  display: flex;
+  flex-wrap: wrap;
+  box-shadow: inset 0 1px 0 $color-border-light,
+    inset 1px 0 0 $color-border-light;
+
+  a {
+    text-align: center;
+    padding: 0 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 300px;
+    height: 300px;
+    box-shadow: 1px 0 0 $color-border-light, 0 1px 0 $color-border-light;
+
+    &:hover {
+      color: #000;
+      text-decoration: none;
+      box-shadow: inset 0 0 30px rgba(0, 0, 0, .065);
+
+      .svgcon {
+        transform: rotate(3deg) scale(.95);
+        opacity: .85;
+      }
+    }
+  }
+
+  h2 {
+    font-weight: 700;
+  }
+
+  .svgcon {
+    transition: .33s ease all;
+    width: 100px;
+    height: 100px;
+    opacity: .25;
+  }
+}
+
+// =============================================================================
+// Filters (used in react filter toolbar)
+// =============================================================================
+
+.filters {
+  border: 1px solid $color-border-light;
+  border-bottom: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px;
+
+  @media screen and (min-width: 900px) {
+    flex-direction: row;
+  }
+
+  input,
+  select {
+    font-size: #{$font-size-base}px;
+    font-family: $font-family;
+    background: #fff;
+    height: 40px;
+    line-height: 40px;
+    width: 280px;
+    border: 1px solid #ccc;
+    padding: 0 10px;
+
+    @media screen and (min-width: 600px) {
+      width: 400px;
+    }
+
+    &:focus {
+      box-shadow: 0 0 0 1px #fff, 0 0 0 3px rgba(0, 0, 0, 1);
+      outline: none;
+    }
+  }
+
+  &__tabs {
+    display: flex;
+    font-size: 14px;
+
+    button {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      width: 95px;
+      height: 75px;
+      text-transform: capitalize;
+      opacity: .25;
+
+      &:hover {
+        opacity: 1;
+      }
+
+      &.active {
+        opacity: 1;
+        background: rgba(0, 0, 0, 1);
+        color: white;
+
+        .svgcon {
+          fill: white;
+        }
+      }
+
+      // Gets things centered in safari
+      .svgcon {
+        margin: auto auto 0 auto;
+      }
+      span {
+        margin: 0 auto auto auto;
+      }
+    }
+
+    .svgcon {
+      width: 32px;
+      height: 32px;
+    }
+  }
+
+  &__control {
+    margin: 10px 0;
+
+    @media screen and (min-width: 900px) {
+      margin: 0;
+    }
+  }
+
+  &__count {
+    font-size: 14px;
+    width: 100px;
+    text-align: center;
+    margin-bottom: 10px;
+    color: $color-medium-gray;
+
+    @media screen and (min-width: 900px) {
+      text-align: right;
+      margin-right: 20px;
+      margin-bottom: 0;
+    }
+  }
+
+  &__colors {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+
+    button {
+      width: 46px;
+      height: 25px;
+      display: block;
+      transition: .2s ease transform;
+      box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .2);
+      margin: 2px;
+
+      &.active {
+        transform: scale(1.25);
+        box-shadow: 0 0 0 2px rgba(0, 0, 0, 1),
+          inset 0 0 0 2px rgba(255, 255, 255, 1);
+      }
+    }
+  }
+}

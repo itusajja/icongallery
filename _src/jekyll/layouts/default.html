@@ -10,23 +10,19 @@
   </title>
 
   <!-- Meta -->
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="{{ site.description }}">
-  <link rel="canonical" href="{{ page.url | replace:'index.html','' | prepend: site.baseurl | prepend: site.url }}">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="{{ site.description }}" />
+  <link rel="canonical" href="{{ page.url | replace:'index.html','' | prepend: site.baseurl | prepend: site.url }}" />
 
   <!-- Favicon & Touch Icon -->
-  <link rel="icon" href="{{ site.baseurl }}/{{ site.assets.images }}/{{ site.theeme.active }}-favicon.ico" type="image/x-icon">
-  <link rel="shortcut icon" href="{{ site.baseurl }}/{{ site.assets.images }}/{{ site.theeme.active }}-favicon.ico" type="image/x-icon">
-  <link rel="apple-touch-icon" href="{{ site.baseurl }}/{{ site.assets.images }}/{{ site.theeme.active }}-apple-touch-icon.png">
+  <link rel="icon" href="{{ site.baseurl }}/{{ site.assets.images }}/{{ site.theeme.active }}-favicon.ico" type="image/x-icon"/>
+  <link rel="shortcut icon" href="{{ site.baseurl }}/{{ site.assets.images }}/{{ site.theeme.active }}-favicon.ico" type="image/x-icon"/>
+  <link rel="apple-touch-icon" href="{{ site.baseurl }}/{{ site.assets.images }}/{{ site.theeme.active }}-apple-touch-icon.png"/>
 
   <!-- CSS -->
-  <link rel="stylesheet" href="{{ site.baseurl }}/{{ site.assets.styles }}/styles.css">
-
-  <!--[if IE]>
-    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-  <![endif]-->
+  <link rel="stylesheet" href="{{ site.baseurl }}/{{ site.assets.styles }}/styles.css" />
 
   <!-- RSS Feed -->
   {% if site.theeme.active == 'iosicongallery' %}
@@ -40,44 +36,45 @@
 
   <!-- Github pages redirect -->
   <script>
-  /*
-    This site is hosted on github pages. Because my root user page is jim-nielsen.com
-    this site is published at both the CNAME place (XXXgallery.com url)
-    as well as jim-nielsen.com/XXXgallery. So we have to redirect any
-    jim-nielsen.com stuff to the proper place.
-
-    When redirecting, it will be from http://jim-nielsen.com/SITENAME
-      - http://jim-nielsen.com/iosicongallery
-      - http://jim-nielsen.com/macosicongallery
-      - http://jim-nielsen.com/watchosicongallery
-    So to properly redirect all pages, we have to remove the sitename
-    from the initial part of the pathname
-
-    jim-nielsen.com/watchosicongallery/
-      -> watchosicongallery.com/
-    jim-nielsen.com/watchosicongallery/2015/facebook
-      -> watchosicongallery.com/2015/facebook
-  */
-  if (location.hostname === "jim-nielsen.com") {
-    // Sitename, i.e. "/watchosicongallery"
-    var sitename = "/{{ site.theeme.active }}";
-    // Pathname, i.e. jim-nielsen.com"/watchosicongallery/2015/facebook"
-    var pathname = location.pathname;
-    // If the pathname starts with the sitename, remove it
-    if (pathname.indexOf(sitename) === 0) {
-      pathname = pathname.slice(sitename.length, pathname.length);
+    /**
+     * This site is hosted on github pages. Because my root user page is jim-nielsen.com
+     * this site is published at both the CNAME place (XXXgallery.com url)
+     * as well as jim-nielsen.com/XXXgallery. So we have to redirect any
+     * jim-nielsen.com stuff to the proper place.
+     * 
+     * When redirecting, it will be from http://jim-nielsen.com/SITENAME
+     *   - http://jim-nielsen.com/iosicongallery
+     *   - http://jim-nielsen.com/macosicongallery
+     *   - http://jim-nielsen.com/watchosicongallery
+     * So to properly redirect all pages, we have to remove the sitename
+     * from the initial part of the pathname
+     * 
+     * jim-nielsen.com/watchosicongallery/
+     *   -> watchosicongallery.com/
+     * jim-nielsen.com/watchosicongallery/2015/facebook
+     *   -> watchosicongallery.com/2015/facebook
+    */
+    if (location.hostname === "jim-nielsen.com") {
+      // Sitename, i.e. "/watchosicongallery"
+      var sitename = "/{{ site.theeme.active }}";
+      // Pathname, i.e. jim-nielsen.com"/watchosicongallery/2015/facebook"
+      var pathname = location.pathname;
+      // If the pathname starts with the sitename, remove it
+      if (pathname.indexOf(sitename) === 0) {
+        pathname = pathname.slice(sitename.length, pathname.length);
+      }
+      location.href = "{{ site.url }}" + pathname
     }
-    location.href = "{{ site.url }}" + pathname
-  }
   </script>
 </head>
 <body class="{{ site.theeme.active }} {% if site.theeme.ad_script %}ads{% endif %}">
 
   <!-- Include our sprite of svg icons -->
-  {% include svgconSprite.svg %}
+  {% include svgcon-sprite.svg.liquid %}
 
-  <header class="header">
-    <div class="wrapper clearfix">
+  <!-- Header -->
+  <header id="header" class="header">
+    <div class="wrapper">
       <h1>
         <a href="{{ site.baseurl }}/" title="{{ site.title }}" rel="home">
           {% capture logoUrl %}{{ site.baseurl }}/{{ site.assets.images }}/{{ site.theeme.active }}-logo{% endcapture %}
@@ -85,88 +82,60 @@
         </a>
         <div class="dropdown">
           <a class="dropdown__trigger" href="#">
-            {% include svgcon.svg id='caret-down' %}
+            {% include svgcon.svg.liquid id='caret-down' %}
           </a>
           <ul class="dropdown__content">
-            {% for website in site.theeme.inactive %}
-              {% capture logoUrl %}{{ site.baseurl }}/{{ site.assets.images }}/{{ website }}-logo{% endcapture %}
-                <li>
-                  <a href="http://{{ website }}.com" class="external-link">
-                    <img class="logo" src="{{ logoUrl }}.svg" onerror="this.onerror=null; this.src='{{ logoUrl }}.png'" />
-                  </a>
-                </li>
+            {% for website in site.theeme.inactive %} {% capture logoUrl %}{{ site.baseurl }}/{{ site.assets.images }}/{{ website }}-logo{%endcapture
+            %}
+            <li>
+              <a href="http://{{ website }}.com" class="external-link">
+                <img class="logo" src="{{ logoUrl }}.svg" onerror="this.onerror=null; this.src='{{ logoUrl }}.png'" />
+              </a>
+            </li>
             {% endfor %}
-            </ul>
+          </ul>
         </div>
+        <p>Made by <a href="https://twitter.com/jimniels">@jimniels</a></p>
       </h1>
-      <nav role="navigation">
-        <a href="{{ site.baseurl }}/search/" class="{% if page.title == 'Search' %}active{% endif %}">
-          {% include svgcon.svg id='search' %}
+
+      <nav>
+        <a href="/search" id="search-trigger" class="{% if page.title == 'Search' %}active{% endif %}">
+          Search
+        </a>
+
+        <span style="margin: 0 10px">·</span>
+
+        <a href="/feed.xml" title="RSS Feed">
+          {% include svgcon.svg.liquid id="rss" %}
+        </a>
+      
+        <a href="/feed.json" title="JSON Feed">
+          {% include svgcon.svg.liquid id="json" %}
+        </a>
+      
+        <a href="https://twitter.com/icongalleries" title="@icongalleries on Twitter">
+          {% include svgcon.svg.liquid id="twitter" %}
         </a>
       </nav>
     </div>
   </header>
 
-  <main class="wrapper" id="main">
+  <!-- Main content -->
+  <main id="main" class="wrapper">
     {{ content }}
   </main>
 
-  <footer id="footer">
-    <div class="wrapper clearfix">
-      <ul id="footer-nav">
-        <li>
-          <a href="{{ site.baseurl }}/search/">
-            {% include svgcon.svg id='search' %}
-            search for icons
-          </a>
-        </li>
-        <li>
-          <!-- mailto encoder: http://email.about.com/library/misc/blmailto_encoder.htm -->
-          <a href="mailto:jimniels%40gmail.com?subject={{ site.theeme.active }}.com%20icon%20suggestion%3A&body=I%20want%20to%20recommend%20a%20beautiful%20icon%20for%20an%20app%3A%0A%0AApp%20store%20URL%3A%0AIcon%20designer%20%26%20portfolio%20URL%3A" id="submit">
-            {% include svgcon.svg id='email' %}
-            submit an icon
-          </a>
-        </li>
-        <li>
-          <a href="http://twitter.com/icongalleries">
-            {% include svgcon.svg id='twitter' %}
-            follow updates on twitter
-          </a>
-        </li>
-        <li>
-          {% capture rssLink %}
-            {% if site.theeme.active == 'iosicongallery' %}
-              http://feeds.feedburner.com/{{ site.theeme.active }}
-            {% else %}
-              {{ site.baseurl }}/feed.xml
-            {% endif %}
-          {% endcapture %}
-          <a href="{{ rssLink }}">
-            {% include svgcon.svg id='rss' %}
-            subscribe to rss feed
-          </a>
-        </li>
-      </ul>
-      <ul id="footer-description">
-          <li>design, &lt;code>, &amp; curation by <a href="http://twitter.com/jimniels">@jimniels</a></li>
-          <li>
-              see more great icons at
-              {% for site in site.theeme.inactive %}
-                  <a href="http://{{ site }}.com">{{ site }}.com</a>
-                  {% unless forloop.last %} and {% endunless %}
-              {% endfor %}
-          </li>
-      </ul>
-    </div>
-  </footer>
-
   <!-- Scripts for all pagess -->
-  <script type="text/javascript" src="{{site.baseurl}}/{{ site.assets.scripts }}/bundle.js"></script>
+  <script type="text/javascript" src="{{site.baseurl}}/{{ site.assets.scripts }}/scripts.js"></script>
+
+  <!-- Google Analytics -->
   <script>
-    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    (function (i, s, o, g, r, a, m) {
+      i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+        (i[r].q = i[r].q || []).push(arguments)
+      }, i[r].l = 1 * new Date(); a = s.createElement(o),
+        m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
 
     ga('create', '{{ site.theeme.analytics_key }}', 'auto');
     ga('send', 'pageview');
