@@ -44,16 +44,8 @@ fi
 # strip warning: find . -type f -name "*.png" -exec convert {} -strip {} \;
 DIR="../../../img"
 
-
-# Apple watch, convert .jpg to .png
-echo "Converting JPG to PNG..."
-if [[ $DOMAIN == *watchos* ]]; then
-    mogrify -format png *.jpeg
-    rm *.jpeg
-    VARIANTS=(256 128 64 32)
-else
-    VARIANTS=(512 256 128 64)
-fi
+# Set the variants
+VARIANTS=(512 256 128)
 
 echo "Optimizing images ..."
 for file in *.png; do

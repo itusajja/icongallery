@@ -7,7 +7,6 @@ import urllib
 import urllib2
 import re
 import collections
-from BeautifulSoup import BeautifulSoup #for apple watch retrieval
 
 # Function Definitions
 # ------------------------------
@@ -98,29 +97,20 @@ def writePost():
 def writeImage():
     if(domain == 'ios' or domain == 'macos'):
         try:
-            url1024 = re.sub('512x512', '1024x1024',itunesResponse['artworkUrl512'])
+            url1024 = re.sub('512x512', '1024x1024', itunesResponse['artworkUrl512'])
+            url1024 = re.sub('.jpg', '.png', url1024)
             urllib.urlretrieve(url1024, post['slug'] + '-' + time.strftime("%Y") + '.png')
         except URLError, e:
-            urllib.urlretrieve(itunesResponse['artworkUrl512'], post['slug'] + '-' + time.strftime("%Y") + '.png')
-
+            url512 = re.sub('.jpg', '.png', itunesResponse['artworkUrl512'])
+            urllib.urlretrieve(url512, post['slug'] + '-' + time.strftime("%Y") + '.png')
     elif(domain == 'watchos'):
-        # Read from the object, storing the page's contents in 's'.
-        f = urllib.urlopen(post['itunes-url'])
-        html = f.read()
-        f.close()
-        # Parse the page's source for the things we want
-        html = BeautifulSoup(html)
-        #find the thumbnail by searching by icon size...there should only be one
-        img = html.findAll(width="20")
-        #get the first list item
-        img = img[0]
-        #get the image's src attribute and change the size to 300px
-        src = img['src']
-        src = src.replace('40x40', '300x300')
-        ext = src.split('/')[-1]
-        ext = ext.split('.')[-1]
-        # get it (is likely a jpg, so you'll have to convert it)
-        urllib.urlretrieve(src, post['slug'] + '-' + time.strftime("%Y") + "." + ext)
+        # Ask for the image's 399 URL, then change to 1024
+        # Eample: # http://is5.mzstatic.com/image/thumb/Purple118/v4/d5/d5/ca/d5d5caa5-97f6-07f7-a3e8-9e1da044ac4a/source/399x399bb.jpg
+        watchImgUrl = raw_input('399x399 icon url: ')
+        watchImgUrl = re.sub('399x399', '1024x1024', watchImgUrl)
+        watchImgUrl = re.sub('.jpg', '.png', watchImgUrl)
+        printData(watchImgUrl)
+        urllib.urlretrieve(watchImgUrl, post['slug'] + '-' + time.strftime("%Y") + '.png')
     else:
         printError('Looks like your domains are wrong for writing an image')
 
