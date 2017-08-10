@@ -2,9 +2,9 @@
 <ul class="icon-list">
   {% for post in paginator.posts %}
     <!-- If it's the second post, show the ad AND the current post -->
-    {% if forloop.index0 == 1 and site.theeme.ad_script %}
+    {% if forloop.index0 == 1 %}
       <li>
-        {{ site.theeme.ad_script }}
+        {% include ad.html.liquid %}
       </li>
     {% endif %}
     <li>

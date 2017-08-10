@@ -200,30 +200,14 @@ body {
 // =============================================================================
 // Ads
 // =============================================================================
-// Styles for the ads which appear only in .icon-container lists
-// Simply do <li.icon-container.ad-container
+// Styles for all ad containers across the entire site
 
-.icon-container--ad {
-  text-align: center;
-}
-
-// Styles commong to all representations of the ad
-#carbonads {
-  // Shared styles
+.ad-container {
   font-size: 13px;
   color: $color-dark-gray;
 
   a {
     color: inherit;
-  }
-
-  .carbon-text {
-    display: block;
-  }
-
-  .carbon-poweredby {
-    font-size: 11px;
-    color: $color-light-gray;
   }
 
   // Contextual styles
@@ -238,6 +222,32 @@ body {
     text-align: right;
     width: 230px;
     margin-top: 10px;
+  }
+}
+
+#carbonads {
+  .carbon-text {
+    display: block;
+  }
+
+  .carbon-poweredby {
+    font-size: 11px;
+    color: $color-light-gray;
+  }
+}
+
+#sketchkeysad {
+  img {
+    display: block;
+    width: 130px;
+    height: 100px;
+    margin: 0 auto;
+  }
+  
+  span {
+    display: block;
+    font-size: 11px;
+    color: $color-light-gray;
   }
 }
 

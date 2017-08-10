@@ -156,10 +156,8 @@
     </header>
 
     <!-- Ad -->
-    {% if site.theeme.ad_script %}
-      <div class="icon-meta-ad">
-        {{ site.theeme.ad_script }}
-      </div>
-    {% endif %}
+    <div class="icon-meta-ad">
+      {% include ad.html.liquid %}
+    </div>
   </div>
 </article>
