@@ -4,19 +4,20 @@
   "description": "",
   "main": "save-watch-os-512-img.js",
   "scripts": {
-    "watchos-get-icon": "babel-node save-watch-os-512-img.js --presets es2015,stage-2"
+    "watchos-get-icon": "babel-node save-watch-os-512-img.js --presets es2015,stage-2",
+    "get": "babel-node get.js --presets es2015,stage-2"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "dependencies": {
-    
-  },
+  "dependencies": {},
   "devDependencies": {
+    "babel-cli": "^6.24.1",
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-stage-2": "^6.24.1",
-    "babel-cli": "^6.24.1",
-    "prompt": "^1.0.0",
+    "colors": "^1.1.2",
+    "node-fetch": "^1.7.2",
+    "prompt-sync": "^4.1.5",
     "request": "^2.81.0"
   }
 }
