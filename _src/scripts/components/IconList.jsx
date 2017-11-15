@@ -15,16 +15,26 @@ export default function IconList({ activeFilter, icons, showMore }) {
   let content;
 
   if (icons.length > 0) {
-    // Add the icons
-    content = icons.map(icon =>
-      <IconItem
-        key={icon.id}
-        title={icon.title}
-        url={icon.url}
-        src1x={`${icon.filepath}/128/${icon.filename}`}
-        src2x={`${icon.filepath}/256/${icon.filename}`}
-      />
-    );
+    content = icons.map(icon => {
+      // Add the icons
+      // Slug and year are derived from the url, i.e. 
+      // "http://iosicongallery.com/2017/super-mario-run"
+      //
+      // /img/128/super-mario-run-2017.png
+      // /img/${size}/${slug}-${year}.png
+      const urlPieces = icon.url.split('/');
+      const slug = urlPieces.pop();
+      const year = urlPieces.pop();
+      return (
+        <IconItem
+          key={icon.url}
+          title={icon.title}
+          url={icon.url}
+          src1x={`/img/128/${slug}-${year}.png`}
+          src2x={`/img/256/${slug}-${year}.png`}
+        />
+      );
+    });
 
     // If there's more to show, add a loading <li>
     if (showMore) {

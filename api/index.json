@@ -27,14 +27,7 @@ layout: null
         {% for post in site.posts %}
             {
                 "title": "{{ post.title }}",
-                "slug": "{{ post.slug }}",
-                "url": "{{ post.url }}",
-                "date": "{{ post.date | date: "%F" }}",
-                "category": "{{ post.category }}",
-                "filepath": "/img",
-                "filename": "{{post.slug}}-{{ post.date | date: "%Y" }}.png",
-                "id": "{{ post.id }}",
-
+                "url": "{{ post.url | prepend: site.url }}",
                 {% if post.tags %}
                     "tags": [
                     {% for tag in post.tags %}
@@ -46,8 +39,7 @@ layout: null
                 {% if post.app-developer-url %}"app-developer-url": "{{ post.app-developer-url}}",{% endif %}
                 {% if post.icon-designer %}"icon-designer": "{{ post.icon-designer}}",{% endif %}
                 {% if post.icon-designer-url %}"icon-designer-url": "{{ post.icon-designer-url}}",{% endif %}
-
-                "itunes-url": "{{ post.itunes-url }}"
+                "category": "{{ post.category }}"
 
             }{% if forloop.last != true %},{% endif %}
         {% endfor %}
