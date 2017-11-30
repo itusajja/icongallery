@@ -57,14 +57,14 @@ $url-img: "/shared/img";
 }
 
 @mixin external-link() {
-  content: '\2192';
+  content: "\2192";
   -webkit-transform: rotate(-45deg);
   -moz-transform: rotate(-45deg);
   -o-transform: rotate(-45deg);
   -ms-transform: rotate(-45deg);
   transform: rotate(-45deg);
   @include inline-block();
-  font-size: .75em;
+  font-size: 0.75em;
 }
 
 @function em($px, $context: $font-size-base) {
@@ -243,7 +243,7 @@ body {
     height: 100px;
     margin: 0 auto;
   }
-  
+
   span {
     display: block;
     font-size: 11px;
@@ -258,29 +258,48 @@ body {
 .watchosicongallery {
   .icon {
     border-radius: 50%;
-    border: 1px solid rgba(0, 0, 0, .15);
+    border: 1px solid rgba(0, 0, 0, 0.15);
   }
 }
 
 .iosicongallery {
-  // Add a pseudo element with a mask in it that overlays the icon
-  @each $size in $icon-sizes {
-    .icon-wrapper--#{$size}:after {
-      content: '';
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      background: url('/shared/img/mask-#{$size}.png') no-repeat;
-      width: #{$size}px;
-      height: #{$size}px;
-      margin-top: #{$size / -2}px;
-      margin-left: #{$size / -2}px;
+  // For browsers that can't mask, just do a border and border-radius
+  .icon {
+    border-radius: 22.5%;
+    border: 1px solid rgba(0, 0, 0, 0.125);
+  }
 
-      @media (-webkit-min-device-pixel-ratio: 2),
-        (-o-min-device-pixel-ratio: 3 / 2),
-        (min-device-pixel-ratio: 2) {
-        background: url('/shared/img/mask-#{$size * 2}.png') no-repeat;
-        background-size: 100%;
+  // For browsers that can mask, you get the squircle and a 1px border
+  @supports (mask-size: cover) or (-webkit-mask-size: cover) {
+    .icon {
+      // Override the above borders
+      border-radius: 0;
+      border: none;
+
+      display: block;
+      max-width: 100%;
+      height: auto;
+      -webkit-mask-image: url(/shared/img/ios-mask.svg);
+      -webkit-mask-size: cover;
+      mask-image: url(/shared/img/ios-mask.svg);
+      mask-size: cover;
+    }
+
+    .icon-wrapper:after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 100;
+      width: 100%;
+      height: 100%;
+      background-size: cover;
+    }
+
+    // Add a pseudo element with a mask in it that overlays the icon
+    @each $size in $icon-sizes {
+      .icon-wrapper--#{$size}:after {
+        background-image: url("/shared/img/ios-mask-border-#{$size}.svg");
       }
     }
   }
@@ -497,20 +516,20 @@ body {
 }
 
 .dropdown__content {
-  box-shadow: 0 4px 8px rgba(0, 0, 0, .2);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   border: 1px solid $color-border;
   padding: 10px;
   width: 300px;
   margin-left: -150px;
   left: 50%;
   background: #fff;
-  z-index: 10;
+  z-index: 1000;
   position: absolute;
 
   top: 80%;
   visibility: hidden;
   opacity: 0;
-  transition: .2s ease all;
+  transition: 0.2s ease all;
 
   @media screen and (max-width: 660px) {
     left: 0;
@@ -563,6 +582,12 @@ body {
   }
 }
 
+// Wraps the <img.icon> element (useful for iOS where we need masks)
+.icon-wrapper {
+  position: relative;
+  display: block;
+}
+
 // List of icons for home screen
 .icon-list {
   display: flex;
@@ -589,7 +614,7 @@ body {
       @include icon-list-center;
 
       &:hover {
-        box-shadow: inset 0 0 30px rgba(0, 0, 0, .065);
+        box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.065);
 
         // Don't do the hover box shadow on non-linkable items (placeholder)
         &[href="#"] {
@@ -598,18 +623,6 @@ body {
         }
       }
     }
-  }
-}
-
-// Wraps the <img.icon> element (useful for iOS where we need masks)
-.icon-wrapper {
-  position: relative;
-  display: block;
-}
-@each $size in $icon-sizes {
-  .icon-wrapper--#{$size} {
-    width: #{$size}px;
-    height: #{$size}px;
   }
 }
 
@@ -759,11 +772,11 @@ body {
     &:hover {
       color: #000;
       text-decoration: none;
-      box-shadow: inset 0 0 30px rgba(0, 0, 0, .065);
+      box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.065);
 
       .svgcon {
-        transform: rotate(3deg) scale(.95);
-        opacity: .85;
+        transform: rotate(3deg) scale(0.95);
+        opacity: 0.85;
       }
     }
   }
@@ -773,10 +786,10 @@ body {
   }
 
   .svgcon {
-    transition: .33s ease all;
+    transition: 0.33s ease all;
     width: 100px;
     height: 100px;
-    opacity: .25;
+    opacity: 0.25;
   }
 }
 
@@ -935,5 +948,90 @@ body {
           inset 0 0 0 2px rgba(255, 255, 255, 1);
       }
     }
+  }
+}
+
+// =============================================================================
+// Modals
+// =============================================================================
+
+.modal {
+  position: fixed;
+  z-index: 100;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.85);
+  opacity: 0;
+  visibility: hidden;
+  transition: 0.2s ease all;
+
+  &__close {
+    position: fixed;
+    top: 0px;
+    right: 15px;
+    font-size: 64px;
+    opacity: 0.25;
+    line-height: 1;
+    font-weight: 200;
+
+    &:hover {
+      text-decoration: none;
+      opacity: 1;
+    }
+  }
+
+  &__body {
+    padding: 10px;
+  }
+}
+
+.modal-link {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  font-weight: 300;
+  align-items: center;
+
+  &__loading {
+    width: 512px;
+    min-height: 300px;
+    height: auto;
+  }
+
+  &__title {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    display: block;
+    max-width: 512px;
+    font-size: 32px;
+
+    @media screen and (max-width: 512px) {
+      font-size: 24px;
+      max-width: 300px;
+    }
+  }
+}
+
+body.show-modal {
+  overflow: hidden;
+
+  header,
+  main {
+    -webkit-filter: blur(10px);
+    -moz-filter: blur(10px);
+    filter: blur(10px);
+  }
+
+  .modal {
+    opacity: 1;
+    visibility: visible;
   }
 }
