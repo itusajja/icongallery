@@ -10,7 +10,7 @@ export default function IconItemLoading() {
   return (
     <li style={styles}>
       <img
-        src="/shared/img/loading.gif"
+        src="/shared/static/img/loading.gif"
         alt="Loading"
         width="24"
         height="24"

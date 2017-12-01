@@ -18,8 +18,9 @@ echo ${DOMAIN}
 # esac
 
 # Change working directory
-# (script written to work inside build folder)
-cd shared/_src/automation
+# (script written to initially execute at root level, then do work inside
+# the shared/scripts/ folder)
+cd shared/scripts
 
 # Export the domain so we can use it in python script
 # http://stackoverflow.com/questions/17435056/read-bash-variables-into-a-python-script
@@ -34,15 +35,15 @@ read -p "Is this a draft? [y/n] " -n 1 -r
 echo    # (optional) move to a new line
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
-    mv *.md ../../../_drafts/
+    mv *.md ../../_drafts/
 else
-    mv *.md ../../../_posts/
+    mv *.md ../../_posts/
 fi
 
 # Take the original 512 or 1024 icon and create optimized versions for each
 # 1024, 512, 256, 128, 64
 # strip warning: find . -type f -name "*.png" -exec convert {} -strip {} \;
-DIR="../../../img"
+DIR="../../img"
 
 # Set the variants
 VARIANTS=(512 256 128)
@@ -79,4 +80,4 @@ echo "=> Moving original to _src directory..."
 mv *.png "${DIR}/_src"
 
 # Go back to root since we changed it
-cd ../../../
+cd ../../

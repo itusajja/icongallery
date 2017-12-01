@@ -1,8 +1,0 @@
----
-# this ensures Jekyll reads the file to be transformed into CSS later
-# Any imports point to ./_src/styles. This file will be converted to a 
-# .css file automatically by jekyll on compilation.
----
-
-@import "reset";
-@import "index";

@@ -1,0 +1,34 @@
+{
+  "name": "Icon Galleries",
+  "version": "1.0.0",
+  "description": "",
+  "author": "Jim Nielsen",
+  "main": "",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jimniels/icongallery.git"
+  },
+  "scripts": {
+    "start": "webpack --watch --config webpack.config.js",
+    "build": "webpack -p --config webpack.config.js",
+    "watchos-get-icon": "babel-node save-watch-os-512-img.js --presets es2015,stage-2"
+  },
+  "devDependencies": {
+    "babel-cli": "6.24.1",
+    "babel-core": "6.24.1",
+    "babel-loader": "7.0.0",
+    "babel-preset-es2015": "6.24.1",
+    "babel-preset-react": "6.24.1",
+    "babel-preset-stage-1": "6.24.1",
+    "babel-preset-stage-2": "6.24.1",
+    "webpack": "2.6.1",
+    "prompt": "^1.0.0",
+    "request": "^2.81.0"
+  },
+  "dependencies": {
+    "react": "15.5.4",
+    "react-dom": "15.5.4",
+    "prop-types": "15.5.10",
+    "string_score": "0.1.22"
+  }
+}
