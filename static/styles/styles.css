@@ -1008,7 +1008,7 @@ button:focus {
 
 /* ==========================================================================
    Modals
-   ==========================================================================
+   ========================================================================== */
 
 .modal {
   position: fixed;
@@ -1077,20 +1077,18 @@ button:focus {
   }
 }
 
-// will need to be fixed
 body.show-modal {
   overflow: hidden;
-
-  header,
-  main {
-    -webkit-filter: blur(10px);
-    -moz-filter: blur(10px);
-    filter: blur(10px);
-  }
-
-  .modal {
-    opacity: 1;
-    visibility: visible;
-  }
 }
-*/
+
+body.show-modal header,
+body.show-modal main {
+  -webkit-filter: blur(10px);
+  -moz-filter: blur(10px);
+  filter: blur(10px);
+}
+
+body.show-modal .modal {
+  opacity: 1;
+  visibility: visible;
+}
