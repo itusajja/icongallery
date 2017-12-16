@@ -11,7 +11,7 @@ IconItem.propTypes = {
 export default function IconItem({ src1x, src2x, title, url }) {
   return (
     <li>
-      <a href={url} title={title}>
+      <a href={url} title={title} className="js-trigger-icon-modal">
         <span className="icon-wrapper icon-wrapper--128">
           <img
             alt={`${title} app icon`}

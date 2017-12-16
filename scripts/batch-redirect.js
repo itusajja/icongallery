@@ -1,10 +1,12 @@
 const fs = require('fs');
 const path = require('path');
 
-const baseDir = path.join(__dirname, './');
+const baseDir = path.join(__dirname, '../../');
 const postsDir = path.join(baseDir, '_posts');
-const postsDirTarget = path.join(baseDir, '_postz');
-const imgDirs = ['_src', '128', '256', '512', '1024'];
+const postsDirTarget = path.join(baseDir, '_posts');
+const imgsDir = path.join(baseDir, 'img');
+
+let counter = 0;
 
 fs.readdirSync(postsDir)
   .filter(filename => filename.endsWith('.md'))
@@ -16,11 +18,10 @@ fs.readdirSync(postsDir)
 
     const date = lines.filter(line => line.startsWith('date:'))[0].split(':')[1].trim();
     const dateYear = (new Date(date)).getFullYear();
-    const dateId = date.substring(2).replace(/-/g, '');
     const slug = lines.filter(line => line.startsWith('slug:'))[0].split(':')[1].trim();
 
     let redirect = [`/${dateYear}/${slug}`];
-    /*
+    
     lines.forEach((line, i) => {
       // If it's the last line of the file, do nothing
       if (line === "" && i === lines.length - 1) {
@@ -42,19 +43,24 @@ fs.readdirSync(postsDir)
       }
     });
 
-    fs.writeFileSync(path.join(postsDirTarget, filename), fileout);
-    */
+    // Write the .md file changes
+    // fs.writeFileSync(path.join(postsDirTarget, filename), fileout);
 
     // Find the img in every location and rewrite it
-    imgDirs.forEach(dir => {
-      const imgPath = path.join(baseDir, 'img', dir, `${slug}-${dateId}.png`);
-      console.log(imgPath);
-      if (fs.existsSync(imgPath)) {
-        // fs.renameSync(imgPath, )
+    ['_src', '128', '256', '512', '1024'].forEach(size => {
+      const oldImgName = slug + "-" + dateYear + '.png';
+      const oldImgPath = path.join(imgsDir, size, oldImgName);
+      
+      if (fs.existsSync(oldImgPath)) {
+        const newImgName = slug + "-" + date + '.png';
+        const newImgPath = path.join(imgsDir, size, newImgName);
+        // console.log('rename', oldImgPath, newImgPath);
+        fs.renameSync(oldImgPath, newImgPath);
         // console.log('Rename ' + imgPath);
         // fs.copyFileSync(imgPath, path.dirname(imgPath) + `/${date}-${slug}.png.TEST`);
       } else {
-        // console.log('img does not exist', filename, dir)
+        // counter = counter + 1;
+        // console.log('  - ', imgPath)
       }
-    })
+    });
 });
