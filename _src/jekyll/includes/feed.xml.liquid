@@ -16,9 +16,9 @@
   {% for post in site.posts limit:10 %}
     <item>
       <title>{{ post.title | xml_escape }}</title>
-      <enclosure url="{{ site.url | append:site.baseurl }}/{{ site.theeme.active }}/img/512/{{post.slug}}-{{ post.date | date: "%Y" }}.png" length="90000" type="image/png" />
-      <description><![CDATA[<a href="{{ post.url | prepend: site.baseurl | prepend: site.url }}"><img width="512" height="512" alt="{{ post.title }} app icon" src="{{ site.url | append:site.baseurl }}/img/512/{{post.slug}}-{{ post.date | date: "%Y" }}.png" /></a>]]></description>
-      <content:encoded><![CDATA[<a href="{{ post.url | prepend: site.baseurl | prepend: site.url }}"><img width="512" height="512" alt="{{ post.title }} app icon" src="{{ site.url | append:site.baseurl }}/img/512/{{post.slug}}-{{ post.date | date: "%Y" }}.png" /></a>]]></content:encoded>
+      <enclosure url="{% include icon-src.html.liquid size="512" %}" length="90000" type="image/png" />
+      <description><![CDATA[<a href="{{ post.url | prepend: site.baseurl | prepend: site.url }}"><img width="512" height="512" alt="{{ post.title }} app icon" src="{% include icon-src.html.liquid size="512" %}" /></a>]]></description>
+      <content:encoded><![CDATA[<a href="{{ post.url | prepend: site.baseurl | prepend: site.url }}"><img width="512" height="512" alt="{{ post.title }} app icon" src="{% include icon-src.html.liquid size="512" %}" /></a>]]></content:encoded>
       <pubDate>{{ post.date | date_to_rfc822 }}</pubDate>
       <link>{{ post.url | prepend: site.baseurl | prepend: site.url }}</link>
       <guid isPermaLink="true">{{ post.url | prepend: site.baseurl | prepend: site.url }}</guid>

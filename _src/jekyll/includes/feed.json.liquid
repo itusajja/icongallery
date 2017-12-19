@@ -12,7 +12,7 @@
   "favicon": "{{ site.url | append: site.baseurl }}/{{ site.assets.images }}/{{ site.theeme.active }}-favicon.ico",
   "items": [
   {% for post in site.posts limit:10 %}
-    {% capture content_html %}<a href="{{ post.url | prepend: site.baseurl | prepend: site.url }}"><img width="512" height="512" alt="{{ post.title }} app icon" src="{{ site.url | append:site.baseurl }}/img/512/{{post.slug}}-{{ post.date | date: "%Y" }}.png" /></a>{% endcapture %}
+    {% capture content_html %}<a href="{{ post.url | prepend: site.baseurl | prepend: site.url }}"><img width="512" height="512" alt="{{ post.title }} app icon" src="{% include icon-src.html.liquid size="512" %}" /></a>{% endcapture %}
     {
         "id": "{{ post.url }}",
         "url": "{{ post.url | prepend: site.baseurl | prepend: site.url }}",
@@ -21,7 +21,7 @@
         "content_html": {{ content_html | jsonify }},
         "attachments": [
           {
-            "url": "{{ site.url | append:site.baseurl }}/img/512/{{post.slug}}-{{ post.date | date: "%Y" }}.png",
+            "url": "{% include icon-src.html.liquid size="512" %}",
             "mime_type": "image/png",
             "title": "512px app icon"
           }
