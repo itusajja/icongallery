@@ -99,10 +99,10 @@ def writeImage():
         try:
             url1024 = re.sub('512x512', '1024x1024', itunesResponse['artworkUrl512'])
             url1024 = re.sub('.jpg', '.png', url1024)
-            urllib.urlretrieve(url1024, post['slug'] + '-' + time.strftime("%Y") + '.png')
+            urllib.urlretrieve(url1024, post['slug'] + '-' + post['date'] + '.png')
         except URLError, e:
             url512 = re.sub('.jpg', '.png', itunesResponse['artworkUrl512'])
-            urllib.urlretrieve(url512, post['slug'] + '-' + time.strftime("%Y") + '.png')
+            urllib.urlretrieve(url512, post['slug'] + '-' + post['date'] + '.png')
     elif(domain == 'watchos'):
         # Ask for the image's 399 URL, then change to 1024
         # Eample: # http://is5.mzstatic.com/image/thumb/Purple118/v4/d5/d5/ca/d5d5caa5-97f6-07f7-a3e8-9e1da044ac4a/source/399x399bb.jpg
@@ -110,7 +110,7 @@ def writeImage():
         watchImgUrl = re.sub('399x399', '1024x1024', watchImgUrl)
         watchImgUrl = re.sub('.jpg', '.png', watchImgUrl)
         printData(watchImgUrl)
-        urllib.urlretrieve(watchImgUrl, post['slug'] + '-' + time.strftime("%Y") + '.png')
+        urllib.urlretrieve(watchImgUrl, post['slug'] + '-' + post['date'] + '.png')
     else:
         printError('Looks like your domains are wrong for writing an image')
 

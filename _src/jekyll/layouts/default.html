@@ -14,26 +14,27 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="{{ site.description }}" />
-  <link rel="canonical" href="{{ page.url | replace:'index.html','' | prepend: site.baseurl | prepend: site.url }}" />
+  <link rel="canonical" href="{{ page.url | replace:'index.html','' | prepend: site.url }}" />
 
   <!-- Favicon & Touch Icon -->
-  <link rel="icon" href="{{ site.baseurl }}/{{ site.assets.images }}/{{ site.theeme.active }}-favicon.ico" type="image/x-icon"/>
-  <link rel="shortcut icon" href="{{ site.baseurl }}/{{ site.assets.images }}/{{ site.theeme.active }}-favicon.ico" type="image/x-icon"/>
-  <link rel="apple-touch-icon" href="{{ site.baseurl }}/{{ site.assets.images }}/{{ site.theeme.active }}-apple-touch-icon.png"/>
+  <link rel="icon" href="/{{ site.assets.images }}/{{ site.theeme.active }}-favicon.ico" type="image/x-icon"/>
+  <link rel="shortcut icon" href="/{{ site.assets.images }}/{{ site.theeme.active }}-favicon.ico" type="image/x-icon"/>
+  <link rel="apple-touch-icon" href="/{{ site.assets.images }}/{{ site.theeme.active }}-apple-touch-icon.png"/>
 
-  <!-- CSS -->
-  <link rel="stylesheet" href="{{ site.baseurl }}/{{ site.assets.styles }}/reset.css" />
-  <link rel="stylesheet" href="{{ site.baseurl }}/{{ site.assets.styles }}/styles.css" />
+  <!-- CSS 
+       Cache busting static CSS in gh-pages https://toddmotto.com/cache-busting-jekyll-github-pages -->
+  <link rel="stylesheet" href="/{{ site.assets.styles }}/reset.css" />
+  <link rel="stylesheet" href="/{{ site.assets.styles }}/styles.css?{{ site.time | date: '%s%N' }}" />
 
   <!-- RSS Feed -->
   {% if site.theeme.active == 'iosicongallery' %}
     <link rel="alternate" type="application/rss+xml" title="RSS 2.0" href="http://feeds.feedburner.com/{{ site.theeme.active }}" />
   {% else %}
-    <link rel="alternate" type="application/rss+xml" title="RSS 2.0" href="{{ site.baseurl }}/feed.xml" />
+    <link rel="alternate" type="application/rss+xml" title="RSS 2.0" href="/feed.xml" />
   {% endif %}
 
   <!-- JSON Feed -->
-  <link rel="alternate" title="JSON Feed" type="application/json" href="{{ site.baseurl }}/feed.json" />
+  <link rel="alternate" title="JSON Feed" type="application/json" href="/feed.json" />
 
   <!-- Github pages redirect -->
   <script>
@@ -77,8 +78,8 @@
   <header id="header" class="header">
     <div class="wrapper">
       <h1>
-        <a href="{{ site.baseurl }}/" title="{{ site.title }}" rel="home">
-          {% capture logoUrl %}{{ site.baseurl }}/{{ site.assets.images }}/{{ site.theeme.active }}-logo{% endcapture %}
+        <a href="/" title="{{ site.title }}" rel="home">
+          {% capture logoUrl %}/{{ site.assets.images }}/{{ site.theeme.active }}-logo{% endcapture %}
           <img class="logo" src="{{ logoUrl }}.svg" onerror="this.onerror=null; this.src='{{ logoUrl }}.png'" />
         </a>
         <div class="dropdown">
@@ -86,7 +87,7 @@
             {% include svgcon.svg.liquid id='caret-down' %}
           </a>
           <ul class="dropdown__content">
-            {% for website in site.theeme.inactive %} {% capture logoUrl %}{{ site.baseurl }}/{{ site.assets.images }}/{{ website }}-logo{%endcapture
+            {% for website in site.theeme.inactive %} {% capture logoUrl %}/{{ site.assets.images }}/{{ website }}-logo{%endcapture
             %}
             <li>
               <a href="http://{{ website }}.com" class="external-link">
@@ -96,26 +97,12 @@
             {% endfor %}
           </ul>
         </div>
-        <p>Made by <a href="https://twitter.com/jimniels">@jimniels</a></p>
       </h1>
 
       <nav>
         <a href="/search" id="search-trigger" class="{% if page.title == 'Search' %}active{% endif %}">
+          {% include svgcon.svg.liquid id='search' %}
           Search
-        </a>
-
-        <span style="margin: 0 10px">·</span>
-
-        <a href="/feed.xml" title="RSS Feed">
-          {% include svgcon.svg.liquid id="rss" %}
-        </a>
-      
-        <a href="/feed.json" title="JSON Feed">
-          {% include svgcon.svg.liquid id="json" %}
-        </a>
-      
-        <a href="https://twitter.com/icongalleries" title="@icongalleries on Twitter">
-          {% include svgcon.svg.liquid id="twitter" %}
         </a>
       </nav>
     </div>
@@ -126,8 +113,27 @@
     {{ content }}
   </main>
 
+  <footer id="footer">
+    <div class="wrapper">
+      <ul>
+        <li>
+          <a href="/search/">Search all icons</a>
+        </li>
+        <li>
+          Follow <a href="https://twitter.com/icongalleries/">@icongalleries on twitter</a>
+        </li>
+        <li>
+          Subscribe via <a href="/feed.rss">RSS</a> or <a href="/feed.json">JSON</a>
+        </li>
+        <li>
+          Made by <a href="http://jim-nielsen.com/">Jim Nielsen</a> (<a href="https://twitter.com/jimniels/">@jimniels on twitter</a>)
+        </li>
+      </ul>
+    </div>
+  </footer>
+
   <!-- Scripts for all pages -->
-  <script type="text/javascript" src="{{site.baseurl}}/{{ site.assets.scripts }}/global.js"></script>
+  <script type="text/javascript" src="/{{ site.assets.scripts }}/global.js"></script>
 
   <!-- Google Analytics -->
   <script>

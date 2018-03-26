@@ -42,22 +42,27 @@ export default class IconFilters extends Component {
 
     return (
       <div className="filters">
-        <ul className="filters__tabs">
+        <span className="filters__count">
+          {iconCount}
+          {iconCount === 1 ? " icon" : " icons"}
+        </span>
+
+        <div className="filters__radios">
+          <strong>Filter apps by:</strong>
           {["search", "category", "color"].map(filterType =>
-            <li key={filterType}>
-              <button
-                onClick={() => handleChangeActiveFilter(filterType, "")}
-                className={activeFilter.type === filterType ? "active" : ""}>
-                <svg className="svgcon">
-                  <use xlinkHref={`#${filterType}`} />
-                </svg>
-                <span>
-                  {filterType}
-                </span>
-              </button>
-            </li>
+            <label key={filterType}>
+              <input
+                type="radio"
+                checked={activeFilter.type === filterType}
+                name="filter"
+                onChange={() => handleChangeActiveFilter(filterType, "")}
+              />
+              {filterType === "search" ? "Name" : ""}
+              {filterType === "category" ? "Category" : ""}
+              {filterType === "color" ? "Icon Color" : ""}
+            </label>
           )}
-        </ul>
+        </div>
 
         <div className="filters__control">
           {activeFilter.type === "search" &&
@@ -66,7 +71,7 @@ export default class IconFilters extends Component {
               onChange={this.handleOnChange}
               defaultValue={activeFilter.value}
               type="text"
-              placeholder="Search..."
+              placeholder="i.e. “Tweetbot”"
               autoComplete="off"
               autoCorrect="off"
               spellCheck="false"
@@ -120,11 +125,6 @@ export default class IconFilters extends Component {
               )}
             </select>}
         </div>
-
-        <span className="filters__count">
-          {iconCount}
-          {iconCount === 1 ? " icon" : " icons"}
-        </span>
       </div>
     );
   }

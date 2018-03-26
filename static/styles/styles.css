@@ -10,6 +10,7 @@
  *   @color-light-gray: #aaa;
  *   @color-medium-gray: #777;
  *   @color-dark-gray: #333;
+ *   @color-link: #0000EE;
  *
  *   Borders
  *   @color-border: #e9e9e9;
@@ -47,7 +48,7 @@ html {
 body,
 input,
 select {
-  font-size: 16px;
+  font-size: 14px;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
@@ -56,7 +57,6 @@ select {
 body {
   line-height: 1.5;
   color: #333;
-  padding-bottom: 40px;
 }
 
 /* Sticky footer at bottom no matter height
@@ -93,12 +93,11 @@ body {
 }
 
 a {
-  color: inherit;
+  color: #0000EE;
   text-decoration: none;
 }
 
 a:hover {
-  color: #1a1a1a;
   text-decoration: underline;
 }
 
@@ -250,21 +249,29 @@ em {
    ========================================================================== */
 
 .pagination {
-  margin: 40px 0 0;
+  margin: 30px 0 0;
   display: flex;
-  justify-content: space-between;
+}
+
+.pagination > div {
+  display: flex;
   align-items: center;
-  font-size: 15px;
+}
+
+@media screen and (min-width: 900px) {
+  .pagination {
+    display: flex;
+  }
 }
 
 /* Pagination Button
    ========================================================================== */
 .pagination__button {
-  border: 1px solid #333;
+  border: 1px solid #0000EE;
   padding: 7px 15px;
-  color: inherit;
   display: flex;
   align-items: center;
+  border-radius: 50px;
 }
 
 /* Inactive button link */
@@ -278,8 +285,8 @@ span.pagination__button .svgcon {
 
 /* Active button link */
 a.pagination__button:hover {
-  border-color: #333;
-  background-color: #333;
+  border-color: #0000EE;
+  background-color: #0000EE;
   color: white;
   text-decoration: none;
 }
@@ -289,21 +296,36 @@ a.pagination__button:hover .svgcon {
 
 /* Prev */
 .pagination__button:first-child .svgcon {
-  margin-right: 4px;
-  margin-left: -4px;
+  margin-left: -8px;
 }
 
 /* Next */
-.pagination__button:last-child .svgcon {
-  margin-left: 4px;
-  margin-right: -4px;
+.pagination__button:nth-child(2) .svgcon {
+  margin-right: -8px;
+}
+
+.pagination__button:nth-child(2) {
+  margin-left: 10px;
+}
+
+/* Button alignment on mobile vs desktop */
+@media screen and (min-width: 600px) {
+  .pagination__button:nth-child(2) {
+    margin-right: 30px;
+  }
+}
+@media screen and (max-width: 599px) {
+  .pagination {
+    justify-content: space-between;
+  }
 }
 
 /* Pagination icon
    ========================================================================== */
 .pagination .svgcon {
-  width: 18px;
-  height: 18px;
+  position: relative;
+  top: 1px;
+  fill: #0000EE;
 }
 
 /* Pagination jump to dropdown
@@ -322,19 +344,6 @@ a.pagination__button:hover .svgcon {
 
 .pagination__jump-to select {
   margin: 0 5px;
-  -webkit-appearance: none;
-  background: #fff;
-  border: 0;
-  font-size: 1em;
-  padding: 3px 12px;
-  border: 1px solid #333;
-  border-radius: 0;
-}
-
-.pagination__jump-to select:hover {
-  cursor: pointer;
-  background: #333;
-  color: white;
 }
 
 /* ==========================================================================
@@ -343,7 +352,6 @@ a.pagination__button:hover .svgcon {
 
 .header {
   padding: 10px 0;
-  color: #777;
 }
 
 .header .wrapper {
@@ -371,9 +379,6 @@ a.pagination__button:hover .svgcon {
 @media screen and (max-width: 899px) {
   .header h1 {
     justify-content: center;
-    border-bottom: 1px solid #f0f0f0;
-    padding-bottom: 10px;
-    margin-bottom: 5px;
   }
 }
 
@@ -388,56 +393,27 @@ a.pagination__button:hover .svgcon {
   display: flex;
 }
 
-.header h1 p {
-  font-size: 10px;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  text-align: center;
-}
-
-@media screen and (min-width: 900px) {
-  .header h1 p {
-    margin-left: 14px;
-  }
-}
-
 /* Navigation
    ========================================================================== */
 
-.header nav {
+.header nav a {
+  padding: 5px 10px;
+  border-radius: 50px;
   display: flex;
   align-items: center;
-  position: relative;
-  top: 2px;
-  line-height: 1;
 }
 
 @media screen and (max-width: 899px) {
   .header nav {
-    justify-content: center;
+    display: none;
   }
 }
 
-.header nav a {
-  padding: 7px;
-}
-
 .header nav a .svgcon {
-  fill: #777;
-}
-.header nav a[href*="twitter.com"]:hover .svgcon {
-  fill: #1da1f2;
-}
-.header nav a[href*="feed.json"]:hover .svgcon {
-  fill: #609c1b;
-}
-.header nav a[href*="feed.xml"]:hover .svgcon {
-  fill: #ff6600;
-}
-
-.header nav a.active {
-  background: rgba(0, 0, 0, 1);
-  color: white;
+  width: 18px;
+  height: 18px;
+  margin-right: 2px;
+  fill: #0000EE;
 }
 
 /* Dropdown
@@ -722,7 +698,6 @@ a.pagination__button:hover .svgcon {
 .icon-meta__left {
   margin-right: 5px;
   float: left;
-  color: #aaa;
 }
 
 @media only screen and (max-width: 620px) {
@@ -789,53 +764,14 @@ a.pagination__button:hover .svgcon {
    Filters (used in react filter toolbar)
    ========================================================================== */
 
-/* Reset button styles
-   ========================================================================== */
-input[type="submit"],
-input[type="reset"],
-input[type="button"],
-button {
-  background: none;
-  border: 0;
-  color: inherit;
-  font: inherit;
-  line-height: normal;
-  overflow: visible;
-  padding: 0;
-  /* for input */
-  -webkit-appearance: button;
-  /* for button */
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-}
-
-input[type="submit"]:hover,
-input[type="reset"]:hover,
-input[type="button"]:hover,
-button:hover {
-  cursor: pointer;
-}
-
-input[type="submit"]:active,
-input[type="reset"]:active,
-input[type="button"]:active,
-button:active,
-input[type="submit"]:focus,
-input[type="reset"]:focus,
-input[type="button"]:focus,
-button:focus {
-  outline: none;
-}
-
 /* Filters
    ========================================================================== */
 
 .filters {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  align-items: stretch;
+  font-size: 14px;
+  min-height: 50px;
 }
 
 @media screen and (min-width: 900px) {
@@ -853,103 +789,26 @@ button:focus {
   justify-content: center;
 }
 
-.filters input,
-.filters select {
-  background: #fff;
-  width: 100%;
-  border: none;
-  padding: 0 20px;
-  -webkit-appearance: none;
-}
-
-.filters input:focus,
-.filters select:focus {
-  box-shadow: inset 0 0 0 1px #fff, inset 0 0 0 3px rgba(0, 0, 0, 1);
-  outline: none;
-}
-
-@media screen and (max-width: 899px) {
-  .filters input,
-  .filters select {
-    line-height: 40px;
-    height: 40px;
-  }
-}
-
 /* Filter tabs
    ========================================================================== */
-.filters__tabs {
-  display: flex;
-  font-size: 14px;
-  width: 300px;
-}
-
-@media screen and (max-width: 899px) {
-  .filters__tabs {
-    border: 1px solid #f0f0f0;
-    border-bottom: 0;
-  }
-}
-
-@media screen and (min-width: 600px) and (max-width: 899px) {
-  .filters__tabs {
-    width: 100%;
-  }
-}
-
-.filters__tabs li {
-  width: 33.3333333%;
-}
-
-@media screen and (min-width: 900px) {
-  .filters__tabs li {
-    border-right: 1px solid #f0f0f0;
-  }
-}
-
-.filters__tabs button {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 75px;
+.filters__radios label {
+  margin: 0 5px;
   text-transform: capitalize;
-  opacity: 0.25;
-  border-radius: 0;
-}
-.filters__tabs button:hover {
-  opacity: 1;
 }
 
-.filters__tabs button.active {
-  opacity: 1;
-  background: rgba(0, 0, 0, 1);
-  color: white;
+.filters__radios input {
+  margin-right: 5px;
 }
 
-.filters__tabs button.active .svgcon {
-  fill: white;
-}
 
-.filters__tabs button .svgcon {
-  margin: auto auto 0 auto;
-}
-.filters__tabs button span {
-  margin: 0 auto auto auto;
-}
-
-.filters__tabs .svgcon {
-  width: 32px;
-  height: 32px;
-}
 
 /* Filters control
    ========================================================================== */
 
-.filters__control {
-  flex-grow: 1;
-  align-items: stretch;
+@media screen and (min-width: 900px) {
+  .filters__control {
+    margin-left: 20px;
+  }
 }
 
 @media screen and (max-width: 899px) {
@@ -959,10 +818,12 @@ button:focus {
   }
 }
 
-.filters__count {
-  font-size: 14px;
-  color: #777;
+.filters__control input {
+  padding: 4px 8px;
 }
+
+/* Filters count
+   ========================================================================== */
 
 @media screen and (max-width: 899px) {
   .filters__count {
@@ -970,13 +831,15 @@ button:focus {
     border: 1px solid #f0f0f0;
     border-bottom: none;
     border-top: none;
+    margin-right: 20px;
   }
 }
 
 @media screen and (min-width: 900px) {
   .filters__count {
-    width: 100px;
-    border-left: 1px solid #f0f0f0;
+    width: 120px;
+    border-right: 1px solid #f0f0f0;
+    margin-right: 20px;
   }
 }
 
@@ -992,9 +855,10 @@ button:focus {
 }
 
 .filters__colors button {
-  width: 30px;
-  height: 30px;
-  border-radius: 22.5%;
+  width: 24px;
+  height: 24px;
+  border: 0;
+  border-radius: 50%;
   display: block;
   transition: 0.2s ease transform;
   box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.2);
@@ -1003,7 +867,7 @@ button:focus {
 
 .filters__colors button.active {
   transform: scale(1.25);
-  box-shadow: 0 0 0 2px rgba(0, 0, 0, 1), inset 0 0 0 2px rgba(255, 255, 255, 1);
+  box-shadow: 0 0 0 2px #0000EE, inset 0 0 0 2px rgba(255, 255, 255, 1);
 }
 
 /* ==========================================================================
@@ -1031,6 +895,41 @@ button:focus {
 .page-not-found p {
   color: #777;
   font-size: 18px;
+}
+
+/* ==========================================================================
+   Footer
+   ========================================================================== */
+
+#footer .wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; 
+
+  border: 1px solid #f0f0f0; 
+  border-bottom: 0;
+  padding: 15px; 
+  margin-top: 30px;
+}
+
+@media screen and (max-width: 599px) {
+  #footer ul {
+    text-align: center;
+  }
+}
+
+@media screen and (min-width: 600px) {
+  #footer ul {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  #footer ul li:after {
+    content: "/";
+    margin: 0 12px 0 7px;
+  }
+  #footer ul li:last-child:after {
+    display: none;
+  }
 }
 
 /* ==========================================================================
