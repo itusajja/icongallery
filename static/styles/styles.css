@@ -279,9 +279,6 @@ span.pagination__button {
   color: #aaa;
   border-color: #e9e9e9;
 }
-span.pagination__button .svgcon {
-  fill: #aaa;
-}
 
 /* Active button link */
 a.pagination__button:hover {
@@ -289,19 +286,6 @@ a.pagination__button:hover {
   background-color: #0000EE;
   color: white;
   text-decoration: none;
-}
-a.pagination__button:hover .svgcon {
-  fill: white;
-}
-
-/* Prev */
-.pagination__button:first-child .svgcon {
-  margin-left: -8px;
-}
-
-/* Next */
-.pagination__button:nth-child(2) .svgcon {
-  margin-right: -8px;
 }
 
 .pagination__button:nth-child(2) {
@@ -318,14 +302,6 @@ a.pagination__button:hover .svgcon {
   .pagination {
     justify-content: space-between;
   }
-}
-
-/* Pagination icon
-   ========================================================================== */
-.pagination .svgcon {
-  position: relative;
-  top: 1px;
-  fill: #0000EE;
 }
 
 /* Pagination jump to dropdown
