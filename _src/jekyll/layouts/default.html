@@ -21,8 +21,7 @@
   <link rel="shortcut icon" href="/{{ site.assets.images }}/{{ site.theeme.active }}-favicon.ico" type="image/x-icon"/>
   <link rel="apple-touch-icon" href="/{{ site.assets.images }}/{{ site.theeme.active }}-apple-touch-icon.png"/>
 
-  <!-- CSS 
-       Cache busting static CSS in gh-pages https://toddmotto.com/cache-busting-jekyll-github-pages -->
+  <!-- CSS (cache busting static CSS https://toddmotto.com/cache-busting-jekyll-github-pages ) -->
   <link rel="stylesheet" href="/{{ site.assets.styles }}/reset.css" />
   <link rel="stylesheet" href="/{{ site.assets.styles }}/styles.css?{{ site.time | date: '%s%N' }}" />
 
@@ -35,39 +34,6 @@
 
   <!-- JSON Feed -->
   <link rel="alternate" title="JSON Feed" type="application/json" href="/feed.json" />
-
-  <!-- Github pages redirect -->
-  <script>
-    /**
-     * This site is hosted on github pages. Because my root user page is jim-nielsen.com
-     * this site is published at both the CNAME place (XXXgallery.com url)
-     * as well as jim-nielsen.com/XXXgallery. So we have to redirect any
-     * jim-nielsen.com stuff to the proper place.
-     * 
-     * When redirecting, it will be from http://jim-nielsen.com/SITENAME
-     *   - http://jim-nielsen.com/iosicongallery
-     *   - http://jim-nielsen.com/macosicongallery
-     *   - http://jim-nielsen.com/watchosicongallery
-     * So to properly redirect all pages, we have to remove the sitename
-     * from the initial part of the pathname
-     * 
-     * jim-nielsen.com/watchosicongallery/
-     *   -> watchosicongallery.com/
-     * jim-nielsen.com/watchosicongallery/2015/facebook
-     *   -> watchosicongallery.com/2015/facebook
-    */
-    if (location.hostname === "jim-nielsen.com") {
-      // Sitename, i.e. "/watchosicongallery"
-      var sitename = "/{{ site.theeme.active }}";
-      // Pathname, i.e. jim-nielsen.com"/watchosicongallery/2015/facebook"
-      var pathname = location.pathname;
-      // If the pathname starts with the sitename, remove it
-      if (pathname.indexOf(sitename) === 0) {
-        pathname = pathname.slice(sitename.length, pathname.length);
-      }
-      location.href = "{{ site.url }}" + pathname
-    }
-  </script>
 </head>
 <body class="{{ site.theeme.active }} {% if site.theeme.ad_script %}ads{% endif %}">
 
