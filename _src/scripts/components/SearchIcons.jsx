@@ -1,53 +1,80 @@
+import "string_score";
 import React, { Component } from "react";
-import PropTypes from "prop-types";
+import {
+  string,
+  array,
+  arrayOf,
+  shape,
+  number,
+  object,
+  objectOf
+} from "prop-types";
 import IconList from "./IconList";
 import IconFilters from "./IconFilters";
-import "string_score";
 import scrollTo from "../utils/scrollTo";
+import {
+  FILTER_ID_NAME,
+  FILTER_ID_CATEGORY,
+  FILTER_ID_COLOR,
+  FILTER_ID_DEVELOPER,
+  FILTER_ID_DESIGNER,
+  FILTER_IDS
+} from "../constants";
+
+const THRESHOLD = 20;
 
 export default class SearchIcons extends Component {
   static propTypes = {
-    icons: PropTypes.array.isRequired,
-    site: PropTypes.object.isRequired,
-    threshold: PropTypes.number.isRequired
+    data: shape({
+      name: string.isRequired,
+      categoryIds: arrayOf(string).isRequired,
+      categoriesById: object.isRequired,
+      colorIds: arrayOf(string).isRequired,
+      colorsById: object.isRequired,
+      designerIds: arrayOf(string).isRequired,
+      designersById: object.isRequired,
+      developerIds: arrayOf(string).isRequired,
+      developersById: object.isRequired,
+      iconIds: arrayOf(string).isRequired,
+      iconsById: objectOf(
+        shape({
+          developer: string.isRequired,
+          developerId: string.isRequired,
+          category: string.isRequired,
+          categoryId: string.isRequired,
+          colorIds: arrayOf(string),
+          designer: string,
+          designerId: string,
+          id: string.isRequired,
+          name: string.isRequired
+        })
+      ).isRequired
+    })
   };
 
   constructor(props) {
     super(props);
-    const { threshold } = this.props;
 
-    // Default to 'search'
-    let activeFilter = { type: "search", value: "" };
+    const {
+      data: { icons }
+    } = props;
 
-    // Setup initial filters by checking to see if params were passed via URL
-    // If they were, set the appropriate filter
-    function getQueryParams(str) {
-      return (str || document.location.search)
-        .replace(/(^\?)/, "")
-        .split("&")
-        .map(
-          function(n) {
-            return (n = n.split("=")), (this[n[0]] = n[1]), this;
-          }.bind({})
-        )[0];
-    }
-    let query = location.search.substring(1);
-    if (query !== "") {
-      query = query.split("=");
-      const type = query[0];
-      const value = query[1];
-      activeFilter = { type, value };
-    }
+    // Setup an initial filter by seeing if a key/value pair was passed via URL
+    // If so, set the appropriate filter. Otherwise, default to 'search'
+    const [activeFilterId, activeFilterValue] = getInitialFilters();
 
     // Get the icons
-    const icons = this.getFilteredIcons(activeFilter);
+    const filteredIconIds = this.getFilteredIconIds(
+      activeFilterId,
+      activeFilterValue
+    );
 
     // Return the initial state
     this.state = {
-      activeFilter,
-      iconCount: icons.length,
-      visibleIcons: icons.slice(0, threshold),
-      allIcons: icons
+      activeFilterId,
+      activeFilterValue,
+      filteredIconIds,
+      numberOfVisibleFilteredIconIds: THRESHOLD
     };
   }
 
@@ -89,91 +116,151 @@ export default class SearchIcons extends Component {
     );
   }
 
-  // Scroll to top button
-  // http://stackoverflow.com/questions/4034659/is-it-possible-to-animate-scrolltop-with-jquery
-  handleScrollTop = e => {
-    e.preventDefault();
-    scrollTo(document.body, 0, 500);
+  handleShowMore = e => {
+    const { numberOfVisibleFilteredIconIds } = this.state;
+    // const sliceBegin = filteredIconIdsVisible.length;
+    // const sliceEnd = sliceBegin + THRESHOLD;
+    // const newIconIds = filteredIconIds.slice(sliceBegin, sliceEnd);
+    this.setState({
+      numberOfVisibleFilteredIconIds: numberOfVisibleFilteredIconIds + THRESHOLD
+      // filteredIconIdsVisible: filteredIconIdsVisible.concat(newIconIds)
+    });
   };
 
-  // Return an array of icon objects (filtered if relevant)
-  getFilteredIcons = activeFilter => {
-    const { icons } = this.props;
-    return activeFilter.value
-      ? icons.filter(function(icon) {
+  handleChangeActiveFilter = (newActiveFilterId, newActiveFilterValue) => {
+    const {
+      data: { icons }
+    } = this.props;
+
+    // Save state in URL
+    const key = newActiveFilterId;
+    const value = window.encodeURIComponent(newActiveFilterValue);
+    window.history.replaceState({}, "", `?${key}=${value}`);
+
+    // Get and set the new list of filtered icons
+    const newFilteredIconIds = this.getFilteredIconIds(
+      newActiveFilterId,
+      newActiveFilterValue
+    );
+    this.setState({
+      activeFilterId: newActiveFilterId,
+      activeFilterValue: newActiveFilterValue,
+      filteredIconIds: newFilteredIconIds,
+      numberOfVisibleFilteredIconIds: THRESHOLD
+    });
+  };
+
+  getFilteredIconIds = (filterId, filterValue) => {
+    const {
+      data: { iconIds, iconsById, designers, developers }
+    } = this.props;
+
+    return filterId && filterValue
+      ? iconIds.filter(iconId => {
           if (
-            activeFilter.type === "category" &&
-            activeFilter.value === icon.category
+            filterId === FILTER_ID_CATEGORY &&
+            filterValue === iconsById[iconId].categoryId
           ) {
             return true;
           }
 
           if (
-            activeFilter.type === "color" &&
-            icon.tags.indexOf(activeFilter.value) !== -1
+            filterId === FILTER_ID_COLOR &&
+            iconsById[iconId].colorIds.indexOf(filterValue) !== -1
           ) {
             return true;
           }
 
           if (
-            activeFilter.type === "search" &&
-            icon.title.score(activeFilter.value) >= 0.3
+            filterId === FILTER_ID_NAME &&
+            iconsById[iconId].name.score(filterValue) >= 0.3
+          ) {
+            return true;
+          }
+
+          if (
+            filterId === FILTER_ID_DESIGNER &&
+            iconsById[iconId].designerId === filterValue
+          ) {
+            return true;
+          }
+
+          if (
+            filterId === FILTER_ID_DEVELOPER &&
+            iconsById[iconId].developerId === filterValue
           ) {
             return true;
           }
 
           return false;
         })
-      : icons;
-  };
-
-  handleShowMore = e => {
-    const { visibleIcons, allIcons } = this.state;
-    const { threshold } = this.props;
-
-    const sliceBegin = visibleIcons.length;
-    const sliceEnd = sliceBegin + threshold;
-    const newIcons = allIcons.slice(sliceBegin, sliceEnd);
-    this.setState({
-      visibleIcons: visibleIcons.concat(newIcons)
-    });
-  };
-
-  handleChangeActiveFilter = (type, value) => {
-    const { threshold } = this.props;
-    const newActiveFilter = { type, value };
-    const icons = this.getFilteredIcons(newActiveFilter);
-
-    // Save state in URL
-    window.history.replaceState({}, "", `?${type}=${value}`);
-
-    this.setState({
-      activeFilter: newActiveFilter,
-      iconCount: icons.length,
-      visibleIcons: icons.slice(0, threshold),
-      allIcons: icons
-    });
+      : iconIds;
   };
 
   render() {
-    const { activeFilter, iconCount, visibleIcons, allIcons } = this.state;
-    const { site } = this.props;
+    const {
+      activeFilterId,
+      activeFilterValue,
+      filteredIconIds,
+      numberOfVisibleFilteredIconIds
+    } = this.state;
+    const { data } = this.props;
+    const { iconsById } = data;
 
     return (
       <div>
         <IconFilters
+          activeFilterId={activeFilterId}
+          activeFilterValue={activeFilterValue}
+          data={data}
           handleChangeActiveFilter={this.handleChangeActiveFilter}
-          activeFilter={activeFilter}
-          site={site}
-          iconCount={iconCount}
+          iconCount={filteredIconIds.length}
         />
 
         <IconList
-          activeFilter={activeFilter}
-          icons={visibleIcons}
-          showMore={allIcons.length > visibleIcons.length}
+          activeFilterId={activeFilterId}
+          activeFilterValue={activeFilterValue}
+          iconsById={iconsById}
+          showMore={filteredIconIds.length > numberOfVisibleFilteredIconIds}
+          visibleIconIds={filteredIconIds.slice(
+            0,
+            numberOfVisibleFilteredIconIds
+          )}
         />
       </div>
     );
   }
+}
+
+/**
+ * Get the initial filter (optionally passed in via the URL)
+ * @returns {Object[]} - `activeFilterId` and `activeFilterValue`
+ */
+function getInitialFilters() {
+  let activeFilterId = FILTER_ID_NAME;
+  let activeFilterValue = "";
+
+  let query = location.search.substring(1);
+
+  if (query) {
+    let [id, value] = query.split("=");
+
+    // Adding backwards compatibility here where we used to support the key
+    // `search` for what is now the name query. Eventually this can be removed
+    // This is the only place we're modifying `id`, so when this is removed, you
+    // can remove the `let` keyword above
+    if (id === "search") {
+      id = FILTER_ID_NAME;
+    }
+
+    if (id && FILTER_IDS.indexOf(id) !== -1) {
+      activeFilterId = id;
+    }
+    if (value) {
+      // values with spaces have a "+", i.e. "Jim+Nielsen" = "Jim Nielsen"
+      activeFilterValue = window.decodeURIComponent(value);
+    }
+  }
+
+  return [activeFilterId, activeFilterValue];
 }

@@ -1,96 +1,141 @@
 import React, { Component } from "react";
-import PropTypes from "prop-types";
+import { func, number, object, oneOf, string } from "prop-types";
+import {
+  FILTER_IDS,
+  FILTER_ID_CATEGORY,
+  FILTER_ID_DESIGNER,
+  FILTER_ID_COLOR,
+  FILTER_ID_NAME,
+  FILTER_ID_DEVELOPER
+} from "../constants";
+import AutoComplete from "./AutoComplete";
 import debounce from "../utils/debounce";
+import capitalize from "../utils/capitalize";
 
 export default class IconFilters extends Component {
   static propTypes = {
-    activeFilter: PropTypes.shape({
-      type: PropTypes.oneOf(["category", "search", "color", ""]),
-      value: PropTypes.string.isRequired
-    }),
-    handleChangeActiveFilter: PropTypes.func.isRequired,
-    iconCount: PropTypes.number.isRequired,
-    site: PropTypes.object.isRequired
+    activeFilterId: oneOf(FILTER_IDS).isRequired,
+    activeFilterValue: string.isRequired,
+    data: object.isRequired,
+    handleChangeActiveFilter: func.isRequired,
+    iconCount: number.isRequired
   };
 
   // Debounce the keyup event
   // http://stackoverflow.com/questions/23123138/perform-debounce-in-react-js/24679479#24679479
-  componentWillMount() {
-    this.delayedHandleOnChange = debounce(
-      this.handleOnChangeSearchDelayed,
-      250
-    );
-  }
+  handleChangeFilterValueName = debounce(() => {
+    const { handleChangeActiveFilter } = this.props;
+    handleChangeActiveFilter(FILTER_ID_NAME, this.$nameInput.value);
+  }, 250);
 
-  handleOnChange = e => {
-    e.persist();
-    this.delayedHandleOnChange();
+  handleChangeFilterId = e => {
+    const { handleChangeActiveFilter } = this.props;
+    handleChangeActiveFilter(e.target.value, "");
   };
 
-  handleOnChangeSearchDelayed = e => {
-    const { handleChangeActiveFilter } = this.props;
-    handleChangeActiveFilter("search", this.searchInput.value);
+  handleChangeFilterValueColor = e => {
+    const { activeFilterValue, handleChangeActiveFilter } = this.props;
+    const colorId = e.target.value;
+
+    handleChangeActiveFilter(
+      FILTER_ID_COLOR,
+      colorId === activeFilterValue ? "" : colorId
+    );
   };
 
   render() {
     const {
-      activeFilter,
+      activeFilterId,
+      activeFilterValue,
       handleChangeActiveFilter,
       iconCount,
-      site: { colors, categories }
+      data: {
+        designerIds,
+        designersById,
+        developerIds,
+        developersById,
+        colorIds,
+        colorsById,
+        categoryIds,
+        categoriesById
+      }
     } = this.props;
 
     return (
       <div className="filters">
-        <span className="filters__count">
-          {iconCount}
-          {iconCount === 1 ? " icon" : " icons"}
-        </span>
-
         <div className="filters__radios">
-          <strong>Filter apps by:</strong>
-          {["search", "category", "color"].map(filterType =>
-            <label key={filterType}>
+          {FILTER_IDS.map(filterId => (
+            <label
+              key={filterId}
+              className={activeFilterId === filterId ? "active" : ""}
+            >
               <input
                 type="radio"
-                checked={activeFilter.type === filterType}
+                checked={activeFilterId === filterId}
                 name="filter"
-                onChange={() => handleChangeActiveFilter(filterType, "")}
+                value={filterId}
+                onChange={this.handleChangeFilterId}
               />
-              {filterType === "search" ? "Name" : ""}
-              {filterType === "category" ? "Category" : ""}
-              {filterType === "color" ? "Icon Color" : ""}
+              {capitalize(filterId)}
             </label>
-          )}
+          ))}
         </div>
 
         <div className="filters__control">
-          {activeFilter.type === "search" &&
+          {activeFilterId === FILTER_ID_DEVELOPER && (
+            <AutoComplete
+              filterId={FILTER_ID_DEVELOPER}
+              handleChangeActiveFilter={handleChangeActiveFilter}
+              dataIds={developerIds}
+              dataById={developersById}
+              initialInputValue={activeFilterValue}
+            />
+          )}
+
+          {activeFilterId === FILTER_ID_DESIGNER && (
+            <AutoComplete
+              filterId={FILTER_ID_DESIGNER}
+              handleChangeActiveFilter={handleChangeActiveFilter}
+              dataIds={designerIds}
+              dataById={designersById}
+              initialInputValue={activeFilterValue}
+            />
+          )}
+
+          {activeFilterId === FILTER_ID_CATEGORY && (
+            <AutoComplete
+              filterId={FILTER_ID_CATEGORY}
+              handleChangeActiveFilter={handleChangeActiveFilter}
+              dataIds={categoryIds}
+              dataById={categoriesById}
+              initialInputValue={activeFilterValue}
+            />
+          )}
+
+          {activeFilterId === FILTER_ID_NAME && (
             <input
-              ref={input => (this.searchInput = input)}
-              onChange={this.handleOnChange}
-              defaultValue={activeFilter.value}
-              type="text"
-              placeholder="i.e. “Tweetbot”"
               autoComplete="off"
               autoCorrect="off"
+              defaultValue={activeFilterValue}
+              onChange={this.handleChangeFilterValueName}
+              placeholder="Search..."
+              ref={input => (this.$nameInput = input)}
               spellCheck="false"
-            />}
+              type="text"
+            />
+          )}
 
-          {activeFilter.type === "color" &&
+          {activeFilterId === "color" && (
             <ul className="filters__colors">
-              {colors.map(color =>
-                <li key={color.id}>
+              {colorIds.map(colorId => (
+                <li key={colorId}>
                   <button
-                    id={color.id}
-                    title={color.name}
-                    onClick={() =>
-                      handleChangeActiveFilter(
-                        "color",
-                        color.id === activeFilter.value ? "" : color.id
-                      )}
+                    title={colorsById[colorId]}
+                    onClick={this.handleChangeFilterValueColor}
+                    value={colorId}
+                    className={colorId === activeFilterValue ? "active" : ""}
                     style={
-                      color.id === "multi"
+                      colorId === "multi"
                         ? {
                             backgroundImage: `linear-gradient(
                             45deg,
@@ -103,27 +148,18 @@ export default class IconFilters extends Component {
                             #ff0000 100%
                           )`
                           }
-                        : { backgroundColor: color.name }
+                        : { backgroundColor: colorId }
                     }
-                    className={color.id === activeFilter.value ? "active" : ""}
                   />
                 </li>
-              )}
-            </ul>}
+              ))}
+            </ul>
+          )}
 
-          {activeFilter.type === "category" &&
-            <select
-              ref={input => (this.categoryInput = input)}
-              onChange={e =>
-                handleChangeActiveFilter("category", e.target.value)}
-              value={activeFilter.value}>
-              <option value="">All categories...</option>
-              {categories.map(category =>
-                <option key={category.id} value={category.id}>
-                  {category.name}
-                </option>
-              )}
-            </select>}
+          <div className="filters__control__count">
+            {iconCount}
+            {iconCount === 1 ? " icon" : " icons"}
+          </div>
         </div>
       </div>
     );

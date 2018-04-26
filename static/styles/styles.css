@@ -10,7 +10,7 @@
  *   @color-light-gray: #aaa;
  *   @color-medium-gray: #777;
  *   @color-dark-gray: #333;
- *   @color-link: #0000EE;
+ *   @color-link: #0000EE; rgb(0,0,238)
  *
  *   Borders
  *   @color-border: #e9e9e9;
@@ -45,18 +45,22 @@ html {
   box-sizing: inherit;
 }
 
-body,
-input,
-select {
+body {
   font-size: 14px;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
-}
-
-body {
   line-height: 1.5;
   color: #333;
+}
+
+/* Avoid zoom in iOS
+   https://stackoverflow.com/questions/2989263/disable-auto-zoom-in-input-text-tag-safari-on-iphone */
+input,
+select,
+select:focus,
+textarea {
+  font-size: 16px;
 }
 
 /* Sticky footer at bottom no matter height
@@ -93,7 +97,7 @@ body {
 }
 
 a {
-  color: #0000EE;
+  color: #0000ee;
   text-decoration: none;
 }
 
@@ -267,7 +271,7 @@ em {
 /* Pagination Button
    ========================================================================== */
 .pagination__button {
-  border: 1px solid #0000EE;
+  border: 1px solid #0000ee;
   padding: 7px 15px;
   display: flex;
   align-items: center;
@@ -282,8 +286,8 @@ span.pagination__button {
 
 /* Active button link */
 a.pagination__button:hover {
-  border-color: #0000EE;
-  background-color: #0000EE;
+  border-color: #0000ee;
+  background-color: #0000ee;
   color: white;
   text-decoration: none;
 }
@@ -389,7 +393,7 @@ a.pagination__button:hover {
   width: 18px;
   height: 18px;
   margin-right: 2px;
-  fill: #0000EE;
+  fill: #0000ee;
 }
 
 /* Dropdown
@@ -633,8 +637,8 @@ a.pagination__button:hover {
 
 .icon-meta .external-link:after {
   position: relative;
-  top: 2px;
-  left: 3px;
+  top: 0.25em;
+  margin: 0 3px;
 }
 
 .icon-meta-ad {
@@ -747,14 +751,19 @@ a.pagination__button:hover {
   display: flex;
   flex-direction: column;
   font-size: 14px;
-  min-height: 50px;
+  padding: 10px;
+  min-height: 60px;
+  border: 1px solid #f0f0f0;
+  border-bottom: 0;
+
+  /* Fixes a bug with the autocomplete dropdown */
+  position: relative;
+  z-index: 1000;
 }
 
 @media screen and (min-width: 900px) {
   .filters {
     flex-direction: row;
-    border: 1px solid #f0f0f0;
-    border-bottom: 0;
   }
 }
 
@@ -762,61 +771,73 @@ a.pagination__button:hover {
 .filters > * {
   display: flex;
   align-items: center;
-  justify-content: center;
+  /* justify-content: center; */
+}
+
+.filters input[type="text"] {
+  border: 1px solid #e9e9e9;
+  border-radius: 4px;
 }
 
 /* Filter tabs
    ========================================================================== */
-.filters__radios label {
-  margin: 0 5px;
+
+.filters__radios {
+  flex-wrap: wrap;
+  margin-right: 20px;
+}
+
+.filters__radios > label {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
   text-transform: capitalize;
+  padding: 8px 10px 8px 6px;
+  border-radius: 4px;
 }
 
-.filters__radios input {
-  margin-right: 5px;
+.filters__radios .active {
+  background: rgba(0, 0, 238, 0.08);
 }
-
-
 
 /* Filters control
    ========================================================================== */
 
-@media screen and (min-width: 900px) {
-  .filters__control {
-    margin-left: 20px;
-  }
+.filters__control {
+  flex-wrap: wrap;
 }
 
 @media screen and (max-width: 899px) {
   .filters__control {
-    border: 1px solid #f0f0f0;
-    padding: 10px;
+    margin-top: 5px;
   }
 }
 
-.filters__control input {
-  padding: 4px 8px;
+.filters__control input[type="text"] {
+  padding: 5px 10px;
 }
 
-/* Filters count
-   ========================================================================== */
+.filters__control__count {
+  opacity: 0.5;
+  margin-left: 20px;
+  margin-top: 5px;
+}
 
-@media screen and (max-width: 899px) {
-  .filters__count {
-    padding: 5px 10px;
-    border: 1px solid #f0f0f0;
-    border-bottom: none;
-    border-top: none;
-    margin-right: 20px;
+@media screen and (min-width: 600px) {
+  .filters__control__count {
+    margin-top: 0;
   }
 }
 
-@media screen and (min-width: 900px) {
-  .filters__count {
-    width: 120px;
-    border-right: 1px solid #f0f0f0;
-    margin-right: 20px;
-  }
+.filters__control__autocomplete {
+  position: relative;
+}
+
+.filters__control__autocomplete select {
+  position: absolute;
+  left: 0;
+  top: 100%;
+  width: 120%;
 }
 
 /* Filters colors
@@ -826,7 +847,6 @@ a.pagination__button:hover {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  justify-content: center;
   align-items: center;
 }
 
@@ -843,7 +863,7 @@ a.pagination__button:hover {
 
 .filters__colors button.active {
   transform: scale(1.25);
-  box-shadow: 0 0 0 2px #0000EE, inset 0 0 0 2px rgba(255, 255, 255, 1);
+  box-shadow: 0 0 0 2px #0000ee, inset 0 0 0 2px rgba(255, 255, 255, 1);
 }
 
 /* ==========================================================================
@@ -880,11 +900,11 @@ a.pagination__button:hover {
 #footer .wrapper {
   display: flex;
   align-items: center;
-  justify-content: space-between; 
+  justify-content: space-between;
 
-  border: 1px solid #f0f0f0; 
+  border: 1px solid #f0f0f0;
   border-bottom: 0;
-  padding: 15px; 
+  padding: 15px;
   margin-top: 30px;
 }
 
@@ -924,7 +944,7 @@ a.pagination__button:hover {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(255, 255, 255, 0.85);
+  background: rgba(255, 255, 255, 0.75);
   opacity: 0;
   visibility: hidden;
   transition: 0.2s ease all;

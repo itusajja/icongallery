@@ -2,11 +2,9 @@ import React from "react";
 import ReactDOM from "react-dom";
 import SearchIcons from "./components/SearchIcons";
 
+// It's expected that all data comes in the format expected from
+// `window.ICON_GALLERY`. So make modifications there as needed.
 ReactDOM.render(
-  <SearchIcons
-    icons={window.ICON_GALLERY.icons}
-    site={window.ICON_GALLERY.site}
-    threshold={20}
-  />,
+  <SearchIcons data={window.ICON_GALLERY} />,
   document.getElementById("root")
 );

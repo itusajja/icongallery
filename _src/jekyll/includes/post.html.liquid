@@ -89,11 +89,11 @@
         {% if post.icon-designer %}
           <dt class="icon-meta__left">Icon Designer:</dt>
           <dd class="icon-meta__right">
-              {% if post.icon-designer-url %}
-                  <a href="{{ post.icon-designer-url }}" class="external-link">{{ post.icon-designer }}</a>
-              {% else %}
-                  {{ post.icon-designer }}
-              {% endif %}
+            <a href="/search/?designer={% include id-ify.html.liquid value=post.icon-designer %}">{{ post.icon-designer }}</a>
+              
+            {% if post.icon-designer-url %}
+              (<a href="{{ post.icon-designer-url }}" class="external-link">{{ post.icon-designer-url | replace: "http://", "" | replace: "https://", "" | replace: "www.", "" }}</a>)
+            {% endif %}
           </dd>
         {% endif %}
 
@@ -101,30 +101,21 @@
         {% if post.app-developer %}
           <dt class="icon-meta__left">App Developer:</dt>
           <dd class="icon-meta__right">
+            <a href="/search/?developer={% include id-ify.html.liquid value=post.app-developer %}">{{ post.app-developer }}</a>
+            
             {% if post.app-developer-url %}
-              <a href="{{ post.app-developer-url }}" class="external-link">{{ post.app-developer }}</a>
-            {% else %}
-              {{ post.app-developer}}
+              {% comment %} All these filters help me get just the domain of the URL {% endcomment %}
+              (<a href="{{ post.app-developer-url }}" class="external-link">{{ post.app-developer-url | replace: "http://", "" | replace: "https://", "" | replace: "www.", "" | url_encode | split: "%2F" | first }}</a>)
             {% endif %}
           </dd>
         {% endif %}
 
         <!-- Category -->
-        
         {% if post.category %}
-
-          <!-- Get the Category's Nice Name -->
-          {% for category in site.data.categories %}
-            {% if category.id == post.category %}
-              {% assign category = category.name %}
-              {% assign categoryId = category.id %}
-            {% endif %}
-          {% endfor %}
-
           <dt class="icon-meta__left">Category:</dt>
           <dd class="icon-meta__right">
-            <a href="/search/?category={{ categoryId }}">
-              {{ category }}
+            <a href="/search/?category={{ post.category }}">
+              {{ site.data.categories[post.category] }}
             </a>
           </dd>
         {% endif %}
@@ -140,7 +131,7 @@
           </dt>
           <dd class="icon-meta__right">
             {% for tag in post.tags %}
-              <a href="/search/?color={{tag}}">{{ tag }}</a>{% if forloop.last != true %},{% endif %}
+              <a href="/search/?color={{ tag }}">{{ tag }}</a>{% if forloop.last != true %},{% endif %}
             {% endfor %}
           </dd>
         {% endif %}

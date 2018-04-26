@@ -1,11 +1,11 @@
-var webpack = require("webpack");
-var path = require("path");
+const webpack = require("webpack");
+const path = require("path");
 
 module.exports = {
-  entry: ["./_src/scripts/entry.jsx"],
+  entry: "./_src/scripts/entry.jsx",
 
   output: {
-    path: path.join(__dirname, "./static/scripts/"),
+    path: path.resolve(__dirname, "./static/scripts/"),
     filename: "search.min.js"
   },
 
@@ -14,13 +14,26 @@ module.exports = {
   },
 
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.(js|jsx)?$/,
         exclude: /node_modules/,
-        loaders: [
-          "babel-loader?presets[]=es2015&presets[]=react&presets[]=stage-1"
-        ]
+        use: {
+          loader: "babel-loader",
+          // Sticking our babel-configuration here rather than package.json
+          // or a .babelrc file.
+          // This is a really minimal configuration
+          options: {
+            presets: [
+              "env", // ES2015
+              "react" // JSX
+            ],
+            plugins: [
+              "transform-class-properties", // static propTypes
+              "transform-object-rest-spread" // { ...myObj, foo: 'bar' }
+            ]
+          }
+        }
       }
     ]
   }
