@@ -9,9 +9,9 @@
     "url": "https://github.com/jimniels/icongallery.git"
   },
   "scripts": {
-    "start": "webpack --mode=development --config webpack.config.js --output-path ../_site/shared/static/scripts --watch",
-    "build": "webpack --mode=production --config webpack.config.js",
-    "watchos-get-icon": "babel-node save-watch-os-512-img.js --presets es2015,stage-2"
+    "start": "webpack --mode=development --config _react/webpack.config.js --output-path ../_site/shared/static/scripts --watch",
+    "build": "webpack --mode=production --config _react/webpack.config.js",
+    "watchos-get-icon": "babel-node _scripts/save-watch-os-512-img.js --presets es2015,stage-2"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",

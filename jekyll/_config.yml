@@ -1,0 +1,48 @@
+#
+# Shared Settings
+# ------------------------------
+# Shared configuration settings for each gallery (ios, macos, & watchos)
+#
+# Make sure to reference github's article on what it does and doesn't allow
+# when configing a deployment via jekyll and github pages
+# https://help.github.com/articles/using-jekyll-with-pages/
+
+email: jimniels@domain.com
+permalink: /:title-:year:month:day/
+paginate_path: "p/:num/"
+safe: true
+layouts_dir: shared/jekyll/_layouts
+includes_dir: shared/jekyll/_includes
+
+assets:
+    scripts: shared/static/scripts
+    images: shared/static/img
+    styles: shared/static/styles
+
+include:
+    - _redirects
+
+exclude:
+    - Gemfile*
+    - shared/node_modules
+    - shared/package.json
+    - shared/README.md
+
+# Because we are in safe mode (githug pages requirement)
+# We have to whitelist our github-pages approved dependencies
+# https://pages.github.com/versions/
+whitelist:
+    - jekyll-paginate
+    - jekyll-redirect-from
+plugins:
+    - jekyll-paginate
+    - jekyll-redirect-from
+
+# Defaults
+defaults:
+    -
+        scope:
+            path: "" # an empty string here means all files in the project
+            type: "posts"
+        values:
+            layout: "post"

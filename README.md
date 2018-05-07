@@ -1,5 +1,18 @@
 # Galleries
 
+## Local Dev
+
+```
+bundle install
+bundle exec jekyll serve --config _config.yml,shared/jekyll/_config.yml
+```
+
+## Build
+
+```
+bundle exec jekyll build --config _config.yml,shared/jekyll/_config.yml
+```
+
 ## How it Works
 
 Site runs on Jekyll. The site consists of two repos: the site repo and the theme repo (this one).
@@ -33,7 +46,6 @@ The following files/folders in each respective site repo are shared in the sense
 ```
 .
 ├── 404.html
-├── api.json
 ├── feed/
 |   ├── index.html
 |   └── index.xml

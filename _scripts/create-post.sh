@@ -20,7 +20,7 @@ echo ${DOMAIN}
 # Change working directory
 # (script written to initially execute at root level, then do work inside
 # the shared/scripts/ folder)
-cd shared/scripts
+cd shared/_scripts
 
 # Export the domain so we can use it in python script
 # http://stackoverflow.com/questions/17435056/read-bash-variables-into-a-python-script

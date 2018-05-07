@@ -1,0 +1,9 @@
+---
+# This file allows us to have netlify redirects for their subdomains relating
+# to our deploys
+layout: null
+permalink: /_redirects
+---
+
+http://{{ site.theeme.active }}.netlify.com/* http://www.{{ site.theeme.active }}.com/:splat 301!
+https://{{ site.theeme.active }}.netlify.com/* https://www.{{ site.theeme.active }}.com/:splat 301!
