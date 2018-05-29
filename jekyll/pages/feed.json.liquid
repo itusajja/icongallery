@@ -17,7 +17,7 @@ permalink: /feed.json
   "favicon": "{{ site.url }}/{{ site.assets.images }}/{{ site.theeme.active }}-favicon.ico",
   "items": [
   {% for post in site.posts limit:10 %}
-    {% capture content_html %}<a href="{{ site.url | append: post.url }}"><img width="512" height="512" alt="{{ post.title }} app icon" src="{{ site.url }}{% include icon-src.html.liquid size="512" %}" /></a>{% endcapture %}
+    {% capture content_html %}<a href="{{ site.url | append: post.url }}"><img width="512" height="512" alt="{{ post.title }} app icon" src="{{ site.url }}{% include icon-src.html.liquid size="512" post=post %}" /></a>{% endcapture %}
     {
         "id": "{{ post.url }}",
         "url": "{{ site.url | append: post.url }}",
@@ -26,7 +26,7 @@ permalink: /feed.json
         "content_html": {{ content_html | jsonify }},
         "attachments": [
           {
-            "url": "{{ site.url }}{% include icon-src.html.liquid size="512" %}",
+            "url": "{{ site.url }}{% include icon-src.html.liquid size="512" post=post %}",
             "mime_type": "image/png",
             "title": "512px app icon"
           }

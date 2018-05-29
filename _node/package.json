@@ -8,9 +8,15 @@
     "type": "git",
     "url": "https://github.com/jimniels/icongallery.git"
   },
+  "config": {
+    "jekyll_flags": "--config _config.yml,shared/jekyll/_config.yml",
+    "jekyll_root": "../.."
+  },
   "scripts": {
-    "start": "webpack --mode=development --config _react/webpack.config.js --output-path ../_site/shared/static/scripts --watch",
-    "build": "webpack --mode=production --config _react/webpack.config.js",
+    "start-jekyll": "cd $npm_package_config_jekyll_root && bundle exec jekyll serve $npm_package_config_jekyll_flags",
+    "build-jekyll": "cd $npm_package_config_jekyll_root && bundle exec jekyll build $npm_package_config_jekyll_flags",
+    "start-js": "webpack --mode=development --config webpack.config.js --output-path $npm_package_config_jekyll_root/_site/shared/static/scripts --watch",
+    "build-js": "webpack --mode=production --config webpack.config.js",
     "watchos-get-icon": "babel-node _scripts/save-watch-os-512-img.js --presets es2015,stage-2"
   },
   "devDependencies": {

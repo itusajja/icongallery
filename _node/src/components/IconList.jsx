@@ -42,6 +42,7 @@ export default class IconList extends Component {
         return (
           <IconItem
             key={id}
+            date={Number(date)} // 20171107
             name={iconsById[iconId].name}
             url={`/${id}/`}
             src1x={`/img/128/${slug}-${dateISO}.png`}

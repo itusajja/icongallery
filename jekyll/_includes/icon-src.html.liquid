@@ -1,8 +1,13 @@
-{% comment %}
+{%- comment -%}
   Because every icon should have the same path with the exception of the size,
   we'll use a single include to show it.
   include.size - the size of the icon you're trying to display
 
   Note: this is also used in feed files, so be aware of that if you change
   anything here.
-{% endcomment %}/img/{{ include.size }}/{{post.slug}}-{{ post.date | date: "%Y-%m-%d" }}.png
+
+  Includes:
+  `post`
+  `size`
+{%- endcomment -%}
+/img/{{ include.size }}/{{ include.post.slug }}-{{ include.post.date | date: "%Y-%m-%d" }}.png

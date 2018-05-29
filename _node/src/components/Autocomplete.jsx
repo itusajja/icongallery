@@ -129,6 +129,11 @@ export default class Autocomplete extends Component {
     this.setSelectedValue(e.target.value);
   };
 
+  handleSelectOnClick = e => {
+    // If user clicks on the already active item, close the dropdown
+    this.setState({ isOpen: false });
+  };
+
   // When a value is selected from the <select>, store that info
   setSelectedValue = value => {
     const {
@@ -171,6 +176,7 @@ export default class Autocomplete extends Component {
           <select
             id="icon-designers-select"
             onChange={this.handleSelectOnChange}
+            onClick={this.handleSelectOnClick}
             ref={select => {
               this.$select = select;
             }}

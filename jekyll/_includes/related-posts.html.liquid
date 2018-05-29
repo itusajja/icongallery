@@ -1,0 +1,23 @@
+{%- comment -%}
+
+  Includes:
+  `relatedPosts`
+  `currentPost`
+  `heading`
+  `queryKey`
+  `queryValue`
+
+{%- endcomment -%}
+{% if include.relatedPosts.size > 0 %}
+  <h2>
+    {{ include.heading }}
+    &nbsp;
+    (<a href="/search?{{ include.queryKey }}={{ include.queryValue }}">view all {{ include.relatedPosts.size | plus: 1 }}</a>)
+  </h2>
+  <ul class="icon-list">
+    {% assign test = include.relatedPosts | sample: 8 %}
+    {% for relatedPost in test %}
+      {% include icon-list-item.html.liquid post=relatedPost %}
+    {% endfor %}
+  </ul>
+{% endif %}

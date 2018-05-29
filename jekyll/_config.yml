@@ -24,8 +24,6 @@ include:
 
 exclude:
     - Gemfile*
-    - shared/node_modules
-    - shared/package.json
     - shared/README.md
 
 # Because we are in safe mode (githug pages requirement)

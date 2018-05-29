@@ -1,0 +1,24 @@
+{%- comment -%}
+  This will output a special class for differntiating between pre and post iOS7
+  icons. Note that this is only applicable to iosicongallery. For the other
+  sites, nothing will be output.
+
+  ios7 release date: Sep 13 2013 (unix timestamp 1379030400)
+
+  Includes:
+    `date` - the post's data
+    `classPrefix` - the class you want to add a modifier to
+{%- endcomment -%}
+{%- assign postDate = include.date | date: '%s' | plus: 0 -%}
+{%- assign ios7ReleaseDate = 1379030400 -%}
+{%- assign classModifier = "post-ios7" -%}
+{%- if postDate < ios7ReleaseDate -%}
+  {%- assign classModifier = "pre-ios7" -%}
+{%- endif -%}
+{% comment %}
+  This is where the magic happens. We output the class prefix with the modifier
+  based on the date of the icon.
+{% endcomment %}
+{%- if site.theeme.active == "iosicongallery" -%}
+ {{ include.classPrefix }}--{{ classModifier }}
+{% endif %}

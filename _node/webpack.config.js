@@ -2,10 +2,10 @@ const webpack = require("webpack");
 const path = require("path");
 
 module.exports = {
-  entry: "./_src/scripts/entry.jsx",
+  entry: path.resolve(__dirname, "src/entry.jsx"),
 
   output: {
-    path: path.resolve(__dirname, "./static/scripts/"),
+    path: path.resolve(__dirname, "../static/scripts/"),
     filename: "search.min.js"
   },
 

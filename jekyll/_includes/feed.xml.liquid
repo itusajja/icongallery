@@ -16,9 +16,9 @@
   {% for post in site.posts limit:10 %}
     <item>
       <title>{{ post.title | xml_escape }}</title>
-      <enclosure url="{{ site.url }}{% include icon-src.html.liquid size="512" %}" length="90000" type="image/png" />
-      <description><![CDATA[<a href="{{ site.url | append: post.url }}"><img width="512" height="512" alt="{{ post.title }} app icon" src="{{ site.url }}{% include icon-src.html.liquid size="512" %}" /></a>]]></description>
-      <content:encoded><![CDATA[<a href="{{ site.url | append: post.url }}"><img width="512" height="512" alt="{{ post.title }} app icon" src="{{ site.url }}{% include icon-src.html.liquid size="512" %}" /></a>]]></content:encoded>
+      <enclosure url="{{ site.url }}{% include icon-src.html.liquid size="512" post=post %}" length="90000" type="image/png" />
+      <description><![CDATA[<a href="{{ site.url | append: post.url }}"><img width="512" height="512" alt="{{ post.title }} app icon" src="{{ site.url }}{% include icon-src.html.liquid size="512" post=post %}" /></a>]]></description>
+      <content:encoded><![CDATA[<a href="{{ site.url | append: post.url }}"><img width="512" height="512" alt="{{ post.title }} app icon" src="{{ site.url }}{% include icon-src.html.liquid size="512" post=post %}" /></a>]]></content:encoded>
       <pubDate>{{ post.date | date_to_rfc822 }}</pubDate>
       <link>{{ site.url | append: post.url }}</link>
       <guid isPermaLink="true">{{ site.url | append: post.url }}</guid>

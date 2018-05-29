@@ -1,0 +1,20 @@
+{%- comment -%}
+  <li> item when showing a list of icons
+
+  Includes:
+  `post`
+{%- endcomment -%}
+<li>
+  <a href="{{ include.post.url }}" title="{{ include.post.title }}" class="js-trigger-icon-modal">
+    <span class="icon-wrapper icon-wrapper--128 {% include icon-ios7-class.html.liquid classPrefix="icon-wrapper" date=include.post.date %}">
+      <img
+        alt="{{ include.post.title }} app icon"
+        class="icon icon--128 {% include icon-ios7-class.html.liquid classPrefix="icon" date=include.post.date %}"
+        src="{% include icon-src.html.liquid size="128" post=include.post %}"
+        srcset="{% include icon-src.html.liquid size="256" post=include.post %} 2x"
+        width="128"
+        height="128"
+      />
+    </span>
+  </a>
+</li>
