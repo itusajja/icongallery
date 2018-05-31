@@ -765,7 +765,7 @@ a.pagination__button:hover {
 
 .post-meta__ad img {
   float: left;
-  margin-right: 10px;
+  margin-right: 10px !important;
 }
 
 /* Related Posts
