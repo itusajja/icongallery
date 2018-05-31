@@ -6,18 +6,27 @@
   `heading`
   `queryKey`
   `queryValue`
+  `headingPrefix`
+  `headingValue`
 
 {%- endcomment -%}
-{% if include.relatedPosts.size > 0 %}
+{%- if include.relatedPosts.size > 0 -%}
+  {% capture link %}/search?{{ include.queryKey }}={{ include.queryValue }}{% endcapture %}
   <h2>
-    {{ include.heading }}
-    &nbsp;
-    (<a href="/search?{{ include.queryKey }}={{ include.queryValue }}">view all {{ include.relatedPosts.size | plus: 1 }}</a>)
+    {{ include.headingPrefix }}&nbsp;
+    “<a href="{{ link }}">{{ include.headingValue }}</a>”
   </h2>
   <ul class="icon-list">
-    {% assign test = include.relatedPosts | sample: 8 %}
+    {% assign test = include.relatedPosts | sample: 7 %}
     {% for relatedPost in test %}
       {% include icon-list-item.html.liquid post=relatedPost %}
     {% endfor %}
+    {% if include.relatedPosts.size > 7 %}
+    <li>
+      <a href="{{ link }}">
+        {{ include.relatedPosts.size | minus: 7 }} more...
+      </a>
+    </li>
+    {% endif %}
   </ul>
-{% endif %}
+{%- endif -%}

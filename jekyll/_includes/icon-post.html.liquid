@@ -1,0 +1,28 @@
+{% comment %}
+  Includes:
+    `post`
+    `size`
+    `iconSrc`
+{% endcomment %}
+
+<span class="icon-wrapper icon-wrapper--{{ include.size }} {% include icon-ios7-class.html.liquid classPrefix="icon-wrapper" date=include.post.date %}">
+  <img
+    alt="{{ include.post.title }} app icon"
+    class="icon icon--{{ inculde.size }} {% include icon-ios7-class.html.liquid classPrefix="icon" date=include.post.date %}"
+    src="{{ include.iconSrc }}"
+    width="{{ include.size }}"
+    height="{{ include.size }}"
+
+    {% comment %}
+      If it is missing a 512, then there won’t be a 1024 so we won’t bother
+      However, a 512 isn’t missing, then we’ll put this data attribute
+      which will be picked up by our JS and conditionally load a 1024
+      when available.
+    {% endcomment %}
+    {% if include.size == '512' %}
+      {% unless post.is-missing-512-icon %}
+        data-src2x="{% include icon-src.html.liquid size="1024" post=include.post %}"
+      {% endunless %}
+    {% endif %}
+  />
+</span>
