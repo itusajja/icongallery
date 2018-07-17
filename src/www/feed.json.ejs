@@ -1,0 +1,37 @@
+{
+  "version": "https://jsonfeed.org/version/1",
+  "title": <%- JSON.stringify(site.title) %>,
+  "description": <%- JSON.stringify(site.description) %>,
+  "home_page_url": "<%- site.url %>",
+  "feed_url": "<%- site.url %>/feed.json",
+  "author": {
+    "name": "Jim Nielsen",
+    "url": "http://jim-nielsen.com/"
+  },
+  "icon": "<%- site.url %>/assets/images/<%- site.themeId %>-rss.png",
+  "favicon": "<%- site.url %>/assets/images/<%- site.themeId %>-favicon.ico",
+  "items": [
+    <% site.icons.slice(0, site.feedLimit).forEach((icon, i) => { %>
+      <% var permalink = site.url + icon.permalink %>
+      <% var imgSrc = site.url + include("_icon-src.ejs", { size: 512, id: icon.id }) %>
+      {
+        "id": "<%- icon.id %>",
+        "url": "<%- permalink %>",
+        "title": <%- JSON.stringify(icon.title) %>,
+        "date_published": "<%- icon.date.toISOString() %>",
+        "content_html": <%- JSON.stringify(`
+          <a href="${permalink}">
+            <img width="512" height="512" alt="${icon.title} app icon" src="${imgSrc}" />
+          </a>
+        `) %>,
+        "attachments": [
+          {
+            "url": "<%- imgSrc %>",
+            "mime_type": "image/png",
+            "title": "512px app icon"
+          }
+        ]
+      }<% if (i + 1 < site.feedLimit) { %>,<% } %>
+    <% }) %>
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "feedLimit": 10,
+  "themeIds": ["iosicongallery", "macosicongallery", "watchosicongallery"],
+  "colorsById": {
+    "black": "Black",
+    "blue": "Blue",
+    "brown": "Brown",
+    "gray": "Gray",
+    "green": "Green",
+    "multi": "Multi",
+    "orange": "Orange",
+    "pink": "Pink",
+    "purple": "Purple",
+    "red": "Red",
+    "white": "White",
+    "yellow": "Yellow"
+  }
+}

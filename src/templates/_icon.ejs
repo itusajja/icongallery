@@ -1,0 +1,46 @@
+<%#
+  Displaying the 4 icons on a post
+  @param {Object} post - The `post` object
+  @param {Number} size - The display size you're trying to render
+  @param {}
+
+  size - the size you want to reference in the `src`
+  srcSize - override `size` when it comes to where you source the icon
+  icon
+%>
+
+<%
+  var extraIosClass = (prefix) => site.themeId === "iosicongallery"
+    ? prefix + (icon.isPreIos7 ? "pre-ios7" : "post-ios7") 
+    : ""
+-%>
+<%# Allow ability to override which src size you want. Useful on icon-view page
+    where we display four icons but they're all the same src but different sizes %>
+<% var srcSize = srcSize ? srcSize : size %>
+
+<span class="icon-wrapper icon-wrapper--<%- size %> <%- extraIosClass("icon-wrapper--") %>">
+  <img
+    alt="<%- icon.title %> app icon"
+    class="icon icon--<%- size %> <%- extraIosClass("icon--") %>"
+    width="<%- size %>"
+    height="<%- size %>"
+    src="<%- include("_icon-src.ejs", { size: srcSize, id: icon.id }) %>"
+    <%#
+      We can load the larger version via `srcset` if we know it exists.
+
+      - All icons *should* have 128 and 256
+      - *Most* icons will have a 512
+        - Some `watchosicongallery` icons dont have a 512 because that size
+          did not exists when the gallery was first created
+      - *Many* icons will have 1024
+        - Many of the early days icons only came in 512 max
+      
+      We detect which icons have which sizes of artwork in the build step.
+      Anything we find missing, we add to the `missingIconSizes` array so we
+      can detect here whats available to us
+    -%>
+    <% if (!(icon.missingIconSizes && icon.missingIconSizes.includes(size * 2))) { -%>
+      srcset="<%- include("_icon-src.ejs", { size: srcSize * 2, id: icon.id }) %> 2x"
+    <% } %>
+  />
+</span>

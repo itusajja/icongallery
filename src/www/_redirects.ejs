@@ -1,0 +1,19 @@
+http://<%- site.themeId %>.netlify.com/* http://www.<%- site.themeId %>.com/:splat 301!
+https://<%- site.themeId %>.netlify.com/* https://www.<%- site.themeId %>.com/:splat 301!
+
+<%-
+  site.icons.reduce((acc, icon) => {
+    if (icon.redirectFrom) {
+      // Might be a string (single redirect) or array (multiple redirects)
+      // So we'll account for that.
+      const redirects = [].concat(icon.redirectFrom);
+      return [
+        ...acc,
+        ...redirects.map(redirect => `${redirect} ${icon.permalink}`)
+      ]
+    } else {
+      return acc;
+    }
+  }, []).join("\n")
+%>
+    

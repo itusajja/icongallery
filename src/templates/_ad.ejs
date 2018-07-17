@@ -1,0 +1,29 @@
+<%#
+This is the ad container used on individual post pages as well as the home page
+  
+ios gallery gets carbonads
+macos & watchos galleries get custom sketchkeys ads
+%>
+<div class="ad-container">
+  <% if (site.themeId === "iosicongallery") { %>
+    <script
+      async
+      type="text/javascript"
+      src="//cdn.carbonads.com/carbon.js?serve=CKYIV5Q7&placement=iosicongallerycom"
+      id="_carbonads_js">
+    </script>
+  <% } else { %>
+    <div id="sketchkeysad">
+      <a href="http://sketchkeys.com/?aff=6">
+        <img
+          src="/assets/images/ad-sketch-keys.jpg"
+          title="SketchKeys ad"
+        />
+        <p>
+          Accelerate your Sketch workflow with beautiful keyboard stickers
+        </p>
+      </a>
+      <span>ad via SketchKeys</span>
+    </div>
+  <% } %>
+</div>

@@ -1,0 +1,38 @@
+<%#
+  Related icons template for each icon post. We only show this block of content
+  if there are related `icons`.
+
+  @param {Object[]} icons
+    - Collection of icons
+  @param {string} queryKey
+    - the type of related icons we're showing (category, color, designer, etc)
+  @param {string} queryValue
+    - the `id` we use to query by type on `/search`, i.e. "Jim Nielsen" the 
+      designer would become `jim-nielsen` for the id
+  @param {string} headingPrefix
+    - How we described what we're showing, i.e. "More icons from the developer"
+  @param {string} headingValue
+    - The value we have as a hyperlink in the heading
+%>
+<% var LIMIT = 7; %>
+<% var link = `/search/?${queryKey}=${queryValue}`; %>
+
+<% if (icons.length) { %>
+  <h2>
+    <%- headingPrefix %> “<a href="<%- link %>"><%- headingValue %></a>”
+  </h2>
+  <ul class="icon-list">
+
+    <% icons.sort(() => Math.random() - 0.5).filter((icon, i) => i < LIMIT).forEach(icon => { %>
+      <%- include('_icon-list-item.ejs', { icon }) %>
+    <% }) %>
+    
+    <% if (icons.length > LIMIT) { %>
+    <li>
+      <a href="<%- link %>">
+        <%- icons.length - LIMIT %> more...
+      </a>
+    </li>
+    <% } %>
+  </ul>
+<% } %>

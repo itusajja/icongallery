@@ -1,0 +1,13 @@
+<%#
+  This will output a special class for differntiating between pre and post iOS7
+  icons. Note that this is only applicable to iosicongallery. For the other
+  sites, nothing will be output.
+
+  @param {bool} post["is-pre-ios7"]
+  @param {string} prefix
+-%>
+<%-
+  site.themeId === "iosicongallery"
+    ? prefix + (post["is-pre-ios7"] ? "pre-ios7" : "post-ios7") 
+    : ""
+-%>

@@ -1,0 +1,122 @@
+---
+layout: page.ejs
+title: Search
+---
+
+<div id="root">
+  <div style="
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 200px;
+    border: 1px solid #f0f0f0;
+  ">
+    <img
+      src="/assets/images/loading.gif"
+      alt="loading"
+      width="32"
+      height="32"
+    />
+  </div>
+</div>
+
+<script type="text/javascript">
+window.ICON_GALLERY = {
+  "themeId": "<%- site.themeId %>",
+
+  <%# Sort alphabetically %>
+  "categoryIds": <%- JSON.stringify(Object
+    .keys(site.categoriesById)
+    .sort((id1, id2) => {
+      const id1name = site.categoriesById[id1].toLowerCase();
+      const id2name = site.categoriesById[id2].toLowerCase();
+      if (id1name < id2name) {
+        return -1;
+      }
+      if (id1name > id2name) {
+        return 1;
+      }
+      return 0;
+    })
+  ) %>,
+  "categoriesById": <%- JSON.stringify(site.categoriesById) %>,
+
+  <%# Colors come in alphabetical order, so we don't have to do sorting %>  
+  "colorIds": <%- JSON.stringify(Object.keys(site.colorsById).sort()) %>,
+  "colorsById": <%- JSON.stringify(site.colorsById) %>,
+
+  
+  <%# For developers, we have to create our own array of IDs, then alphabetize
+      them. Then we create an object mapping those IDs to the real value. %>
+  "developerIds": <%- JSON.stringify(
+    Array.from(
+      new Set(site.icons.filter(icon => icon.developerId).map(icon => icon.developerId))
+    ).sort()
+  ) %>,
+  "developersById": <%- JSON.stringify(
+    site.icons.reduce((acc, icon) => {
+      if (icon.developer && !acc[icon.developerId]) {
+        return {
+          ...acc,
+          [icon.developerId]: icon.developer
+        };
+      } else {
+        return acc;
+      }
+    }, {})
+  ) %>,
+  
+  "designerIds": <%- JSON.stringify(
+    Array.from(
+      new Set(site.icons.filter(icon => icon.designerId).map(icon => icon.designerId))
+    ).sort()
+  ) %>,
+  "designersById": <%- JSON.stringify(
+    site.icons.reduce((acc, { designer, designerId }) => ({
+      ...acc,
+      ...(designer && !acc[designerId]
+        ? { [designerId]: designer }
+        : {})
+    }), {})
+  ) %>,
+
+  "iconIds": <%-
+    JSON.stringify(
+      site.icons.map(icon => icon.id)
+    )
+  %>,
+  "iconsById": <%-
+    JSON.stringify(
+      site.icons.reduce((acc, icon) => {
+        const keys = [
+          'developer',
+          'developerId',
+          'category',
+          'categoryId',
+          'colorId',
+          'designer',
+          'designerId',
+          'id',
+          'permalink',
+          'title',
+          'isPreIos7'
+        ];
+
+        return {
+          ...acc,
+          [icon.id]: keys.reduce((acc, key) => {
+            return icon[key]
+              ? { ...acc, [key]: icon[key] }
+              : acc
+          }, {})
+        };
+      }, {})
+    )
+  %>
+}
+</script>
+
+<script
+  type="text/javascript"
+  src="/assets/scripts/search.min.js">
+</script>

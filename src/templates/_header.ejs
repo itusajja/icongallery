@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>
+    <%- (title ? `${title} | ` : "") + site.title %>
+  </title>
+
+  <!-- Meta -->
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="<%- site.description %>" />
+
+  <!-- Favicon & Touch Icon -->
+  <link rel="icon" href="/assets/images/<%- site.themeId %>-favicon.ico" type="image/x-icon"/>
+  <link rel="shortcut icon" href="/assets/images/<%- site.themeId %>-favicon.ico" type="image/x-icon"/>
+  <link rel="apple-touch-icon" href="/assets/images/<%- site.themeId %>-apple-touch-icon.png"/>
+
+  <!-- CSS 
+       Ever need cache busting? https://toddmotto.com/cache-busting-jekyll-github-pages 
+       i.e., `styles.css?<%- site.time  %> -->
+  <link rel="stylesheet" href="/assets/styles/reset.css" />
+  <link rel="stylesheet" href="/assets/styles/index.css" />
+
+  <!-- RSS Feed -->
+  <link
+    rel="alternate"
+    type="application/rss+xml"
+    title="<%- site.title %>"
+    href="<%- site.themeId === "iosicongallery" ? "http://feeds.feedburner.com/iosicongallery" : "/feed.xml" %>"
+  />
+
+  <!-- JSON Feed -->
+  <link rel="alternate" title="JSON Feed" type="application/json" href="/feed.json" />
+
+  <!-- Open Graph @TODO -->
+</head>
+<body class="<%- site.themeId %>">
+
+  <header id="header" class="header">
+    <div class="wrapper">
+      <h1>
+        <a href="/" title="<%- site.title %>" rel="home">
+          <img class="logo" src="/assets/images/<%- site.themeId %>-logo.svg" />
+        </a>
+        <div class="dropdown">
+          <a class="dropdown__trigger" href="#">
+            <%- include("_svg-arrow-down.svg") %>
+          </a>
+          <ul class="dropdown__content">
+            <% site.themeIds.filter(themeId => site.themeId !== themeId).forEach(themeId => { %>
+              <li>
+                <a href="http://www.<%- themeId %>.com" class="external-link">
+                  <img class="logo" src="/assets/images/<%- themeId %>-logo.svg" alt="<%- themeId %> logo" />
+                </a>
+              </li>
+            <% }) %>
+          </ul>
+        </div>
+      </h1>
+
+      <nav>
+        <a href="/search" id="search-trigger">
+          <%- include("_svg-search.svg") %>
+          Search
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main content -->
+  <main id="main" class="wrapper">

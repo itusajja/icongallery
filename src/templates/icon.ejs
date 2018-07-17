@@ -1,0 +1,157 @@
+<%- include("_header.ejs") %>
+<% var page = locals %>
+
+<div class="post">
+  <div class="post-icons">
+    <%- include('_icon.ejs', { srcSize: 512, size: 512, icon: locals }) %>
+    <%- include('_icon.ejs', { srcSize: 512, size: 256, icon: locals }) %>
+    <%- include('_icon.ejs', { srcSize: 512, size: 128, icon: locals }) %>
+    <%- include('_icon.ejs', { srcSize: 512, size: 64, icon: locals }) %>
+  </div>
+
+  <div class="post-meta">
+    <div class="post-meta__content">
+      <h1><%- page.title %></h1>
+
+      <dl>
+        <!-- Icon Designer -->
+        <% if (page.designer) { %>
+          <dt>Designer</dt>
+          <dd>
+            <a href="/search/?designer=<%- page.designerId %>">
+              <%- page.designer %>
+            </a>
+              
+            <% if (page.designerUrl) { %>
+              (<a href="<%- page.designerUrl %>" class="external-link"><%- page.designerUrlDomain %></a>)
+            <% } %>
+          </dd>
+        <% } %>
+
+        <!-- App Developer -->
+        <% if (page.developer) { %>
+          <dt>Developer</dt>
+          <dd>
+            <a href="/search/?developer=<%- page.developerId %>">
+              <%- page.developer %>
+            </a>
+            
+            <% if (page.developerUrl) { %>
+              (<a href="<%- page.developerUrl %>" class="external-link"><%- page.developerUrlDomain %></a>)
+            <%_ } _%>
+          </dd>
+        <% } %>
+
+        <!-- Category -->
+        <% if (page.category) { %>
+          <dt>Category</dt>
+          <dd>
+            <a href="/search/?category=<%- page.categoryId %>">
+              <%- page.category %>
+            </a>
+          </dd>
+        <% } %>
+
+        <!-- Tags -->
+        <% if (page.color) { %>
+          <dt>
+            Color
+          </dt>
+          <dd>
+            <a href="/search/?color=<%- page.colorId %>">
+              <%- page.color %>
+            </a>
+          </dd>
+        <% } %>
+
+        <!-- Post Date -->
+        <dt>Posted</dt>
+        <dd><%- page.date.format("MMM D, YYYY") %></dd>
+
+        <!-- App Store -->
+        <dt>App Store</dt>
+        <%# Query string `?at=XXXX` is for affliate linking %>
+        <dd>
+          <a href="<%- page.itunesUrl %>?at=1l3vtCx">
+            <img
+              src="/assets/images/download-on-app-store.svg"
+              width="120"
+              height="40"
+              style="margin-top: 5px;"
+            />
+          </a>
+        </dd>
+      </dl>
+    </div>
+
+    <!-- Ad -->
+    <div class="post-meta__ad">
+      <%- include("_ad.ejs") %>
+    </div>
+  </div>
+</div>
+
+<aside class="related-posts">
+
+  <%# Get all posts except for the current one. We'll filter through these
+      below in order to find related posts. %>
+  <% var icons = site.icons.filter(icon => icon.title !== page.title) %>
+  
+  <%# Designer %>
+  <%- 
+    include(
+      '_related-posts.ejs', 
+      {
+        icons: icons.filter(icon => icon.designerId && icon.designerId === page.designerId),
+        queryKey: "designer",
+        queryValue: page.designerId,
+        headingPrefix: "More from the designer",
+        headingValue: page.designer
+      }
+    )
+  %>
+  
+  <%# Color %>
+  <%-
+    include(
+      '_related-posts.ejs', 
+      {
+        icons: icons.filter(icon => icon.colorId && icon.colorId === page.colorId),
+        queryKey: "color",
+        queryValue: page.colorId,
+        headingPrefix: "More of the color",
+        headingValue: page.color
+      }
+    )
+  %>
+
+  <%# Developer %>
+  <%- 
+    include(
+      '_related-posts.ejs', 
+      {
+        icons: icons.filter(icon => icon.developerId && icon.developerId === page.developerId),
+        queryKey: "developer",
+        queryValue: page.developerId,
+        headingPrefix: "More from the developer",
+        headingValue: page.developer
+      }
+    )
+  %>
+  
+  <%# Category %>
+  <%- 
+    include(
+      '_related-posts.ejs', 
+      {
+        icons: icons.filter(icon => icon.categoryId && icon.categoryId === page.categoryId),
+        queryKey: "category",
+        queryValue: page.categoryId,
+        headingPrefix: "More from the category",
+        headingValue: page.category
+      }
+    )
+  %>
+</aside>
+
+<%- include("_footer.ejs") %>

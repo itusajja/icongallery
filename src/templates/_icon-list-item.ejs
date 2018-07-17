@@ -1,0 +1,12 @@
+<%# 
+  <li> item when showing a list of icons
+
+  @param {Object} icon
+  @param {string} icon.permalink
+  @param {string} icon.title
+%>
+<li>
+  <a href="<%- icon.permalink %>" title="<%- icon.title %>" class="js-trigger-icon-modal">
+    <%- include('_icon.ejs', { size: 128, icon }) %>
+  </a>
+</li>

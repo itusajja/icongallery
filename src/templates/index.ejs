@@ -1,0 +1,84 @@
+
+<%- include("_header.ejs") %>
+
+<ul class="icon-list">
+  <!-- If it's the second post, show the ad AND the current post -->
+  <% pagination.files.forEach((icon, i) => { %>
+    <% if (i === 1) { %>
+      <li class="ad-container">
+        <%- include("_ad.ejs") %>
+      </li>
+    <% } %>
+    <%- include("_icon-list-item.ejs", { icon }) %>
+  <% }) %>
+</ul>
+
+<!-- Pagination -->
+<nav class="pagination">
+
+  <div class="pagination__buttons">
+
+    <!-- Prev -->
+    <% if (pagination.previous) { %>
+      <a
+        href="/<%- pagination.previous.path %>"
+        class="pagination__button"
+      >
+    <% } else { %>
+      <span class="pagination__button">
+    <% } %>
+
+    ← Prev
+
+    <% if (pagination.previous) { %>
+      </a>
+    <% } else { %>
+      </span>
+    <% } %>
+
+    <!-- Next -->
+    <% if (pagination.next) { %>
+      <a href="/<%- pagination.next.path %>" class="pagination__button">
+    <% } else { %>
+      <span class="pagination__button">
+    <% } %>
+
+    Next →
+    
+    <% if (pagination.next) { %>
+      </a>
+    <% } else { %>
+      </span>
+    <% } %>
+  </div>
+
+  <!-- Page X of Y -->
+  <!-- @TODO if has js, show/hide <select> -->
+  <p class="pagination__jump-to">
+    Page
+
+    <select onchange="onChangePagination()" id="paginator-select">
+      <% for (var i = 1; i <= pagination.pages.length; i++) { %>
+        <option <% if (i == pagination.num) { %>selected="selected"<% } %> >
+          <%- i %>
+        </option>
+      <% } %>
+    </select>
+
+    of <%- pagination.pages.length %>
+
+    <script>
+      function onChangePagination() {
+        var value = document.getElementById("paginator-select").value;
+        // If it's not 1, go to it. Otherwise, it's the home page (i.e. "1").
+        if (value > 1) {
+          window.location.href = window.location.origin + "/p/" + value;
+        } else {
+          window.location.href = window.location.origin;
+        }
+      }
+    </script>
+  </p>
+</nav>
+
+<%- include("_footer.ejs") %>
