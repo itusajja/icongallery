@@ -1,5 +1,6 @@
 var path = require("path");
 var moment = require("moment");
+var argv = require('minimist')(process.argv.slice(2));
 
 var Metalsmith = require("metalsmith");
 var layouts = require("metalsmith-layouts");
@@ -14,6 +15,7 @@ var ignore = require("metalsmith-ignore");
 var debug = require("debug")("metalsmith");
 
 var myplugin = require("./plugins/plugin-template");
+var fileLimit = require("./plugins/file-limit");
 var iconMetadata = require("./plugins/icon-metadata");
 var iconPermalinks = require("./plugins/icon-permalinks");
 var iconArtwork = require("./plugins/icon-artwork");
@@ -43,6 +45,10 @@ let app = Metalsmith(__dirname)
   .source("./src/www")
   .destination("./build")
   .clean(true)
+
+  // Filter down the number of posts we'll actually use, if the correct argument
+  // is present, i.e. `node metalsmith.js --limit=100`
+  .use(fileLimit({ limit: argv.limit, pattern: "icons/*.md" }))
 
   // FYI instead of static HTML redirects for every file that needs one, we
   // write one giant `_redirects` file for netlify. See `_redirects`

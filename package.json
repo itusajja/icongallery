@@ -30,6 +30,7 @@
     "metalsmith-serve": "0.0.7",
     "metalsmith-timer": "0.0.2",
     "metalsmith-watch": "^1.0.3",
+    "minimist": "^1.2.0",
     "moment": "^2.22.2",
     "slug": "^0.9.1",
     "sync-files": "^1.0.3",
