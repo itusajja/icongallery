@@ -139,7 +139,7 @@ if (isDevelopment) {
           // changes to templates will rebuild everything
           [PATH_TEMPLATES + "/**/*"]: "**/*"
         },
-        livereload: isDevelopment
+        livereload: true
       })
     )
     .use(serve())
