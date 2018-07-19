@@ -39,7 +39,7 @@
       Anything we find missing, we add to the `missingIconSizes` array so we
       can detect here whats available to us
     -%>
-    <% if (!(icon.missingIconSizes && icon.missingIconSizes.includes(size * 2))) { -%>
+    <% if (!(icon.missingIconSizes && icon.missingIconSizes.includes(srcSize * 2))) { -%>
       srcset="<%- include("_icon-src.ejs", { size: srcSize * 2, id: icon.id }) %> 2x"
     <% } %>
   />
