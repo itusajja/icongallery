@@ -6,6 +6,10 @@
 
 ## Netlify build: `npm run build-netlify`
 
+## New Post
+
+From the root of the parent repo (i.e. `iosicongallery.com/`) run `./shared/scripts/create-post.sh`
+
 ### Site Repo
 
 Unique content is stored in the root directory of the site repo. The following are files/folders that are unique to site and it's respective repo (iosicongallery, watchosicongallery, macosicongallery):
