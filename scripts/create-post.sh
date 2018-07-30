@@ -28,7 +28,10 @@ export DOMAIN
 
 # Retrieve the icon and post info from iTunes API
 # and save them to the current directory
-python get-icon-data.py
+# python get-icon-data.py
+cd ../
+npm run create-post
+cd scripts
 
 # Now move the post.md file to the proper directory
 read -p "Is this a draft? [y/n] " -n 1 -r
