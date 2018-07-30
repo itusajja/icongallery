@@ -1,13 +1,10 @@
-import React from "react";
-import { bool, shape, string } from "prop-types";
-
 IconItem.propTypes = {
-  icon: shape({
-    isPreIos7: bool,
-    permalink: string.isRequired,
-    title: string.isRequired
+  icon: PropTypes.shape({
+    isPreIos7: PropTypes.bool,
+    permalink: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired
   }),
-  themeId: string.isRequired
+  themeId: PropTypes.string.isRequired
 };
 
 export default function IconItem({ icon, themeId }) {

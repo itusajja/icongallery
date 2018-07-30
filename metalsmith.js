@@ -14,12 +14,12 @@ var debugui = require("metalsmith-debug-ui");
 var ignore = require("metalsmith-ignore");
 var debug = require("debug")("metalsmith");
 
-var myplugin = require("./plugins/plugin-template");
 var fileLimit = require("./plugins/file-limit");
 var iconMetadata = require("./plugins/icon-metadata");
 var iconPermalinks = require("./plugins/icon-permalinks");
 var iconArtwork = require("./plugins/icon-artwork");
 var iconCollection = require("./plugins/icon-collection");
+var jsTranspilation = require("./plugins/js-transpilation");
 var buildInfo = require("./plugins/build-info");
 
 var config = require("../config.json");
@@ -45,6 +45,8 @@ let app = Metalsmith(__dirname)
   .source("./src/www")
   .destination("./build")
   .clean(true)
+  .use(timer("start"))
+
 
   // Filter down the number of posts we'll actually use, if the correct argument
   // is present, i.e. `node metalsmith.js --limit=100`
@@ -54,6 +56,10 @@ let app = Metalsmith(__dirname)
   // write one giant `_redirects` file for netlify. See `_redirects`
   // However if you ever needed, you could add a .html file for each redirect
   // by following the example in the `plugins/icon-redirects`
+
+  // Let's start off by transpiling our jsx components
+  .use(jsTranspilation({ pattern: "assets/scripts/search/components/*.js" }))
+  .use(timer("transpile js"))
 
   // Add metadata to posts (must be first)
   .use(iconMetadata({ pattern: "icons/*.md" }))
@@ -93,7 +99,8 @@ let app = Metalsmith(__dirname)
       engineOptions: {
         // We have to pass this in so it knows where to look for includes
         views: [PATH_TEMPLATES]
-      }
+      },
+      suppressNoFilesError: true
     })
   )
   .use(timer("template in place"))

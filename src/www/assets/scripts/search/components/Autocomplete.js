@@ -1,14 +1,12 @@
-import React, { Component } from "react";
-import { arrayOf, string, object, func } from "prop-types";
-import debounce from "../utils/debounce";
+import debounce from "/assets/scripts/search/debounce.js";
 
-export default class Autocomplete extends Component {
+export default class Autocomplete extends React.Component {
   static propTypes = {
-    dataIds: arrayOf(string).isRequired,
-    dataById: object.isRequired,
-    filterId: string.isRequired,
-    handleChangeActiveFilter: func.isRequired,
-    initialInputValue: string
+    dataIds: PropTypes.arrayOf(PropTypes.string).isRequired,
+    dataById: PropTypes.object.isRequired,
+    filterId: PropTypes.string.isRequired,
+    handleChangeActiveFilter: PropTypes.func.isRequired,
+    initialInputValue: PropTypes.string
   };
 
   constructor(props) {

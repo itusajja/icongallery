@@ -1,19 +1,5 @@
-import "string_score";
-import React, { Component } from "react";
-import {
-  array,
-  arrayOf,
-  bool,
-  number,
-  object,
-  objectOf,
-  oneOf,
-  shape,
-  string
-} from "prop-types";
-import IconList from "./IconList";
-import IconFilters from "./IconFilters";
-import scrollTo from "../utils/scrollTo";
+import IconList from "/assets/scripts/search/components/IconList.js";
+import IconFilters from "/assets/scripts/search/components/IconFilters.js";
 import {
   FILTER_ID_NAME,
   FILTER_ID_CATEGORY,
@@ -21,40 +7,40 @@ import {
   FILTER_ID_DEVELOPER,
   FILTER_ID_DESIGNER,
   FILTER_IDS
-} from "../constants";
+} from "/assets/scripts/search/constants.js";
 
 const THRESHOLD = 20;
 
-export default class SearchIcons extends Component {
+export default class SearchIcons extends React.Component {
   static propTypes = {
-    data: shape({
-      themeId: oneOf([
+    data: PropTypes.shape({
+      themeId: PropTypes.oneOf([
         "iosicongallery",
         "macosicongallery",
         "watchosicongallery"
       ]).isRequired,
-      categoryIds: arrayOf(string).isRequired,
-      categoriesById: object.isRequired,
-      colorIds: arrayOf(string).isRequired,
-      colorsById: object.isRequired,
-      designerIds: arrayOf(string).isRequired,
-      designersById: object.isRequired,
-      developerIds: arrayOf(string).isRequired,
-      developersById: object.isRequired,
-      iconIds: arrayOf(string).isRequired,
-      iconsById: objectOf(
-        shape({
-          category: string,
-          categoryId: string,
-          colorId: string,
-          designer: string,
-          designerId: string,
-          developer: string,
-          developerId: string,
-          id: string.isRequired,
-          isPreIos7: bool,
-          permalink: string.isRequired,
-          title: string.isRequired
+      categoryIds: PropTypes.arrayOf(PropTypes.string).isRequired,
+      categoriesById: PropTypes.object.isRequired,
+      colorIds: PropTypes.arrayOf(PropTypes.string).isRequired,
+      colorsById: PropTypes.object.isRequired,
+      designerIds: PropTypes.arrayOf(PropTypes.string).isRequired,
+      designersById: PropTypes.object.isRequired,
+      developerIds: PropTypes.arrayOf(PropTypes.string).isRequired,
+      developersById: PropTypes.object.isRequired,
+      iconIds: PropTypes.arrayOf(PropTypes.string).isRequired,
+      iconsById: PropTypes.objectOf(
+        PropTypes.shape({
+          category: PropTypes.string,
+          categoryId: PropTypes.string,
+          colorId: PropTypes.string,
+          designer: PropTypes.string,
+          designerId: PropTypes.string,
+          developer: PropTypes.string,
+          developerId: PropTypes.string,
+          id: PropTypes.string.isRequired,
+          isPreIos7: PropTypes.bool,
+          permalink: PropTypes.string.isRequired,
+          title: PropTypes.string.isRequired
         })
       ).isRequired
     })

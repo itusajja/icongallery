@@ -4,13 +4,16 @@ title: Search
 ---
 
 <div id="root">
-  <div style="
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 200px;
-    border: 1px solid #f0f0f0;
-  ">
+  <div
+    id="root-loading-placeholder"
+    style="
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 200px;
+      border: 1px solid #f0f0f0;
+    "
+  >
     <img
       src="/assets/images/loading.gif"
       alt="loading"
@@ -116,7 +119,25 @@ window.ICON_GALLERY = {
 }
 </script>
 
-<script
-  type="text/javascript"
-  src="/assets/scripts/search.min.js">
+<!-- Page deps -->
+<script type="text/javascript" src="/assets/scripts/lib/react@16.4.1.<%- (__DEV__) ? 'development' : 'production.min' %>.js"></script>
+<script type="text/javascript" src="/assets/scripts/lib/react-dom@16.4.1.<%- (__DEV__) ? 'development' : 'production.min' %>.js"></script>
+<script type="text/javascript" src="/assets/scripts/lib/prop-types@15.6.2.min.js"></script>
+<script type="text/javascript" src="/assets/scripts/lib/string_score@0.1.22.min.js"></script>
+
+<!-- Browsers that support modules, you get a nice search functionality -->
+<script type="module">
+  import Search from "/assets/scripts/search/components/Search.js";
+  // Load data into our react element from `window.ICON_GALLERY`
+  // @TODO move that data generation right into the props here
+  ReactDOM.render(
+    React.createElement(Search, { data: window.ICON_GALLERY }),
+    document.getElementById("root")
+  );
+</script>
+
+<!-- Browsers that don't support modules, you get a message saying sorry.  -->
+<script nomodule>
+  var el = document.getElementById("root-loading-placeholder");
+  el.innerHTML = "Sorry! This site’s search functionality is not available on older browsers (like the one you are using).";
 </script>

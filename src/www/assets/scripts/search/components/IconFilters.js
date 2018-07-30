@@ -1,5 +1,3 @@
-import React, { Component } from "react";
-import { func, number, object, oneOf, string } from "prop-types";
 import {
   FILTER_IDS,
   FILTER_ID_CATEGORY,
@@ -7,18 +5,19 @@ import {
   FILTER_ID_COLOR,
   FILTER_ID_NAME,
   FILTER_ID_DEVELOPER
-} from "../constants";
-import AutoComplete from "./AutoComplete";
-import debounce from "../utils/debounce";
-import capitalize from "../utils/capitalize";
+} from "/assets/scripts/search/constants.js";
+import AutoComplete from "/assets/scripts/search/components/AutoComplete.js";
+import debounce from "/assets/scripts/search/debounce.js";
 
-export default class IconFilters extends Component {
+const capitalize = string => string.charAt(0).toUpperCase() + string.slice(1);
+
+export default class IconFilters extends React.Component {
   static propTypes = {
-    activeFilterId: oneOf(FILTER_IDS).isRequired,
-    activeFilterValue: string.isRequired,
-    data: object.isRequired,
-    handleChangeActiveFilter: func.isRequired,
-    iconCount: number.isRequired
+    activeFilterId: PropTypes.oneOf(FILTER_IDS).isRequired,
+    activeFilterValue: PropTypes.string.isRequired,
+    data: PropTypes.object.isRequired,
+    handleChangeActiveFilter: PropTypes.func.isRequired,
+    iconCount: PropTypes.number.isRequired
   };
 
   // Debounce the keyup event

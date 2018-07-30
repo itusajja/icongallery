@@ -1,8 +1,10 @@
-# Galleries
+# Icon Galleries Theme
 
-## How it Works
+## Development: `npm start`
 
-Site runs on Jekyll. The site consists of two repos: the site repo and the theme repo (this one).
+## Build: `npm run build`
+
+## Netlify build: `npm run build-netlify`
 
 ### Site Repo
 
@@ -10,12 +12,10 @@ Unique content is stored in the root directory of the site repo. The following a
 
 ```
 .
-├── .gitignore          // can copy/paste between sites
-├── _config.yml         // can copy/paste shared vars of config between sites
-├── _data/
+├── _config.json
+├── netlify.toml
 ├── _drafts/
 ├── _posts/
-├── CNAME
 └── img
     ├── _src/
     ├── 32              // watchos

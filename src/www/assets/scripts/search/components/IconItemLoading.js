@@ -1,5 +1,3 @@
-import React from "react";
-
 const styles = {
   width: "100%",
   fontSize: "14px",
