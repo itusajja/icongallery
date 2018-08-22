@@ -38,35 +38,33 @@
 <body class="<%- site.themeId %>">
 
   <header id="header" class="header">
-    <div class="wrapper">
-      <h1>
-        <a href="/" title="<%- site.title %>" rel="home">
-          <img class="logo" src="/assets/images/<%- site.themeId %>-logo.svg" />
+    <h1>
+      <a href="/" title="<%- site.title %>" rel="home">
+        <img class="logo" src="/assets/images/<%- site.themeId %>-logo.svg" />
+      </a>
+      <div class="dropdown">
+        <a class="dropdown__trigger" href="#">
+          <%- include("_svg-arrow-down.svg") %>
         </a>
-        <div class="dropdown">
-          <a class="dropdown__trigger" href="#">
-            <%- include("_svg-arrow-down.svg") %>
-          </a>
-          <ul class="dropdown__content">
-            <% site.themeIds.filter(themeId => site.themeId !== themeId).forEach(themeId => { %>
-              <li>
-                <a href="http://www.<%- themeId %>.com" class="external-link">
-                  <img class="logo" src="/assets/images/<%- themeId %>-logo.svg" alt="<%- themeId %> logo" />
-                </a>
-              </li>
-            <% }) %>
-          </ul>
-        </div>
-      </h1>
+        <ul class="dropdown__content">
+          <% site.themeIds.filter(themeId => site.themeId !== themeId).forEach(themeId => { %>
+            <li>
+              <a href="http://www.<%- themeId %>.com" class="external-link">
+                <img class="logo" src="/assets/images/<%- themeId %>-logo.svg" alt="<%- themeId %> logo" />
+              </a>
+            </li>
+          <% }) %>
+        </ul>
+      </div>
+    </h1>
 
-      <nav>
-        <a href="/search" id="search-trigger">
-          <%- include("_svg-search.svg") %>
-          Search
-        </a>
-      </nav>
-    </div>
+    <nav>
+      <a href="/search" id="search-trigger">
+        <%- include("_svg-search.svg") %>
+        Search
+      </a>
+    </nav>
   </header>
 
   <!-- Main content -->
-  <main id="main" class="wrapper">
+  <main id="main">

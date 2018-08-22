@@ -74,28 +74,6 @@ body {
   flex: 1;
 }
 
-.wrapper {
-  margin: 0 auto;
-  width: 100%;
-  max-width: 300px;
-}
-
-@media screen and (min-width: 600px) {
-  .wrapper {
-    max-width: 600px;
-  }
-}
-@media screen and (min-width: 900px) {
-  .wrapper {
-    max-width: 900px;
-  }
-}
-@media screen and (min-width: 1200px) {
-  .wrapper {
-    max-width: 1200px;
-  }
-}
-
 a {
   color: #0000ee;
   text-decoration: none;
@@ -162,7 +140,7 @@ em {
 /* Contextual styles */
 .icon-list .ad-container {
   text-align: center;
-  padding: 20px;
+  padding: 10px;
 }
 
 #carbonads .carbon-text {
@@ -362,13 +340,13 @@ a.pagination__button:hover {
   padding: 10px 0;
 }
 
-.header .wrapper {
+.header {
   position: relative;
   font-size: 14px;
 }
 
 @media screen and (min-width: 600px) {
-  .header .wrapper {
+  .header {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -566,39 +544,65 @@ a.pagination__button:hover {
    ========================================================================== */
 
 .icon-list {
-  display: flex;
-  flex-wrap: wrap;
   box-shadow: inset 1px 1px 0 #f0f0f0;
+  display: grid;
+  grid-template-rows: repeat(auto-fill, 250px);
+  grid-template-columns: 300px;
+  grid-auto-columns: 300px;
+  grid-auto-rows: 250px;
 }
 
-.icon-list > li,
+body {
+  margin: 0 auto;
+  max-width: 300px;
+}
+
+@media screen and (min-width: 600px) {
+  body {
+    max-width: 600px;
+  }
+  .icon-list {
+    grid-template-rows: repeat(auto-fill, 300px);
+    grid-auto-rows: 300px;
+    grid-template-columns: repeat(2, 300px);
+  }
+}
+@media screen and (min-width: 900px) {
+  body {
+    max-width: 900px;
+  }
+  .icon-list {
+    grid-template-columns: repeat(3, 300px);
+  }
+}
+@media screen and (min-width: 1200px) {
+  body {
+    max-width: 1200px;
+  }
+  .icon-list {
+    grid-template-columns: repeat(4, 300px);
+  }
+}
+
+.icon-list > * {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: inset -1px -1px 0px #f0f0f0;
+}
+
+/* directly target child `a` as there might be an ad link */
 .icon-list > li > a {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 300px;
-  height: 250px;
-}
-
-@media screen and (min-width: 900px) {
-  .icon-list > li,
-  .icon-list > li > a {
-    height: 300px;
-  }
-}
-
-.icon-list > li {
-  box-shadow: inset -1px -1px 0px #f0f0f0;
+  width: 100%;
+  height: 100%;
 }
 
 .icon-list > li > a:hover {
   box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.065);
-}
-
-/* Don't do the hover box shadow on non-linkable items (placeholder) */
-.icon-list > li > a[href="#"]:hover {
-  box-shadow: none;
-  cursor: default;
 }
 
 /* ==========================================================================
@@ -992,7 +996,7 @@ a.pagination__button:hover {
    Footer
    ========================================================================== */
 
-#footer .wrapper {
+#footer {
   display: flex;
   align-items: center;
   justify-content: space-between;
