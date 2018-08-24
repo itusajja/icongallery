@@ -31,6 +31,7 @@
     "moment": "^2.22.2",
     "node-fetch": "^2.2.0",
     "prompt": "^1.0.0",
+    "prompts": "^0.1.14",
     "readline-sync": "^1.4.9",
     "request": "2.85.0",
     "slug": "^0.9.1",
