@@ -163,39 +163,36 @@ function writePostMd(post) {}
  * @param {Objet} post
  */
 async function writePostImg({ projectId, artworkUrl512, post }) {
+  let imgUrl1024 = "";
+
   if (projectId === IOS || projectId === MACOS) {
-    const imgUrl512 = artworkUrl512.replace(".jpg", ".png");
-    const imgUrl1024 = imgUrl512.replace("512x512", "1024x1024");
-
-    const imgName = `${post.slug}-${post.date}.png`;
-
-    try {
-      // Fetch the image
-      let res = await fetch(imgUrl1024);
-      if (!res.ok) {
-        res = await fetch(imgUrl512);
-      }
-
-      // Write to disk
-      const wroteSuccess = await res.body
-        .pipe(fs.createWriteStream(path.join(IMGS_DIR, imgName)))
-        .on("close", () => true);
-
-      return true;
-    } catch (e) {
-      console.error("Failed to fetch image and write to hard drive.", e);
-      process.exit(1);
-    }
+    imgUrl1024 = artworkUrl512.replace(".jpg", ".png").replace("512x512", "1024x1024");
   } else {
-    console.log("Did not fetch an associated image.");
-    return false;
     // watchos
     // Ask for the image's 399 URL, then change to 1024
     // Eample: # http://is5.mzstatic.com/image/thumb/Purple118/v4/d5/d5/ca/d5d5caa5-97f6-07f7-a3e8-9e1da044ac4a/source/399x399bb.jpg
-    // watchImgUrl = raw_input('399x399 icon url: ')
-    // watchImgUrl = re.sub('399x399', '1024x1024', watchImgUrl)
-    // watchImgUrl = re.sub('.jpg', '.png', watchImgUrl)
-    // printData(watchImgUrl)
-    // urllib.urlretrieve(watchImgUrl, post['slug'] + '-' + post['date'] + '.png')
+    imgUrl1024 = rl.question("raw icon url: ").trim();
+    imgUrl1024 = imgUrl1024.substr(0, imgUrl1024.lastIndexOf('/')) + "/1024x1024.png";
+  }
+
+  const imgUrl512 = imgUrl1024.replace("1024x1024", "512x512");
+  const imgName = `${post.slug}-${post.date}.png`;
+
+  try {
+    // Fetch the image
+    let res = await fetch(imgUrl1024);
+    if (!res.ok) {
+      res = await fetch(imgUrl512);
+    }
+
+    // Write to disk
+    const wroteSuccess = await res.body
+      .pipe(fs.createWriteStream(path.join(IMGS_DIR, imgName)))
+      .on("close", () => true);
+
+    return true;
+  } catch (e) {
+    console.error("Failed to fetch image and write to hard drive.", e);
+    process.exit(1);
   }
 }
