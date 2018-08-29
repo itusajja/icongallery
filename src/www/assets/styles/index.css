@@ -878,6 +878,21 @@ body {
   border-radius: 4px;
 }
 
+.filters-zero-state {
+  border: 1px solid #e9e9e9;
+  min-height: 250px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.filters-loading-more {
+  min-height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 /* Filter tabs
    ========================================================================== */
 

@@ -1,7 +1,5 @@
 import { FILTER_IDS } from "/assets/scripts/search/constants.js";
-import IconItem from "/assets/scripts/search/components/IconItem.js";
-import IconItemZeroState from "/assets/scripts/search/components/IconItemZeroState.js";
-import IconItemLoading from "/assets/scripts/search/components/IconItemLoading.js";
+import IconListItem from "/assets/scripts/search/components/IconListItem.js";
 
 export default class IconList extends React.Component {
   static propTypes = {
@@ -23,22 +21,35 @@ export default class IconList extends React.Component {
     } = this.props;
 
     return (
-      <ul className="icon-list">
+      <React.Fragment>
         {visibleIconIds.length > 0 ? (
-          <React.Fragment>
+          <ul className="icon-list">
             {visibleIconIds.map(iconId => (
-              <IconItem
+              <IconListItem
                 key={iconId}
                 icon={iconsById[iconId]}
                 themeId={themeId}
               />
             ))}
-            {showMore && <IconItemLoading key="loading" />}
-          </React.Fragment>
+          </ul>
         ) : (
-          <IconItemZeroState />
+          <p className="filters-zero-state">
+            No icons. Try changing your filters.
+          </p>
         )}
-      </ul>
+        {showMore && (
+          <p className="filters-loading-more">
+            <img
+              src="/assets/images/loading.gif"
+              alt="Loading"
+              width="24"
+              height="24"
+              style={{ marginRight: "5px" }}
+            />
+            Loading...
+          </p>
+        )}
+      </React.Fragment>
     );
   }
 }

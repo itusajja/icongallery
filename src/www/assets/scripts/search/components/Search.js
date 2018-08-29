@@ -96,6 +96,7 @@ export default class SearchIcons extends React.Component {
       };
     };
     const footerHeight = 0; // document.getElementById("footer").offsetHeight;
+    
     window.onscroll = throttle(
       function() {
         if (
@@ -108,6 +109,8 @@ export default class SearchIcons extends React.Component {
       150,
       this
     );
+    // Trigger it on component mount in case we have a tall screen
+    window.onscroll();
   }
 
   handleShowMore = e => {
