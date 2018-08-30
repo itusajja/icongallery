@@ -21,7 +21,7 @@
     <!-- Prev -->
     <% if (pagination.previous) { %>
       <a
-        href="/<%- pagination.previous.path %>"
+        href="/<%- pagination.previous.path.replace("index.html", "") %>"
         class="pagination__button"
       >
     <% } else { %>
@@ -38,7 +38,7 @@
 
     <!-- Next -->
     <% if (pagination.next) { %>
-      <a href="/<%- pagination.next.path %>" class="pagination__button">
+      <a href="/<%- pagination.next.path.replace("index.html", "") %>" class="pagination__button">
     <% } else { %>
       <span class="pagination__button">
     <% } %>
