@@ -3,12 +3,11 @@
   "private": true,
   "scripts": {
     "copy-content": "sync-files ../_posts ./src/www/icons",
-    "start": "NODE_ENV=development DEBUG=metalsmith-timer,metalsmith-build-info node metalsmith.js",
     "create-post": "node scripts/create-post.js",
+    "prestart": "npm run copy-content",
+    "start": "NODE_ENV=development DEBUG=metalsmith-timer,metalsmith-build-info node metalsmith.js",
+    "prebuild": "npm run copy-content",
     "build": "NODE_ENV=production DEBUG=metalsmith-timer,metalsmith-build-info,metalsmith node metalsmith.js",
-    "build-netlify": "npm run copy-content && npm run build",
-    "react-start": "webpack --mode=development --config webpack.config.js --output-path ./build/assets/scripts --watch",
-    "react-build": "webpack --mode=production --config webpack.config.js",
     "watchos-get-icon": "babel-node save-watch-os-512-img.js --presets es2015,stage-2"
   },
   "devDependencies": {
