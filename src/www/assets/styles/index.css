@@ -1069,9 +1069,11 @@ body {
   top: 0px;
   right: 15px;
   font-size: 64px;
-  opacity: 0.25;
+  opacity: 0.5;
   line-height: 1;
   font-weight: 200;
+  background: transparent;
+  border: none;
 }
 
 .modal__close:hover {
