@@ -32,8 +32,18 @@
 
   <!-- JSON Feed -->
   <link rel="alternate" title="JSON Feed" type="application/json" href="/feed.json" />
-
-  <!-- Open Graph @TODO -->
+  
+  <%# Only include Open Graph stuff it this is a post page %>
+  <% if (layout === "icon.ejs") { %>
+    <!-- Open Graph -->
+    <meta property="og:url" content="<%- site.url + permalink %>" />
+    <meta property="og:title" content="<%- title %>" />
+    <meta property="og:type" content="article" />    
+    <meta
+      property="og:image"
+      content="<%- site.url + include('_icon-src.ejs', { size: 256, id: id }) %>"
+    />
+  <% } %>
 </head>
 <body class="<%- site.themeId %>">
 
