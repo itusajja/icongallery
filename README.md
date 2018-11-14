@@ -2,6 +2,8 @@
 
 ## Development: `npm start`
 
+Use `--limit=XX` to limit the number of posts in the build.
+
 ## Build: `npm run build`
 
 ## Netlify build: `npm run build-netlify`
