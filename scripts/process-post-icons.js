@@ -7,7 +7,7 @@ const imageminPngquant = require("imagemin-pngquant");
 const VARIANTS = [1024, 512, 256, 128];
 const IMG_DIR = path.join(__dirname, "../../img");
 
-processPostIcons(path.join(__dirname, "1password-1999-12-12.png"));
+// processPostIcons(path.join(__dirname, "1password-1999-12-12.png"));
 
 /**
  *
@@ -104,3 +104,5 @@ function formatBytes(bytes) {
   else if (bytes < 1048576) return (bytes / 1024).toFixed(0) + "KB";
   else return (bytes / 1048576).toFixed(2) + "MB";
 }
+
+module.exports = processPostIcons;
