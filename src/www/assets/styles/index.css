@@ -538,6 +538,8 @@ a.pagination__button:hover {
 .icon-wrapper {
   position: relative;
   display: block;
+
+  transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1) all;
 }
 
 /* List of icons on home screen
@@ -1118,7 +1120,8 @@ body.show-modal {
 }
 
 body.show-modal header,
-body.show-modal main {
+body.show-modal .icon-list li:not(.active-icon),
+body.show-modal .pagination {
   -webkit-filter: blur(10px);
   -moz-filter: blur(10px);
   filter: blur(10px);
