@@ -1,0 +1,162 @@
+/* ==========================================================================
+   Header
+   ========================================================================== */
+
+.header {
+  padding: 10px 0;
+}
+
+.header {
+  position: relative;
+  font-size: 14px;
+}
+
+@media screen and (min-width: 600px) {
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+
+/* Logo & attribution
+   ========================================================================== */
+
+.header h1 {
+  position: relative;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+@media screen and (max-width: 599px) {
+  .header h1 {
+    justify-content: center;
+  }
+}
+
+@media screen and (min-width: 600px) {
+  .header h1 {
+    flex-wrap: nowrap;
+  }
+}
+
+.header h1 > a,
+.header h1 .logo {
+  display: flex;
+}
+
+/* Navigation
+   ========================================================================== */
+
+.header nav a {
+  padding: 5px 10px;
+  border-radius: 50px;
+  display: flex;
+  align-items: center;
+}
+
+@media screen and (max-width: 599px) {
+  .header nav {
+    display: none;
+  }
+}
+
+.header nav a svg {
+  width: 13px;
+  height: 13px;
+  margin-right: 4px;
+  fill: #0000ee;
+}
+
+/* Dropdown
+   ========================================================================== */
+
+.dropdown {
+  position: relative;
+}
+
+@media screen and (max-width: 660px) {
+  .dropdown {
+    position: static;
+  }
+}
+
+.dropdown__trigger {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 29px;
+  width: 30px;
+  margin-left: 7px;
+}
+
+.dropdown__trigger svg {
+  fill: #aaa;
+  width: 13px;
+  height: 13px;
+}
+
+.dropdown__trigger:hover svg {
+  text-decoration: none;
+  fill: #333;
+}
+
+.dropdown--active .dropdown__trigger {
+  background: #333;
+}
+.dropdown--active .dropdown__trigger svg {
+  fill: white;
+}
+
+.dropdown__content {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  border: 1px solid #e9e9e9;
+  padding: 10px;
+  width: 300px;
+  margin-left: -150px;
+  left: 50%;
+  background: #fff;
+  z-index: 10000;
+  position: absolute;
+
+  top: 80%;
+  visibility: hidden;
+  opacity: 0;
+  transition: 0.2s ease all;
+}
+
+@media screen and (max-width: 660px) {
+  .dropdown__content {
+    left: 0;
+    margin-left: 0;
+  }
+}
+
+.dropdown__content li a {
+  display: block;
+  padding: 10px;
+  position: relative;
+  border-radius: 2px;
+}
+
+.dropdown__content li a:hover {
+  background: #f0f0f0;
+  text-decoration: none;
+}
+
+.dropdown__content li a.external-link:after {
+  color: #aaa;
+  position: absolute;
+  right: 14px;
+  top: 12px;
+}
+
+.dropdown--active .dropdown__content {
+  visibility: visible;
+  opacity: 1;
+  top: 100%;
+}
+
+.dropdown__content .logo {
+  max-height: 20px;
+}

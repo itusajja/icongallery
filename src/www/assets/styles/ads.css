@@ -1,0 +1,40 @@
+/* ==========================================================================
+   Ads
+   ========================================================================== */
+
+.ad-container {
+  font-size: 13px;
+  color: #333;
+}
+
+.ad-container a {
+  color: inherit;
+}
+
+/* Contextual styles */
+.icon-list .ad-container {
+  text-align: center;
+  padding: 10px;
+}
+
+#carbonads .carbon-text {
+  display: block;
+}
+
+#carbonads .carbon-poweredby {
+  font-size: 11px;
+  color: #aaa;
+}
+
+#sketchkeysad img {
+  display: block;
+  width: 130px;
+  height: 100px;
+  margin: 0 auto;
+}
+
+#sketchkeysad span {
+  display: block;
+  font-size: 11px;
+  color: #aaa;
+}
