@@ -43,15 +43,17 @@ function iconArtwork(opts) {
           // If that size icon artwork exists, write it out. Otherwise, add
           // meta info to the icon about how it's missing.
           if (fs.existsSync(imgIn)) {
-            fs.readFile(imgIn, function(err, buffer) {
-              if (err) return done(err);
-              files[imgOut] = { contents: buffer };
-            });
+            files[imgOut] = { contents: fs.readFileSync(imgIn) };
           } else {
-            if (files[file].missingIconSizes) {
-              files[file].missingIconSizes.push(size);
+            if (size === 1024) {
+              files[file].isMissing1024Img = true;
             } else {
-              files[file].missingIconSizes = [size];
+              console.error(
+                `Error: expected to find a ${size}px image for ${
+                  files[file].id
+                } but found nothing.`
+              );
+              process.exit(1);
             }
           }
         });
