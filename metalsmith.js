@@ -1,6 +1,15 @@
+// Ensure that `themeId` was passed in, otherwise we don't know what we're building
+var argv = require("minimist")(process.argv.slice(2));
+const THEME_IDS = ["ios", "macos", "watchos"];
+if (!THEME_IDS.includes(argv.themeId)) {
+  console.error(
+    "You must pass in the `themeId`, i.e. `npm start -- --themeId=ios"
+  );
+  process.exit(1);
+}
+
 var path = require("path");
 var moment = require("moment");
-var argv = require('minimist')(process.argv.slice(2));
 
 var Metalsmith = require("metalsmith");
 var layouts = require("metalsmith-layouts");
@@ -22,8 +31,8 @@ var iconCollection = require("./plugins/icon-collection");
 var jsTranspilation = require("./plugins/js-transpilation");
 var buildInfo = require("./plugins/build-info");
 
-var config = require("../config.json");
 var sharedConfig = require("./config.json");
+var config = require(`./config.${argv.themeId}.json`);
 
 var isDevelopment = process.env.NODE_ENV !== "production";
 
@@ -35,8 +44,9 @@ var PATH_TEMPLATES = path.join(__dirname, "./src/templates");
 let app = Metalsmith(__dirname)
   .metadata({
     site: {
-      ...config,
+      themeId: argv.themeId,
       ...sharedConfig,
+      ...config,
       time: moment()
     },
     __DEV__: isDevelopment
@@ -46,7 +56,6 @@ let app = Metalsmith(__dirname)
   .destination("./build")
   .clean(true)
   .use(timer("start"))
-
 
   // Filter down the number of posts we'll actually use, if the correct argument
   // is present, i.e. `node metalsmith.js --limit=100`

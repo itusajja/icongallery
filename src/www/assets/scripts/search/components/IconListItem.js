@@ -13,7 +13,7 @@ export default function IconItem({ icon, themeId }) {
   const iconWrapperClasses = [
     "icon-wrapper",
     "icon-wrapper--128",
-    themeId === "iosicongallery"
+    themeId === "ios"
       ? "icon-wrapper--" + (isPreIos7 ? "pre-ios7" : "post-ios7")
       : ""
   ].join(" ");
@@ -21,9 +21,7 @@ export default function IconItem({ icon, themeId }) {
   const iconClasses = [
     "icon",
     "icon--128",
-    themeId === "iosicongallery"
-      ? "icon--" + (isPreIos7 ? "pre-ios7" : "post-ios7")
-      : ""
+    themeId === "ios" ? "icon--" + (isPreIos7 ? "pre-ios7" : "post-ios7") : ""
   ].join(" ");
 
   return (

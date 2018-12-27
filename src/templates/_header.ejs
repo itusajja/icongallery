@@ -1,5 +1,24 @@
 <!DOCTYPE html>
 <html>
+<script>
+  // Figure out if the page we're on should be in dark mode or not
+  var isDarkMode = localStorage.getItem("isDarkMode");
+  
+  // If the value hasn't been set yet, we'll set it for you based on whether
+  // your system says you're in dark mode or not.
+  if (isDarkMode === null) {
+    localStorage.setItem(
+      "isDarkMode",
+      window.matchMedia('(prefers-color-scheme: dark)').matches
+    );
+  }
+  // Determine whether we're in dark mode or not and render the approprate class
+  // on the `<html>` element. We do this right up front so we don't get any 
+  // strang flashing as the browser renders the DOM.
+  else if (isDarkMode === "true") {
+    document.documentElement.classList.add("js-is-dark-mode");
+  }
+</script>
 <head>
   <title>
     <%- (title ? `${title} | ` : "") + site.title %>
@@ -14,7 +33,7 @@
   <!-- Favicon & Touch Icon -->
   <link rel="icon" href="/assets/images/<%- site.themeId %>-favicon.ico" type="image/x-icon"/>
   <link rel="shortcut icon" href="/assets/images/<%- site.themeId %>-favicon.ico" type="image/x-icon"/>
-  <link rel="apple-touch-icon" href="/assets/images/<%- site.themeId %>-apple-touch-icon.png"/>
+  <link rel="apple-touch-icon" href="/assets/images/<%- site.themeId %>-icon.png"/>
 
   <!-- CSS 
        Ever need cache busting? https://toddmotto.com/cache-busting-jekyll-github-pages 
@@ -27,7 +46,7 @@
     rel="alternate"
     type="application/rss+xml"
     title="<%- site.title %>"
-    href="<%- site.themeId === "iosicongallery" ? "https://feeds.feedburner.com/iosicongallery" : "/feed.xml" %>"
+    href="<%- site.themeId === "ios" ? "https://feeds.feedburner.com/iosicongallery" : "/feed.xml" %>"
   />
 
   <!-- JSON Feed -->
@@ -45,12 +64,12 @@
     />
   <% } %>
 </head>
-<body class="<%- site.themeId %>">
+<body class="<%- site.themeId %>icongallery">
 
   <header id="header" class="header">
     <h1>
       <a href="/" title="<%- site.title %>" rel="home">
-        <img class="logo" src="/assets/images/<%- site.themeId %>-logo.svg" />
+        <%- include("_site-title.ejs", { id: site.themeId }) %>
       </a>
       <div class="dropdown">
         <a class="dropdown__trigger" href="#">
@@ -59,8 +78,8 @@
         <ul class="dropdown__content">
           <% site.themeIds.filter(themeId => site.themeId !== themeId).forEach(themeId => { %>
             <li>
-              <a href="http://www.<%- themeId %>.com" class="external-link">
-                <img class="logo" src="/assets/images/<%- themeId %>-logo.svg" alt="<%- themeId %> logo" />
+              <a href="https://www.<%- themeId %>icongallery.com" class="external-link">
+                <%- include("_site-title.ejs", { id: themeId }) %>
               </a>
             </li>
           <% }) %>
@@ -70,7 +89,6 @@
 
     <nav>
       <a href="/search" id="search-trigger">
-        <%- include("_svg-search.svg") %>
         Search
       </a>
     </nav>

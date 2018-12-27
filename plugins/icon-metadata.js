@@ -79,7 +79,7 @@ function iconMetadata(opts) {
         }
 
         // Add `isPreIos7` bool for ios icons only
-        if (site.themeId === "iosicongallery") {
+        if (site.themeId === "ios") {
           files[file].isPreIos7 = files[file].date.isBefore("2013-09-13");
         }
       }

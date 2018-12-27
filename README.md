@@ -1,12 +1,17 @@
 # Icon Galleries Theme
 
-## Development: `npm start`
+## Usage
 
-Use `--limit=XX` to limit the number of posts in the build.
+- Development: `npm start`
+  - Example: `npm start -- --themeId=ios`
+- Build: `npm run build`
 
-## Build: `npm run build`
+CLI:
 
-## Netlify build: `npm run build-netlify`
+- `--themeId=[ios|macos|watchos]`
+  - Determines which site you're trying to build
+- `--limit=40`
+  - Limits the number of posts in the build.
 
 ## New Post
 
@@ -67,10 +72,6 @@ Theme files are shared across all site projects and can be found in `shared/`. T
     ├── scripts/        // shared js files, both compiled and not
     └── styles/         // shared CSS files that don't need processing
 ```
-
-## Plugins/Gems
-
-Since we are deploying with github pages, we use the [gh-pages gem](https://github.com/github/pages-gem) so we most accurately match the prod environment for site generation.
 
 ### Feeds
 

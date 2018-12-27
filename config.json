@@ -1,6 +1,6 @@
 {
   "feedLimit": 10,
-  "themeIds": ["iosicongallery", "macosicongallery", "watchosicongallery"],
+  "themeIds": ["ios", "macos", "watchos"],
   "colorsById": {
     "black": "Black",
     "blue": "Blue",

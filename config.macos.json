@@ -1,0 +1,31 @@
+{
+  "title": "macOS Icon Gallery",
+  "description": "Showcasing beautiful icon designs from the Mac App Store",
+  "url": "http://www.macosicongallery.com",
+  "iconsPerPage": 39,
+  "googleAnalyticsKey": "UA-35168067-1",
+  "categoriesById": {
+    "12001": "Business",
+    "12002": "Developer Tools",
+    "12003": "Education",
+    "12004": "Entertainment",
+    "12005": "Finance",
+    "12006": "Games",
+    "12022": "Graphics & Design",
+    "12007": "Health & Fitness",
+    "12008": "Lifestyle",
+    "12010": "Medical",
+    "12011": "Music",
+    "6010": "Navigation",
+    "12012": "News",
+    "12013": "Photography",
+    "12014": "Productivity",
+    "12015": "Reference",
+    "12016": "Social Networking",
+    "12017": "Sports",
+    "12018": "Travel",
+    "12019": "Utilities",
+    "12020": "Video",
+    "12021": "Weather"
+  }
+}

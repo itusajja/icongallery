@@ -20,6 +20,37 @@ body[0].addEventListener("click", function(e) {
 
 /**
  *
+ * Dark mode functionality
+ * We set the initial state of whether we're in dark mode right using an inline
+ * <script> tag right after the <html> element. We also setup the `isDarkMode()`
+ * function for use here.
+ *
+ */
+if (window.CSS && CSS.supports("color", "var(--fake-var)")) {
+  addDarkModeToggle();
+}
+function addDarkModeToggle() {
+  var isDarkMode = function() {
+    return localStorage.getItem("isDarkMode") === "true";
+  };
+  // prettier-ignore
+  var $toggle = createEl(
+    '<label class="dark-mode-toggle" for="dark-mode-toggle" title="Toggle Dark Mode">' +
+      '<input type="checkbox" name="dark-mode-toggle" id="dark-mode-toggle" ' +
+        (isDarkMode() ? 'checked' : '' ) +
+      "/>" +
+      '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M17.3956,15.8648 C12.2784,15.8648 8.133,11.7168 8.133,6.602 C8.133,4.9176 8.6164,3.3598 9.4026,2 C5.1372,3.2304 2,7.1172 2,11.7778 C2,17.4222 6.5752,22 12.2198,22 C16.8804,22 20.7696,18.8604 22,14.5976 C20.6376,15.3812 19.08,15.8648 17.3956,15.8648 Z"/></svg>' +
+    "</label>"
+  );
+  $toggle.addEventListener("change", function() {
+    document.documentElement.classList.toggle("js-is-dark-mode");
+    localStorage.setItem("isDarkMode", !isDarkMode());
+  });
+  document.querySelector(".header nav").prepend($toggle);
+}
+
+/**
+ *
  * Modal Links
  * Only try doing a modal if it's the home page or a "pagination" page
  *

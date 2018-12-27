@@ -14,11 +14,7 @@ const THRESHOLD = 20;
 export default class SearchIcons extends React.Component {
   static propTypes = {
     data: PropTypes.shape({
-      themeId: PropTypes.oneOf([
-        "iosicongallery",
-        "macosicongallery",
-        "watchosicongallery"
-      ]).isRequired,
+      themeId: PropTypes.oneOf(["ios", "macos", "watchos"]).isRequired,
       categoryIds: PropTypes.arrayOf(PropTypes.string).isRequired,
       categoriesById: PropTypes.object.isRequired,
       colorIds: PropTypes.arrayOf(PropTypes.string).isRequired,
@@ -96,7 +92,7 @@ export default class SearchIcons extends React.Component {
       };
     };
     const footerHeight = 0; // document.getElementById("footer").offsetHeight;
-    
+
     window.onscroll = throttle(
       function() {
         if (

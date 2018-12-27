@@ -22,8 +22,8 @@ function iconRedirects(opts) {
     } = metalsmith.metadata();
 
     let redirects = [
-      `http://${themeId}.netlify.com/* http://www.${themeId}.com/:splat 301!`,
-      `https://${themeId}.netlify.com/* https://www.${themeId}.com/:splat 301!`
+      `http://${themeId}icongallery.netlify.com/* http://www.${themeId}icongallery.com/:splat 301!`,
+      `https://${themeId}icongallery.netlify.com/* https://www.${themeId}icongallery.com/:splat 301!`
     ];
 
     Object.keys(files).forEach(file => {

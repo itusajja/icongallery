@@ -1,0 +1,32 @@
+{
+  "title": "iOS Icon Gallery",
+  "description": "Showcasing beautiful icon designs from the iOS App Store",
+  "url": "https://www.iosicongallery.com",
+  "iconsPerPage": 39,
+  "googleAnalyticsKey": "UA-24014490-1",
+  "categoriesById": {
+    "6018": "Books",
+    "6000": "Business",
+    "6022": "Catalogs",
+    "6017": "Education",
+    "6016": "Entertainment",
+    "6015": "Finance",
+    "6023": "Food & Drink",
+    "6014": "Games",
+    "6013": "Health & Fitness",
+    "6012": "Lifestyle",
+    "6020": "Medical",
+    "6011": "Music",
+    "6010": "Navigation",
+    "6009": "News",
+    "6021": "Newsstand",
+    "6008": "Photo & Video",
+    "6007": "Productivity",
+    "6006": "Reference",
+    "6005": "Social Networking",
+    "6004": "Sports",
+    "6003": "Travel",
+    "6002": "Utilities",
+    "6001": "Weather"
+  }
+}
