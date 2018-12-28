@@ -46,6 +46,7 @@
 
 html {
   box-sizing: border-box;
+  scroll-behavior: smooth;
 }
 
 *,
@@ -340,19 +341,14 @@ a.pagination__button:hover {
 
 .header {
   padding: 10px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .header {
   position: relative;
   font-size: 14px;
-}
-
-@media screen and (min-width: 600px) {
-  .header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
 }
 
 .header h1 > a .site-title-id,
@@ -365,6 +361,13 @@ a.pagination__button:hover {
 }
 .site-title-description {
   color: var(--color-text-light);
+}
+
+@media screen and (max-width: 599px) {
+  .header h1 > a .site-title-id,
+  .header h1 > a .site-title-description {
+    font-size: 24px;
+  }
 }
 
 /* Logo & attribution
@@ -396,28 +399,6 @@ a.pagination__button:hover {
   text-decoration: none;
 }
 
-/* Navigation
-   ========================================================================== */
-
-.header nav {
-  display: flex;
-  align-items: center;
-}
-
-.header nav a {
-  padding: 5px 0;
-  margin-left: 15px;
-  border-radius: 50px;
-  display: flex;
-  align-items: center;
-}
-
-@media screen and (max-width: 599px) {
-  .header nav a {
-    display: none;
-  }
-}
-
 /* Dark Mode Toggle (HTML for this gets rendered by JS at runtime)
    ========================================================================== */
 
@@ -425,14 +406,6 @@ a.pagination__button:hover {
   position: relative;
   width: 30px;
   height: 30px;
-}
-@media screen and (max-width: 599px) {
-  .dark-mode-toggle {
-    position: fixed;
-    right: -1px;
-    top: -1px;
-    border: 1px solid var(--color-border-light);
-  }
 }
 
 .dark-mode-toggle:hover {
@@ -448,9 +421,11 @@ a.pagination__button:hover {
   width: 16px;
   height: 16px;
   fill: transparent;
-  stroke: var(--color-link);
-  stroke-width: 2px;
-  transition: 0.3s ease fill;
+  stroke: var(--color-text-light);
+  stroke-width: 2.5px;
+}
+.dark-mode-toggle:hover svg {
+  stroke: var(--color-text);
 }
 
 .dark-mode-toggle input {
@@ -458,9 +433,11 @@ a.pagination__button:hover {
 }
 
 .dark-mode-toggle input:checked ~ svg {
-  fill: var(--color-link);
-  fill: --color-link
-  transform: scale(1);
+  fill: var(--color-text-light);
+}
+.dark-mode-toggle:hover input:checked ~ svg {
+  stroke: var(--color-text);
+  fill: var(--color-text);
 }
 
 /* Dropdown
@@ -483,7 +460,7 @@ a.pagination__button:hover {
   height: 30px;
   width: 30px;
   border-radius: 7px; /* same as dark mode toggle */
-  margin-left: 7px;
+  margin-left: 3px;
 }
 
 .dropdown__trigger svg {
@@ -1086,28 +1063,28 @@ body {
    ========================================================================== */
 
 #footer {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  border-bottom: 0;
-  padding: 15px 0;
-  margin-top: 100px;
+  margin-top: 180px;
+  margin-bottom: 30px;
 }
-
 @media screen and (max-width: 599px) {
-  #footer ul {
-    text-align: center;
+  #footer ul li {
+    border-top: 1px solid var(--color-border-light);
+  }
+  #footer ul li > a,
+  #footer ul li > p {
+    padding: 10px 0;
+    display: block;
   }
 }
-
 @media screen and (min-width: 600px) {
   #footer ul {
     display: flex;
+    flex-direction: row;
     flex-wrap: wrap;
   }
   #footer ul li:after {
-    content: "/";
-    margin: 0 12px 0 7px;
+    content: "·";
+    margin: 0 10px;
   }
   #footer ul li:last-child:after {
     display: none;

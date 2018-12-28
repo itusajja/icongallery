@@ -46,7 +46,7 @@ function addDarkModeToggle() {
     document.documentElement.classList.toggle("js-is-dark-mode");
     localStorage.setItem("isDarkMode", !isDarkMode());
   });
-  document.querySelector(".header nav").prepend($toggle);
+  document.querySelector(".header").appendChild($toggle);
 }
 
 /**
