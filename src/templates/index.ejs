@@ -11,6 +11,22 @@
     <% } %>
     <%- include("_icon-list-item.ejs", { icon }) %>
   <% }) %>
+  <li>
+    <a href="/submit/" title="" class="js-trigger-icon-modal">
+      <span class="icon-wrapper icon-wrapper--128 icon-wrapper--post-ios7">
+      <img
+        alt="app icon"
+        class="icon icon--128 icon--post-ios7"
+        width="128"
+        height="128"
+        src="/assets/images/<%- site.themeId %>-icon.png"
+        style="opacity: .075"
+      />
+      <span style="color: #aaa; position: absolute; width: 100%; text-align: center; bottom: -2em;">
+        Your Icon Here
+      </span>
+    </a>
+  </li>
 </ul>
 
 <!-- Pagination -->
